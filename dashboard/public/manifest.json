@@ -1,0 +1,39 @@
+{
+  "name": "Decisify Agent Dashboard",
+  "short_name": "Decisify",
+  "description": "Real-time agent intelligence dashboard with multi-modal perception and human-in-the-loop feedback",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#00ffc2",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/decisify/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/decisify/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "productivity", "utilities"],
+  "screenshots": [
+    {
+      "src": "/decisify/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/decisify/screenshot-narrow.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
+}
