@@ -219,7 +219,7 @@ function AgentThoughtLog({ thoughts, newThoughts, onFeedback, agentThinking }) {
 
       <div className="flex-1 overflow-y-auto custom-scrollbar space-y-3">
         <AnimatePresence>
-          {thoughts.map((thought, index) => (
+          {thoughts.map((thought) => (
             <ThoughtCard
               key={thought.id}
               thought={thought}
@@ -737,8 +737,6 @@ function NautilusSnapshot({ nautilus }) {
 
 // Context Memory Component
 function ContextMemory({ events }) {
-  const maxDecay = Math.max(...events.map((e) => e.relevance_decay));
-
   return (
     <div className="bento-item">
       <h2 className="text-lg font-bold mb-4 flex items-center gap-2">

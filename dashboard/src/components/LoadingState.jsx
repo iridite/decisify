@@ -1,8 +1,7 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 // Skeleton loader component
-export function SkeletonLoader({ className = '' }) {
+export function SkeletonLoader({ className = "" }) {
   return (
     <motion.div
       className={`bg-border-subtle/20 rounded ${className}`}
@@ -12,7 +11,7 @@ export function SkeletonLoader({ className = '' }) {
       transition={{
         duration: 1.5,
         repeat: Infinity,
-        ease: "easeInOut"
+        ease: "easeInOut",
       }}
     />
   );
@@ -22,7 +21,7 @@ export function SkeletonLoader({ className = '' }) {
 export function ThoughtLogSkeleton() {
   return (
     <div className="space-y-3">
-      {[1, 2, 3].map(i => (
+      {[1, 2, 3].map((i) => (
         <div key={i} className="p-4 rounded bg-border-subtle/10">
           <SkeletonLoader className="h-4 w-3/4 mb-2" />
           <SkeletonLoader className="h-3 w-full mb-1" />
@@ -46,7 +45,7 @@ export function MatrixSkeleton() {
 export function FeedSkeleton() {
   return (
     <div className="space-y-3">
-      {[1, 2, 3, 4].map(i => (
+      {[1, 2, 3, 4].map((i) => (
         <div key={i} className="p-3 rounded bg-border-subtle/10">
           <div className="flex items-start gap-2 mb-2">
             <SkeletonLoader className="w-8 h-8 rounded-full" />
@@ -73,7 +72,7 @@ export function ChartSkeleton() {
 }
 
 // Generic loading overlay
-export function LoadingOverlay({ message = 'Loading...' }) {
+export function LoadingOverlay({ message = "Loading..." }) {
   return (
     <div className="absolute inset-0 bg-midnight-onyx/80 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="text-center">

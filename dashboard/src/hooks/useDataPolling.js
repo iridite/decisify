@@ -15,7 +15,6 @@ export const useDataPolling = (pollInterval = 30000) => {
   const [newThoughts, setNewThoughts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [lastThoughtId, setLastThoughtId] = useState(null);
   const [retryCount, setRetryCount] = useState(0);
 
   const fetchData = useCallback(async () => {
@@ -58,7 +57,6 @@ export const useDataPolling = (pollInterval = 30000) => {
       }
 
       setData(newData);
-      setLastThoughtId(newData.agent_thoughts[0]?.id);
       setError(null);
       setIsLoading(false);
       setRetryCount(0); // Reset retry count on success

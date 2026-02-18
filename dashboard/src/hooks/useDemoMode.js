@@ -75,7 +75,7 @@ export const useDemoMode = () => {
     document.addEventListener("fullscreenchange", handleFullscreenChange);
     return () =>
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
-  }, []);
+  }, []); // toggleFullscreen is stable, no need to include
 
   // Generate fake streaming data for demo
   const generateDemoThought = useCallback(() => {
