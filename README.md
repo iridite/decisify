@@ -46,7 +46,7 @@ Experience the real-time agent intelligence monitor with perception-to-action pi
 ## 🎯 Hackathon Alignment
 
 **Target Problem (Track 2):**
-> "如何设计智能体工作流与执行流程，而不仅是对话？数据、感知、执行与激励如何协同让智能体真正创造价值？"
+> "How to design agent workflows and execution processes beyond just conversation? How can data, perception, execution, and incentives work together to enable agents to truly create value?"
 
 **Our Solution:**
 - ✅ **Beyond Chat**: Autonomous decision loop with perception → reasoning → execution workflow
@@ -55,7 +55,7 @@ Experience the real-time agent intelligence monitor with perception-to-action pi
 - ✅ **Transparent Execution**: Full reasoning trace and attention weights for every decision
 - ✅ **Safety-First Design**: Deterministic guardrails prevent unsafe actions
 
-**Category:** 具备强执行能力的智能体工作流（不仅是聊天）+ 围绕智能体智能的数据采集、反馈与激励机制
+**Category:** Agent workflows with strong execution capabilities (beyond chat) + Data collection, feedback, and incentive mechanisms around agent intelligence
 
 ## 🏗️ Architecture
 
@@ -85,13 +85,13 @@ Experience the real-time agent intelligence monitor with perception-to-action pi
 
 ### Performance Layer
 
-Decisify 采用**混合架构**，结合 Python 的灵活性和 Rust 的性能：
+Decisify uses a **hybrid architecture** combining Python's flexibility with Rust's performance:
 
-- **Python 实现** (`src/brain.py`): 快速原型、实时单次决策
-- **Rust 加速** (`decisify_core`): 批处理、回测、高吞吐量场景
-- **自动回退**: Rust 扩展可选，未安装时自动使用纯 Python
+- **Python Implementation** (`src/brain.py`): Rapid prototyping, real-time single decisions
+- **Rust Acceleration** (`decisify_core`): Batch processing, backtesting, high-throughput scenarios
+- **Automatic Fallback**: Rust extension is optional, automatically uses pure Python when unavailable
 
-详见 [RUST_OPTIMIZATION.md](RUST_OPTIMIZATION.md) 了解性能基准和使用建议。
+See [RUST_OPTIMIZATION.md](RUST_OPTIMIZATION.md) for performance benchmarks and usage recommendations.
 
 ## 🚀 Quick Start
 
