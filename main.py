@@ -12,7 +12,7 @@ from fastapi.responses import JSONResponse
 
 from brain import AttentionFusionEngine
 from safety import SafetyGate
-from schemas import DecisionChain, SystemState
+from schemas import SystemState
 from sensors import AsyncPerceptionHub
 
 # Shared state between Agent Loop and API
@@ -74,9 +74,8 @@ class AgentOrchestrator:
         signals = await self.perception_hub.fetch_all()
 
         for source, signal in signals.items():
-            print(
-                f"  • {source}: {signal.value:.3f} | {signal.raw_content[:50] if signal.raw_content else 'N/A'}"
-            )
+            content = signal.raw_content[:50] if signal.raw_content else 'N/A'
+            print(f"  • {source}: {signal.value:.3f} | {content}")
 
         # Step 2: Cognition
         print("\n🧠 Processing through attention fusion...")

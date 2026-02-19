@@ -2,7 +2,6 @@
 Performance benchmark: Python vs Rust implementation
 """
 
-import asyncio
 import statistics
 import time
 from datetime import datetime
@@ -44,10 +43,10 @@ def benchmark_attention_weights(engine, signals: Dict[str, Signal], iterations: 
         start = time.perf_counter()
         if is_hybrid:
             scores = engine._calculate_scores_python(signals)
-            weights = engine._softmax_python(scores)
+            _ = engine._softmax_python(scores)
         else:
             scores = engine._calculate_scores(signals)
-            weights = engine._softmax(scores)
+            _ = engine._softmax(scores)
         end = time.perf_counter()
         times.append(end - start)
 
@@ -77,7 +76,7 @@ def run_benchmarks():
         py_engine = AttentionFusionEngine(temperature=1.0)
         py_results = benchmark_attention_weights(py_engine, signals, iterations=1000)
 
-        print(f"  Python Implementation:")
+        print("  Python Implementation:")
         print(f"    Mean:   {py_results['mean']:.4f} ms")
         print(f"    Median: {py_results['median']:.4f} ms")
         print(f"    StdDev: {py_results['stdev']:.4f} ms")
@@ -87,7 +86,7 @@ def run_benchmarks():
             rust_engine = HybridAttentionEngine(temperature=1.0, use_rust=True)
             rust_results = benchmark_attention_weights(rust_engine, signals, iterations=1000)
 
-            print(f"  Rust Implementation:")
+            print("  Rust Implementation:")
             print(f"    Mean:   {rust_results['mean']:.4f} ms")
             print(f"    Median: {rust_results['median']:.4f} ms")
             print(f"    StdDev: {rust_results['stdev']:.4f} ms")

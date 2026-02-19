@@ -4,7 +4,6 @@ Tests all critical components and edge cases.
 """
 
 import asyncio
-from datetime import datetime
 
 from brain import AttentionFusionEngine
 from safety import SafetyGate
@@ -119,8 +118,8 @@ def test_safety_gate():
         reasoning="Weak signal",
         is_safe=True,
     )
-    # Create a decision with low max weight
-    low_conf_decision = DecisionChain(
+    # Create a decision with low max weight (unused but kept for reference)
+    _ = DecisionChain(
         weights={"s1": 0.12, "s2": 0.11, "s3": 0.10, "s4": 0.67},
         action="BUY",
         reasoning="Weak signal",

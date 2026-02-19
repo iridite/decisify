@@ -41,28 +41,40 @@ class SafetyGate:
 
         # Rule 1: Block BUY if volatility too high
         if decision.action == "BUY" and volatility > self.max_volatility_for_buy:
+            reason = (
+                f"Volatility {volatility:.2%} exceeds BUY threshold "
+                f"{self.max_volatility_for_buy:.2%}"
+            )
             return self._override_decision(
                 decision,
                 new_action="HOLD",
-                reason=f"Volatility {volatility:.2%} exceeds BUY threshold {self.max_volatility_for_buy:.2%}",
+                reason=reason,
             )
 
         # Rule 2: Block SELL if volatility too high (might be panic selling)
         if decision.action == "SELL" and volatility > self.max_volatility_for_sell:
+            reason = (
+                f"Volatility {volatility:.2%} exceeds SELL threshold "
+                f"{self.max_volatility_for_sell:.2%}"
+            )
             return self._override_decision(
                 decision,
                 new_action="HOLD",
-                reason=f"Volatility {volatility:.2%} exceeds SELL threshold {self.max_volatility_for_sell:.2%}",
+                reason=reason,
             )
 
         # Rule 3: Check confidence - if no signal has sufficient weight, default to HOLD
         if decision.weights:
             max_weight = max(decision.weights.values())
             if max_weight < self.min_confidence_threshold and decision.action != "HOLD":
+                reason = (
+                    f"Low confidence: max weight {max_weight:.2%} below threshold "
+                    f"{self.min_confidence_threshold:.2%}"
+                )
                 return self._override_decision(
                     decision,
                     new_action="HOLD",
-                    reason=f"Low confidence: max weight {max_weight:.2%} below threshold {self.min_confidence_threshold:.2%}",
+                    reason=reason,
                 )
 
         # Rule 4: If no signals available, must be HOLD

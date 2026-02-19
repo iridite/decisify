@@ -102,7 +102,7 @@ def benchmark_batch_processing(batch_size: int, signals_per_batch: int, iteratio
     py_mean = statistics.mean(py_times) * 1000
     py_throughput = batch_size / statistics.mean(py_times)
 
-    print(f"  Python Batch Processing:")
+    print("  Python Batch Processing:")
     print(f"    Mean:       {py_mean:.2f} ms")
     print(f"    Throughput: {py_throughput:.0f} decisions/sec")
 
@@ -118,7 +118,7 @@ def benchmark_batch_processing(batch_size: int, signals_per_batch: int, iteratio
         rust_mean = statistics.mean(rust_times) * 1000
         rust_throughput = batch_size / statistics.mean(rust_times)
 
-        print(f"  Rust Batch Processing:")
+        print("  Rust Batch Processing:")
         print(f"    Mean:       {rust_mean:.2f} ms")
         print(f"    Throughput: {rust_throughput:.0f} decisions/sec")
 

@@ -59,7 +59,11 @@ def generate_agent_thought(decision: Dict[str, Any], signals: Dict[str, Any]) ->
     dominant_source = max(weights.items(), key=lambda x: x[1])[0] if weights else "unknown"
 
     # Generate reasoning text
-    reasoning = f"Decision: {action}. Dominant signal: {dominant_source} ({weights.get(dominant_source, 0):.2%} weight). "
+    dominant_weight = weights.get(dominant_source, 0)
+    reasoning = (
+        f"Decision: {action}. Dominant signal: {dominant_source} "
+        f"({dominant_weight:.2%} weight). "
+    )
 
     if decision.get("is_safe"):
         reasoning += "Safety checks passed. "
@@ -237,7 +241,7 @@ async def main():
 
     data = await fetch_and_transform_data()
 
-    print(f"✅ Data fetched successfully")
+    print("✅ Data fetched successfully")
     print(f"📝 Writing to {OUTPUT_FILE}...")
 
     with open(OUTPUT_FILE, "w") as f:

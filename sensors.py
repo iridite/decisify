@@ -6,7 +6,7 @@ Handles partial failures gracefully without crashing the decision loop.
 import asyncio
 import random
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 
 import httpx
 

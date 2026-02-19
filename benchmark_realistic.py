@@ -3,7 +3,6 @@ Realistic end-to-end benchmark: Full decision pipeline
 Tests the complete decision-making process including all steps
 """
 
-import asyncio
 import statistics
 import time
 from datetime import datetime
@@ -64,7 +63,7 @@ def benchmark_full_decision(engine, signals: Dict[str, Signal], iterations: int 
 
     for _ in range(iterations):
         start = time.perf_counter()
-        decision = engine.decide(signals)
+        _ = engine.decide(signals)
         end = time.perf_counter()
         times.append(end - start)
 
@@ -98,7 +97,7 @@ def run_realistic_benchmark():
         py_engine = AttentionFusionEngine(temperature=1.0)
         py_results = benchmark_full_decision(py_engine, signals, iterations=1000)
 
-        print(f"  Python Implementation:")
+        print("  Python Implementation:")
         print(f"    Mean:   {py_results['mean']:.4f} ms")
         print(f"    Median: {py_results['median']:.4f} ms")
         print(f"    P95:    {py_results['p95']:.4f} ms")
@@ -109,7 +108,7 @@ def run_realistic_benchmark():
             rust_engine = HybridAttentionEngine(temperature=1.0, use_rust=True)
             rust_results = benchmark_full_decision(rust_engine, signals, iterations=1000)
 
-            print(f"  Rust Implementation:")
+            print("  Rust Implementation:")
             print(f"    Mean:   {rust_results['mean']:.4f} ms")
             print(f"    Median: {rust_results['median']:.4f} ms")
             print(f"    P95:    {rust_results['p95']:.4f} ms")

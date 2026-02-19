@@ -5,13 +5,13 @@ Uses Rust for performance-critical computations, Python for flexibility.
 
 import math
 from datetime import datetime
-from typing import Dict, Optional
+from typing import Dict
 
 from schemas import DecisionChain, Signal
 
 # Try to import Rust extension, fallback to pure Python
 try:
-    from decisify_core import RustAttentionEngine, normalize_signals
+    from decisify_core import RustAttentionEngine
 
     RUST_AVAILABLE = True
 except ImportError:
