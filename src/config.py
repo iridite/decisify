@@ -6,7 +6,7 @@ import os
 from typing import Optional
 
 from pydantic import Field
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -14,6 +14,12 @@ class Settings(BaseSettings):
     Application settings with environment variable support.
     Values can be overridden via .env file or environment variables.
     """
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+    )
 
     # Application
     app_name: str = "Decisify"
@@ -61,11 +67,6 @@ class Settings(BaseSettings):
     # Performance Monitoring
     enable_metrics: bool = Field(default=True, validation_alias="ENABLE_METRICS")
     metrics_window_size: int = Field(default=100, validation_alias="METRICS_WINDOW_SIZE")
-
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        case_sensitive = False
 
 
 # Global settings instance
