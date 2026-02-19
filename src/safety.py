@@ -5,7 +5,11 @@ Validates decisions against safety rules and overrides when necessary.
 
 from typing import Dict
 
+from src.logger import get_logger
+from src.metrics import get_metrics
 from src.schemas import DecisionChain, Signal
+
+logger = get_logger(__name__)
 
 
 class SafetyGate:
@@ -29,6 +33,7 @@ class SafetyGate:
         self.max_volatility_for_buy = max_volatility_for_buy
         self.max_volatility_for_sell = max_volatility_for_sell
         self.min_confidence_threshold = min_confidence_threshold
+        self.metrics = get_metrics()
 
     def validate(self, decision: DecisionChain, signals: Dict[str, Signal]) -> DecisionChain:
         """
@@ -85,6 +90,8 @@ class SafetyGate:
 
         # All checks passed
         decision.is_safe = True
+        self.metrics.record_safety_pass()
+        logger.debug(f"Safety check passed for action: {decision.action}")
         return decision
 
     def _get_volatility(self, signals: Dict[str, Signal]) -> float:
@@ -103,6 +110,8 @@ class SafetyGate:
         """
         Create a new DecisionChain with overridden action and safety metadata.
         """
+        self.metrics.record_safety_override()
+        logger.warning(f"Safety override: {original.action} -> {new_action}. Reason: {reason}")
         return DecisionChain(
             timestamp=original.timestamp,
             weights=original.weights,
@@ -117,13 +126,13 @@ class SafetyGate:
         Log the decision with appropriate formatting.
         """
         status = "✅ SAFE" if decision.is_safe else "⚠️  OVERRIDDEN"
-        print(f"\n{status} | Action: {decision.action}")
-        print(f"Reasoning: {decision.reasoning}")
+        logger.info(f"{status} | Action: {decision.action}")
+        logger.info(f"Reasoning: {decision.reasoning}")
 
         if decision.override_reason:
-            print(f"Override: {decision.override_reason}")
+            logger.warning(f"Override: {decision.override_reason}")
 
-        print(f"Weights: {self._format_weights(decision.weights)}")
+        logger.debug(f"Weights: {self._format_weights(decision.weights)}")
 
     def _format_weights(self, weights: Dict[str, float]) -> str:
         """Format weights for readable logging."""

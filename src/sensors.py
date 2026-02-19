@@ -10,18 +10,33 @@ from typing import Dict, Optional
 
 import httpx
 
+from src.config import get_settings
+from src.logger import get_logger
+from src.metrics import Timer, get_metrics
 from src.schemas import Signal
+
+logger = get_logger(__name__)
 
 
 class AsyncPerceptionHub:
     """
     Orchestrates multiple async sensors and aggregates their signals.
     If a sensor fails, returns a null signal instead of raising exceptions.
+    Includes retry logic and performance tracking.
     """
 
-    def __init__(self, timeout: float = 3.0):
-        self.timeout = timeout
-        self.client = httpx.AsyncClient(timeout=timeout)
+    def __init__(
+        self,
+        timeout: Optional[float] = None,
+        max_retries: Optional[int] = None,
+        retry_delay: Optional[float] = None,
+    ):
+        settings = get_settings()
+        self.timeout = timeout or settings.sensor_timeout
+        self.max_retries = max_retries or settings.sensor_max_retries
+        self.retry_delay = retry_delay or settings.sensor_retry_delay
+        self.client = httpx.AsyncClient(timeout=self.timeout)
+        self.metrics = get_metrics()
 
     async def fetch_all(self) -> Dict[str, Signal]:
         """
@@ -40,14 +55,49 @@ class AsyncPerceptionHub:
     async def _safe_fetch(self, source: str, fetch_func) -> Optional[Signal]:
         """
         Wrapper that catches exceptions and returns a null signal on failure.
+        Includes retry logic with exponential backoff.
         """
-        try:
-            return await fetch_func()
-        except Exception as e:
-            print(f"⚠️  Sensor '{source}' failed: {e}")
-            return Signal(
-                source=source, value=0.0, timestamp=datetime.now(), raw_content=f"ERROR: {str(e)}"
-            )
+        last_exception = None
+
+        for attempt in range(self.max_retries):
+            try:
+                with Timer() as timer:
+                    result = await fetch_func()
+
+                # Record success metrics
+                self.metrics.record_sensor_success(source, timer.elapsed_ms)
+                if attempt > 0:
+                    logger.info(f"Sensor '{source}' succeeded on attempt {attempt + 1}")
+                return result
+
+            except asyncio.TimeoutError as e:
+                last_exception = e
+                logger.warning(f"Sensor '{source}' timeout on attempt {attempt + 1}/{self.max_retries}")
+                if attempt < self.max_retries - 1:
+                    await asyncio.sleep(self.retry_delay * (2**attempt))
+
+            except httpx.HTTPError as e:
+                last_exception = e
+                logger.warning(
+                    f"Sensor '{source}' HTTP error on attempt {attempt + 1}/{self.max_retries}: {e}"
+                )
+                if attempt < self.max_retries - 1:
+                    await asyncio.sleep(self.retry_delay * (2**attempt))
+
+            except Exception as e:
+                last_exception = e
+                logger.error(f"Sensor '{source}' unexpected error: {e}", exc_info=True)
+                break  # Don't retry on unexpected errors
+
+        # All retries failed
+        self.metrics.record_sensor_failure(source)
+        logger.error(f"Sensor '{source}' failed after {self.max_retries} attempts: {last_exception}")
+        return Signal(
+            source=source,
+            value=0.0,
+            timestamp=datetime.now(),
+            raw_content=f"ERROR: {str(last_exception)}",
+        )
 
     async def _fetch_twitter_sentiment(self) -> Signal:
         """

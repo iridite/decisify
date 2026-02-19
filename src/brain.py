@@ -7,7 +7,10 @@ import math
 from datetime import datetime
 from typing import Dict
 
+from src.logger import get_logger
 from src.schemas import DecisionChain, Signal
+
+logger = get_logger(__name__)
 
 
 class AttentionFusionEngine:
@@ -31,6 +34,7 @@ class AttentionFusionEngine:
         Handles edge case: if all signals are null/zero, defaults to neutral state.
         """
         if not signals or all(s.value == 0.0 for s in signals.values()):
+            logger.warning("All signals null or unavailable - returning neutral decision")
             return self._neutral_decision()
 
         # Step 1: Calculate attention scores
@@ -47,6 +51,8 @@ class AttentionFusionEngine:
 
         # Step 5: Generate reasoning
         reasoning = self._generate_reasoning(signals, weights, weighted_value)
+
+        logger.debug(f"Decision: {action}, Weighted value: {weighted_value:.3f}")
 
         return DecisionChain(
             timestamp=datetime.now(),
