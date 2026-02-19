@@ -128,13 +128,30 @@ npm run dev
 ### 运行测试
 
 ```bash
-# API 测试
-python tests/test_api.py
+# 运行所有单元测试
+pytest tests/ --ignore=tests/test_api.py -v
+
+# 运行测试并生成覆盖率报告
+pytest tests/ --ignore=tests/test_api.py --cov=src --cov-report=term-missing
+
+# 运行特定测试模块
+pytest tests/test_brain.py -v          # 大脑/注意力测试
+pytest tests/test_safety.py -v         # 安全门测试
+pytest tests/test_sensors.py -v        # 传感器测试
+
+# 验证测试
+python src/validate.py
 
 # 性能基准测试
-python benchmarks/benchmark.py
-python benchmarks/benchmark_batch.py
-python benchmarks/benchmark_realistic.py
+python benchmarks/benchmark.py              # 单次决策基准
+python benchmarks/benchmark_realistic.py    # 端到端基准
+python benchmarks/benchmark_batch.py        # 批处理基准
+
+# 类型检查
+mypy .
+
+# 代码检查
+ruff check .
 ```
 
 ## 🧠 核心组件

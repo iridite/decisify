@@ -146,9 +146,11 @@ See [dashboard/README.md](dashboard/README.md) for detailed documentation.
 ### API Endpoints
 
 - `GET /` - Health check
+- `GET /health` - Detailed health status with uptime and cycle count
 - `GET /status` - Full system state (decision + signals + metadata)
 - `GET /decision` - Latest decision only
 - `GET /signals` - Latest raw signals only
+- `GET /metrics` - Performance metrics (latency, sensor stats, safety gate)
 
 ### Example Request
 
@@ -158,6 +160,12 @@ curl http://localhost:8000/status | jq
 
 # Monitor in real-time
 watch -n 2 'curl -s http://localhost:8000/decision | jq'
+
+# Check system health
+curl http://localhost:8000/health | jq
+
+# View performance metrics
+curl http://localhost:8000/metrics | jq
 ```
 
 ## 📊 Core Components
@@ -195,6 +203,17 @@ watch -n 2 'curl -s http://localhost:8000/decision | jq'
 ## 🧪 Testing
 
 ```bash
+# Run all unit tests
+pytest tests/ --ignore=tests/test_api.py -v
+
+# Run with coverage report
+pytest tests/ --ignore=tests/test_api.py --cov=src --cov-report=term-missing
+
+# Run specific test modules
+pytest tests/test_brain.py -v          # Brain/attention tests
+pytest tests/test_safety.py -v         # Safety gate tests
+pytest tests/test_sensors.py -v        # Sensor tests
+
 # Run validation tests
 python src/validate.py
 
@@ -212,7 +231,50 @@ ruff check .
 
 ## 🔧 Configuration
 
-Edit parameters in `main.py`:
+Configuration can be managed via environment variables or a `.env` file:
+
+```bash
+# Copy example configuration
+cp .env.example .env
+
+# Edit configuration
+nano .env
+```
+
+### Key Configuration Options
+
+```bash
+# Server
+HOST=0.0.0.0
+PORT=8000
+DEBUG=false
+
+# Agent Orchestrator
+CYCLE_INTERVAL=5.0          # Decision cycle frequency (seconds)
+AGENT_TEMPERATURE=1.0       # Attention sharpness (lower = more focused)
+
+# Safety Gate
+MAX_VOLATILITY_BUY=0.05     # 5% volatility threshold for BUY
+MAX_VOLATILITY_SELL=0.08    # 8% volatility threshold for SELL
+MIN_CONFIDENCE=0.15         # Minimum confidence threshold
+
+# Sensors
+SENSOR_TIMEOUT=3.0          # Sensor timeout (seconds)
+SENSOR_MAX_RETRIES=3        # Max retry attempts
+SENSOR_RETRY_DELAY=0.5      # Initial retry delay (seconds)
+
+# Logging
+LOG_LEVEL=INFO              # DEBUG, INFO, WARNING, ERROR
+LOG_FILE=                   # Optional log file path
+
+# Performance
+ENABLE_METRICS=true         # Enable performance tracking
+METRICS_WINDOW_SIZE=100     # Metrics rolling window size
+```
+
+### Programmatic Configuration
+
+You can also edit parameters directly in `main.py`:
 
 ```python
 orchestrator = AgentOrchestrator(cycle_interval=5.0)  # Decision frequency
