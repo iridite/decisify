@@ -1,0 +1,273 @@
+{
+  "meta": {
+    "timestamp": "2026-02-18T10:30:05Z",
+    "agent_status": "REASONING",
+    "context_window_hours": 8,
+    "total_events_tracked": 127,
+    "system_status": "LIVE",
+    "sync_timestamp": "2026-02-18T10:30:00Z"
+  },
+
+  "agent_thoughts": [
+    {
+      "id": "thought_003",
+      "timestamp": "2026-02-18T10:30:05Z",
+      "type": "TRIANGULATION",
+      "reasoning": "Polymarket odds surge (+2.4%) correlates with X sentiment spike (0.78→0.82). Nautilus Keltner signal remains weak (0.34). Interpreting as: Market pricing in event, but technical setup not confirmed. Recommendation: WAIT for technical confirmation.",
+      "inputs": {
+        "polymarket_delta": 0.024,
+        "x_sentiment_current": 0.82,
+        "nautilus_signal_strength": 0.34
+      },
+      "confidence": 0.68,
+      "human_feedback": null
+    },
+    {
+      "id": "thought_002",
+      "timestamp": "2026-02-18T10:25:12Z",
+      "type": "SENTIMENT_ANALYSIS",
+      "reasoning": "X Intelligence shows 78% bullish sentiment across 45 high-impact accounts. Key entities: Fed, rate cut, March. Extracted conviction level: HIGH. Cross-referencing with historical patterns...",
+      "inputs": {
+        "x_sentiment_current": 0.78,
+        "sample_size": 45,
+        "key_entities": ["Fed", "rate cut", "March"]
+      },
+      "confidence": 0.82,
+      "human_feedback": "positive"
+    },
+    {
+      "id": "thought_001",
+      "timestamp": "2026-02-18T10:20:33Z",
+      "type": "RISK_ASSESSMENT",
+      "reasoning": "Volatility spike detected (3.4% → 4.1%). Safety gate triggered. Overriding BUY signal to HOLD. Risk/reward ratio unfavorable in current market conditions.",
+      "inputs": {
+        "volatility_current": 0.041,
+        "volatility_threshold": 0.05,
+        "original_signal": "BUY"
+      },
+      "confidence": 0.91,
+      "human_feedback": null
+    }
+  ],
+
+  "triangulation_matrix": {
+    "polymarket_x_correlation": 0.82,
+    "polymarket_nautilus_correlation": 0.34,
+    "x_nautilus_correlation": 0.56,
+    "overall_alignment": 0.57,
+    "interpretation": "MODERATE_BULLISH"
+  },
+
+  "perception": {
+    "polymarket": {
+      "event": "Fed Rate Cut March 2026",
+      "current_odds": 0.68,
+      "delta_1h": 0.024,
+      "delta_24h": 0.053,
+      "volume_24h": 1250000,
+      "liquidity": 3400000,
+      "last_trade": "2026-02-18T10:29:45Z",
+      "history": [
+        {"timestamp": "2026-02-18T06:00:00Z", "odds": 0.62},
+        {"timestamp": "2026-02-18T07:00:00Z", "odds": 0.63},
+        {"timestamp": "2026-02-18T08:00:00Z", "odds": 0.65},
+        {"timestamp": "2026-02-18T09:00:00Z", "odds": 0.66},
+        {"timestamp": "2026-02-18T10:00:00Z", "odds": 0.68}
+      ]
+    },
+    "x_intelligence": [
+      {
+        "id": "tweet_005",
+        "handle": "@MacroAnalyst",
+        "content": "Fed pivot incoming. Market pricing 68% odds. This is the inflection point we've been waiting for. $BTC $ETH",
+        "timestamp": "2026-02-18T10:28:00Z",
+        "sentiment": "BULLISH",
+        "sentiment_score": 0.89,
+        "agent_relevance_score": 0.92,
+        "extracted_entities": ["Fed", "rate cut", "BTC", "ETH"],
+        "impact_score": 9.2,
+        "follower_count": 125000
+      },
+      {
+        "id": "tweet_004",
+        "handle": "@CryptoWhale",
+        "content": "Accumulation phase continues. Smart money positioning for the next leg up. Technical setup looking clean.",
+        "timestamp": "2026-02-18T10:25:30Z",
+        "sentiment": "BULLISH",
+        "sentiment_score": 0.76,
+        "agent_relevance_score": 0.78,
+        "extracted_entities": ["accumulation", "smart money"],
+        "impact_score": 7.8,
+        "follower_count": 89000
+      },
+      {
+        "id": "tweet_003",
+        "handle": "@QuantTrader",
+        "content": "Keltner bands showing compression. Breakout imminent. Watching closely for confirmation signal.",
+        "timestamp": "2026-02-18T10:22:15Z",
+        "sentiment": "NEUTRAL",
+        "sentiment_score": 0.52,
+        "agent_relevance_score": 0.85,
+        "extracted_entities": ["Keltner", "breakout", "technical"],
+        "impact_score": 8.5,
+        "follower_count": 67000
+      },
+      {
+        "id": "tweet_002",
+        "handle": "@FedWatcher",
+        "content": "FOMC minutes suggest dovish pivot. Rate cut probability increasing. March meeting critical.",
+        "timestamp": "2026-02-18T10:18:45Z",
+        "sentiment": "BULLISH",
+        "sentiment_score": 0.81,
+        "agent_relevance_score": 0.95,
+        "extracted_entities": ["FOMC", "dovish", "rate cut", "March"],
+        "impact_score": 9.5,
+        "follower_count": 210000
+      },
+      {
+        "id": "tweet_001",
+        "handle": "@RiskManager",
+        "content": "Volatility picking up. Risk management protocols activated. Reduce exposure until clarity emerges.",
+        "timestamp": "2026-02-18T10:15:20Z",
+        "sentiment": "BEARISH",
+        "sentiment_score": 0.28,
+        "agent_relevance_score": 0.72,
+        "extracted_entities": ["volatility", "risk", "reduce exposure"],
+        "impact_score": 7.2,
+        "follower_count": 45000
+      }
+    ],
+    "nautilus": {
+      "strategy": "Keltner Channel Breakout",
+      "position": "LONG",
+      "signal_strength": 0.34,
+      "entry_price": 42150.00,
+      "current_price": 42380.00,
+      "unrealized_pnl": 230.00,
+      "daily_pnl": 1250.50,
+      "position_size": 1.0,
+      "status": "WAITING_CONFIRMATION",
+      "indicators": {
+        "keltner_upper": 42800.00,
+        "keltner_middle": 42200.00,
+        "keltner_lower": 41600.00,
+        "atr": 450.00,
+        "trend": "BULLISH"
+      }
+    }
+  },
+
+  "execution": {
+    "current_proposal": {
+      "id": "prop_003",
+      "action": "HOLD",
+      "asset": "BTC",
+      "reasoning": "Awaiting technical confirmation from Nautilus before increasing position. Polymarket and X sentiment bullish, but Keltner breakout not confirmed. Risk/reward favors patience.",
+      "risk_level": "LOW",
+      "expected_return": null,
+      "confidence": 0.68,
+      "status": "ACTIVE",
+      "created_at": "2026-02-18T10:30:05Z",
+      "human_decision": null
+    },
+    "proposal_history": [
+      {
+        "id": "prop_002",
+        "action": "REDUCE_POSITION",
+        "asset": "BTC",
+        "reasoning": "Volatility spike triggered safety gate",
+        "risk_level": "MEDIUM",
+        "status": "EXECUTED",
+        "human_decision": "approved",
+        "executed_at": "2026-02-18T10:20:45Z"
+      },
+      {
+        "id": "prop_001",
+        "action": "INCREASE_POSITION",
+        "asset": "BTC",
+        "reasoning": "Strong bullish alignment across all sources",
+        "risk_level": "MEDIUM",
+        "status": "REJECTED",
+        "human_decision": "rejected",
+        "rejected_at": "2026-02-18T10:15:30Z"
+      }
+    ]
+  },
+
+  "context_memory": {
+    "events": [
+      {
+        "id": "evt_008",
+        "timestamp": "2026-02-18T10:25:00Z",
+        "type": "POLYMARKET_SPIKE",
+        "description": "Odds jumped from 0.66 to 0.68 (+2.4%)",
+        "relevance_decay": 0.95,
+        "impact": "HIGH"
+      },
+      {
+        "id": "evt_007",
+        "timestamp": "2026-02-18T10:18:00Z",
+        "type": "X_SENTIMENT_SHIFT",
+        "description": "Bullish sentiment increased to 78%",
+        "relevance_decay": 0.88,
+        "impact": "HIGH"
+      },
+      {
+        "id": "evt_006",
+        "timestamp": "2026-02-18T10:10:00Z",
+        "type": "VOLATILITY_SPIKE",
+        "description": "ATR increased from 380 to 450",
+        "relevance_decay": 0.82,
+        "impact": "MEDIUM"
+      },
+      {
+        "id": "evt_005",
+        "timestamp": "2026-02-18T09:45:00Z",
+        "type": "NAUTILUS_SIGNAL",
+        "description": "Keltner compression detected",
+        "relevance_decay": 0.75,
+        "impact": "MEDIUM"
+      },
+      {
+        "id": "evt_004",
+        "timestamp": "2026-02-18T09:30:00Z",
+        "type": "PROPOSAL_REJECTED",
+        "description": "Human rejected position increase",
+        "relevance_decay": 0.70,
+        "impact": "HIGH"
+      },
+      {
+        "id": "evt_003",
+        "timestamp": "2026-02-18T08:15:00Z",
+        "type": "POLYMARKET_VOLUME",
+        "description": "24h volume exceeded $1M",
+        "relevance_decay": 0.60,
+        "impact": "LOW"
+      },
+      {
+        "id": "evt_002",
+        "timestamp": "2026-02-18T07:30:00Z",
+        "type": "X_ENTITY_MENTION",
+        "description": "Fed mentioned 23 times in 1h",
+        "relevance_decay": 0.50,
+        "impact": "MEDIUM"
+      },
+      {
+        "id": "evt_001",
+        "timestamp": "2026-02-18T06:00:00Z",
+        "type": "MARKET_OPEN",
+        "description": "Trading session started",
+        "relevance_decay": 0.40,
+        "impact": "LOW"
+      }
+    ]
+  },
+
+  "github_actions": {
+    "last_run": "2026-02-18T10:25:00Z",
+    "status": "success",
+    "workflow": "update-data",
+    "duration_seconds": 12,
+    "next_run": "2026-02-18T10:30:00Z"
+  }
+}
