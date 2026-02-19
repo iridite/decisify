@@ -1,8 +1,17 @@
-# Decisify
+# Decisify 🎯
+
+[![Live Demo](https://img.shields.io/badge/demo-live-success?style=for-the-badge)](https://iridite.github.io/decisify/)
+[![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.11+-blue?style=for-the-badge&logo=python)](https://www.python.org)
+[![Rust](https://img.shields.io/badge/rust-1.75+-orange?style=for-the-badge&logo=rust)](https://www.rust-lang.org)
+
+> **AI-powered decision intelligence platform with multi-source data integration**
 
 **Rebel in Paradise AI Hackathon - Track 2: Co-existing with Agents & Intelligent Markets**
 
-A high-performance, logic-transparent decision engine that processes multi-modal signals and executes through a safety-guaranteed gate.
+[🚀 **Live Demo**](https://iridite.github.io/decisify/) | [📖 Documentation](docs/) | [🎬 Demo Video](docs/DEMO_VIDEO_SCRIPT.md) | [⭐ Star this repo](https://github.com/iridite/decisify)
+
+---
 
 ## 🚀 Live Demo
 
