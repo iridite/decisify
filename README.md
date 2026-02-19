@@ -21,14 +21,17 @@ Experience the real-time agent intelligence monitor with perception-to-action pi
 
 ## 📸 Screenshots
 
-![Agent Dashboard Overview](docs/screenshots/dashboard-overview.png)
-*Real-time agent reasoning trace and multi-source signal fusion*
+### Dashboard Overview
+![Dashboard Overview](screenshots/dashboard-overview.png)
+*Real-time multi-source signal aggregation and AI-powered decision intelligence*
 
-![Decision Pipeline](docs/screenshots/decision-pipeline.png)
-*Transparent attention weights and safety gate validation*
+### Signal Detail View
+![Signal Detail](screenshots/signal-detail.png)
+*Transparent reasoning traces with confidence scores and attention weights*
 
-![Intelligence Feed](docs/screenshots/intelligence-feed.png)
-*X Intelligence, Polymarket, and Nautilus integration*
+### Decision Flow
+![Decision Flow](screenshots/decision-flow.png)
+*Interactive perception-to-action pipeline with safety gate validation*
 
 ## 🎯 Hackathon Alignment
 
