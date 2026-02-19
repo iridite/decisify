@@ -4,6 +4,23 @@
 
 A high-performance, logic-transparent decision engine that processes multi-modal signals and executes through a safety-guaranteed gate.
 
+## 🚀 Live Demo
+
+**Dashboard:** [https://iridite.github.io/decisify/](https://iridite.github.io/decisify/)
+
+Experience the real-time agent intelligence monitor with perception-to-action pipeline visualization.
+
+## 📸 Screenshots
+
+![Agent Dashboard Overview](docs/screenshots/dashboard-overview.png)
+*Real-time agent reasoning trace and multi-source signal fusion*
+
+![Decision Pipeline](docs/screenshots/decision-pipeline.png)
+*Transparent attention weights and safety gate validation*
+
+![Intelligence Feed](docs/screenshots/intelligence-feed.png)
+*X Intelligence, Polymarket, and Nautilus integration*
+
 ## 🎯 Hackathon Alignment
 
 **Target Problem (Track 2):**

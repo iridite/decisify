@@ -76,7 +76,7 @@ export default defineConfig({
       },
     }),
   ],
-  base: "./",
+  base: "/decisify/",
   server: {
     port: 5173,
     open: true,
