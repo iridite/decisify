@@ -10,7 +10,7 @@ from typing import Dict, Optional
 
 import httpx
 
-from schemas import Signal
+from src.schemas import Signal
 
 
 class AsyncPerceptionHub:

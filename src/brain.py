@@ -7,7 +7,7 @@ import math
 from datetime import datetime
 from typing import Dict
 
-from schemas import DecisionChain, Signal
+from src.schemas import DecisionChain, Signal
 
 
 class AttentionFusionEngine:

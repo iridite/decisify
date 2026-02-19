@@ -8,8 +8,8 @@ import time
 from datetime import datetime
 from typing import Dict
 
-from brain import AttentionFusionEngine
-from schemas import Signal
+from src.brain import AttentionFusionEngine
+from src.schemas import Signal
 
 try:
     from brain_hybrid import HybridAttentionEngine

@@ -9,7 +9,7 @@ import time
 from datetime import datetime, timedelta
 from typing import Dict, List
 
-from schemas import Signal
+from src.schemas import Signal
 
 try:
     from decisify_core import batch_decide
@@ -45,7 +45,7 @@ def generate_signal_batch(batch_size: int, signals_per_batch: int) -> List[Dict[
 
 def python_batch_decide(temperature: float, signal_batches: List[Dict[str, Signal]]):
     """Python implementation of batch processing"""
-    from brain import AttentionFusionEngine
+    from src.brain import AttentionFusionEngine
 
     engine = AttentionFusionEngine(temperature=temperature)
     results = []

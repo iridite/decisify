@@ -5,10 +5,10 @@ Tests all critical components and edge cases.
 
 import asyncio
 
-from brain import AttentionFusionEngine
-from safety import SafetyGate
-from schemas import DecisionChain, Signal
-from sensors import AsyncPerceptionHub
+from src.brain import AttentionFusionEngine
+from src.safety import SafetyGate
+from src.schemas import DecisionChain, Signal
+from src.sensors import AsyncPerceptionHub
 
 
 async def test_attention_fusion():

@@ -5,7 +5,7 @@ Validates decisions against safety rules and overrides when necessary.
 
 from typing import Dict
 
-from schemas import DecisionChain, Signal
+from src.schemas import DecisionChain, Signal
 
 
 class SafetyGate:

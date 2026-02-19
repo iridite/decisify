@@ -10,10 +10,10 @@ from datetime import datetime
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
-from brain import AttentionFusionEngine
-from safety import SafetyGate
-from schemas import SystemState
-from sensors import AsyncPerceptionHub
+from src.brain import AttentionFusionEngine
+from src.safety import SafetyGate
+from src.schemas import SystemState
+from src.sensors import AsyncPerceptionHub
 
 # Shared state between Agent Loop and API
 system_state = SystemState()

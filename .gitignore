@@ -41,6 +41,11 @@ htmlcov/
 # Logs
 *.log
 
+# Rust
+rust/target/
+*.rs.bk
+Cargo.lock
+
 # OS
 .DS_Store
 Thumbs.db
