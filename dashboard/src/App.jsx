@@ -14,6 +14,9 @@ import {
   ThumbsDown,
   BarChart3,
   Radio,
+  Gauge,
+  DollarSign,
+  TrendingUp as TrendingUpIcon,
 } from "lucide-react";
 import {
   AreaChart,
@@ -25,6 +28,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useDataPolling } from "./hooks/useDataPolling";
+import { useDemoMode } from "./hooks/useDemoMode";
+import { DemoControls, DemoModeToggle } from "./components/DemoControls";
 
 function App() {
   const {
@@ -36,6 +41,19 @@ function App() {
     handleProposal,
   } = useDataPolling();
   const [agentThinking, setAgentThinking] = useState(false);
+  const [demoThoughts, setDemoThoughts] = useState([]);
+
+  // Demo Mode hook
+  const {
+    isDemoMode,
+    isAutoPlay,
+    isFullscreen,
+    demoSpeed,
+    setIsDemoMode,
+    setIsAutoPlay,
+    toggleFullscreen,
+    generateDemoThought,
+  } = useDemoMode();
 
   // Simulate "agent is thinking" state when new data arrives
   useEffect(() => {
@@ -44,6 +62,23 @@ function App() {
       setTimeout(() => setAgentThinking(false), 3000);
     }
   }, [newThoughts]);
+
+  // Demo Mode auto-play: generate fake thoughts periodically
+  useEffect(() => {
+    if (!isDemoMode || !isAutoPlay) return;
+
+    const baseInterval = 4000; // 4 seconds base
+    const interval = baseInterval / demoSpeed;
+
+    const timer = setInterval(() => {
+      const newThought = generateDemoThought();
+      setDemoThoughts((prev) => [newThought, ...prev].slice(0, 20)); // Keep last 20
+      setAgentThinking(true);
+      setTimeout(() => setAgentThinking(false), 2000);
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, [isDemoMode, isAutoPlay, demoSpeed, generateDemoThought]);
 
   if (isLoading) {
     return (
@@ -78,8 +113,29 @@ function App() {
 
   if (!data) return null;
 
+  // Use demo thoughts in demo mode, otherwise use real thoughts
+  const displayThoughts = isDemoMode ? demoThoughts : newThoughts;
+  const allThoughts = isDemoMode ? demoThoughts : data.agent_thoughts;
+
   return (
-    <div className="min-h-screen p-4 md:p-6">
+    <div className={`min-h-screen p-4 md:p-6 ${isFullscreen ? 'fixed inset-0 z-50 bg-background' : ''}`}>
+      {/* Demo Mode Toggle - Fixed top-right */}
+      <DemoModeToggle
+        isDemoMode={isDemoMode}
+        onToggle={() => setIsDemoMode(!isDemoMode)}
+      />
+
+      {/* Demo Controls - Show when in demo mode */}
+      {isDemoMode && (
+        <DemoControls
+          isAutoPlay={isAutoPlay}
+          isFullscreen={isFullscreen}
+          demoSpeed={demoSpeed}
+          onToggleAutoPlay={() => setIsAutoPlay(!isAutoPlay)}
+          onToggleFullscreen={toggleFullscreen}
+        />
+      )}
+
       {/* Header */}
       <Header data={data} agentThinking={agentThinking} />
 
@@ -88,8 +144,8 @@ function App() {
         {/* Agent Thought Log - Main Center */}
         <div className="col-span-12 lg:col-span-7">
           <AgentThoughtLog
-            thoughts={data.agent_thoughts}
-            newThoughts={newThoughts}
+            thoughts={allThoughts}
+            newThoughts={displayThoughts}
             onFeedback={submitFeedback}
             agentThinking={agentThinking}
           />

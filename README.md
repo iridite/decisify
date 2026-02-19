@@ -1,6 +1,22 @@
 # Decisify
 
+**Rebel in Paradise AI Hackathon - Track 2: Co-existing with Agents & Intelligent Markets**
+
 A high-performance, logic-transparent decision engine that processes multi-modal signals and executes through a safety-guaranteed gate.
+
+## 🎯 Hackathon Alignment
+
+**Target Problem (Track 2):**
+> "如何设计智能体工作流与执行流程，而不仅是对话？数据、感知、执行与激励如何协同让智能体真正创造价值？"
+
+**Our Solution:**
+- ✅ **Beyond Chat**: Autonomous decision loop with perception → reasoning → execution workflow
+- ✅ **Multi-modal Context**: Real-time signal fusion from social media, market data, and news
+- ✅ **Human-Agent Symbiosis**: Dashboard with feedback loop and approval gates
+- ✅ **Transparent Execution**: Full reasoning trace and attention weights for every decision
+- ✅ **Safety-First Design**: Deterministic guardrails prevent unsafe actions
+
+**Category:** 具备强执行能力的智能体工作流（不仅是聊天）+ 围绕智能体智能的数据采集、反馈与激励机制
 
 ## 🏗️ Architecture
 
