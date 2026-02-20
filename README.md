@@ -2,27 +2,104 @@
 
 [![Live Demo](https://img.shields.io/badge/demo-live-success?style=for-the-badge)](https://iridite.github.io/decisify/)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.11+-blue?style=for-the-badge&logo=python)](https://www.python.org)
+[![Python](https://img.shields.io/badge/python-3.10+-blue?style=for-the-badge&logo=python)](https://www.python.org)
 [![Rust](https://img.shields.io/badge/rust-1.75+-orange?style=for-the-badge&logo=rust)](https://www.rust-lang.org)
 
 > **AI-powered decision intelligence platform with multi-source data integration**
 
-**Rebel in Paradise AI Hackathon - Track 2: Co-existing with Agents & Intelligent Markets**
-
-[🚀 **Live Demo**](https://iridite.github.io/decisify/) | [📖 Documentation](docs/) | [🎬 Demo Video](docs/DEMO_VIDEO_SCRIPT.md) | [⭐ Star this repo](https://github.com/iridite/decisify)
+[🚀 **Live Demo**](https://iridite.github.io/decisify/) | [📖 Documentation](docs/) | [🎬 Demo Video](docs/DEMO_VIDEO_SCRIPT.md)
 
 **[English](README.md)** | **[中文](README.zh.md)**
 
 ---
 
-<a name="english"></a>
-## 🚀 Live Demo
+## 📖 Project Overview
+
+Decisify is a high-performance, logic-transparent AI decision engine that implements autonomous decision loops through multi-source signal fusion (social media, market data, news). The system uses a Python + Rust hybrid architecture to provide a complete perception → reasoning → execution workflow, with a real-time monitoring dashboard for human-agent collaboration.
+
+**Core Features:**
+- 🧠 **Transparent Reasoning**: Every decision includes complete reasoning traces and attention weights
+- ⚡ **High Performance**: Rust-accelerated batch processing with 1.2-1.4x performance improvement
+- 🛡️ **Safety First**: Deterministic guardrails prevent unsafe operations
+- 🔄 **Autonomous Loop**: 5-second decision cycles without human intervention
+- 📊 **Real-time Monitoring**: High-density dashboard displaying agent intelligence state
+- 🌐 **Multi-source Fusion**: Softmax-based attention mechanism integrating heterogeneous signals
+
+**Use Cases:**
+- Quantitative trading decisions
+- Risk management systems
+- Intelligent advisory platforms
+- Market intelligence analysis
+
+---
+
+## 🚀 Key Features
+
+### 1. Multi-source Signal Perception
+- **Async Sensor Hub**: Concurrent fetching from multiple data sources
+- **Fault-tolerant Design**: Single sensor failure doesn't affect overall system
+- **Supported Signal Types**:
+  - Social media sentiment (Twitter/X)
+  - Market price volatility
+  - News sentiment analysis
+  - Prediction market odds (Polymarket)
+  - Quantitative trading signals (Nautilus)
+
+### 2. Attention Fusion Engine
+- **Softmax Attention Mechanism**: `Weight_i = exp(Score_i) / Σ exp(Score_j)`
+- **Temperature Control**: Adjusts attention concentration
+- **Edge Case Handling**: All-null signals automatically downgrade to neutral decision
+- **Hybrid Implementation**: Python prototype + Rust acceleration
+
+### 3. Safety Protection System
+- **Volatility Guards**:
+  - BUY operations: Blocked when volatility > 5%
+  - SELL operations: Blocked when volatility > 8%
+- **Confidence Threshold**: Requires minimum signal strength
+- **Automatic Downgrade**: Unsafe operations forced to HOLD
+
+### 4. Real-time Monitoring Dashboard
+- 🧠 Agent reasoning trace visualization
+- 👍 Human feedback loop
+- ⚡ Strategy approval (human-in-the-loop)
+- 📊 Multi-source correlation matrix
+- 📡 X intelligence feed
+- 📈 Polymarket tracker
+- 🎯 Nautilus integration
+
+---
+
+## 🛠️ Technology Stack
+
+### Backend
+- **Python 3.10+**: Core logic and API
+- **FastAPI**: High-performance async web framework
+- **Pydantic**: Data validation and serialization
+- **Rust**: Performance-critical path acceleration (optional)
+- **PyO3/Maturin**: Python-Rust interoperability
+
+### Frontend
+- **React 18**: UI framework
+- **TypeScript**: Type safety
+- **Vite**: Build tool
+- **TailwindCSS**: Styling system
+- **Recharts**: Data visualization
+
+### Development Tools
+- **uv**: Python package manager
+- **pytest**: Testing framework
+- **ruff**: Code linting and formatting
+- **mypy**: Static type checking
+
+---
+
+## 🎮 Live Demo
 
 **Dashboard:** [https://iridite.github.io/decisify/](https://iridite.github.io/decisify/)
 
-Experience the real-time agent intelligence monitor with perception-to-action pipeline visualization.
+Experience real-time agent intelligence monitoring with perception-to-action pipeline visualization.
 
-## 📸 Screenshots
+### Screenshots
 
 <table>
   <tr>
@@ -43,21 +120,96 @@ Experience the real-time agent intelligence monitor with perception-to-action pi
   </tr>
 </table>
 
-## 🎯 Hackathon Alignment
+---
 
-**Target Problem (Track 2):**
-> "How to design agent workflows and execution processes beyond just conversation? How can data, perception, execution, and incentives work together to enable agents to truly create value?"
+## 🚀 Quick Start
 
-**Our Solution:**
-- ✅ **Beyond Chat**: Autonomous decision loop with perception → reasoning → execution workflow
-- ✅ **Multi-modal Context**: Real-time signal fusion from social media, market data, and news
-- ✅ **Human-Agent Symbiosis**: Dashboard with feedback loop and approval gates
-- ✅ **Transparent Execution**: Full reasoning trace and attention weights for every decision
-- ✅ **Safety-First Design**: Deterministic guardrails prevent unsafe actions
+### Prerequisites
 
-**Category:** Agent workflows with strong execution capabilities (beyond chat) + Data collection, feedback, and incentive mechanisms around agent intelligence
+- Python 3.10 or higher
+- Node.js 18+ (frontend only)
+- Rust 1.75+ (optional, for performance acceleration)
 
-## 🏗️ Architecture
+### Backend Installation & Running
+
+#### 1. Install Dependencies
+
+```bash
+# Using uv (recommended)
+uv pip install -e .
+
+# Or using pip
+pip install -e .
+
+# Install development dependencies
+uv pip install -e ".[dev]"
+```
+
+#### 2. (Optional) Build Rust Extension
+
+```bash
+cd rust
+PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 maturin develop --release
+cd ..
+```
+
+> **Note**: The Rust extension is optional. If not installed, the system will automatically use the pure Python implementation.
+
+#### 3. Start Backend Service
+
+```bash
+uv run python main.py
+```
+
+The service will start at `http://localhost:8000`.
+
+**After system startup:**
+- Agent orchestrator loop starts (5-second cycles)
+- FastAPI server launches
+- Begins processing mock signals and making decisions
+
+### Frontend Installation & Running
+
+```bash
+cd dashboard
+npm install
+npm run dev
+```
+
+Visit `http://localhost:5173` to view the dashboard.
+
+For detailed documentation, see [dashboard/README.md](dashboard/README.md).
+
+### API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/` | GET | Health check |
+| `/health` | GET | Detailed health status (uptime, cycle count) |
+| `/status` | GET | Full system state (decision + signals + metadata) |
+| `/decision` | GET | Latest decision only |
+| `/signals` | GET | Latest raw signals only |
+| `/metrics` | GET | Performance metrics (latency, sensor stats, safety gate) |
+
+### Example Requests
+
+```bash
+# Get latest decision
+curl http://localhost:8000/status | jq
+
+# Real-time monitoring
+watch -n 2 'curl -s http://localhost:8000/decision | jq'
+
+# Check system health
+curl http://localhost:8000/health | jq
+
+# View performance metrics
+curl http://localhost:8000/metrics | jq
+```
+
+---
+
+## 🏗️ System Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -93,80 +245,7 @@ Decisify uses a **hybrid architecture** combining Python's flexibility with Rust
 
 See [RUST_OPTIMIZATION.md](RUST_OPTIMIZATION.md) for performance benchmarks and usage recommendations.
 
-## 🚀 Quick Start
-
-### Backend Installation
-
-```bash
-# Install dependencies with uv
-uv pip install -e .
-
-# Or with pip
-pip install -e .
-
-# (Optional) Build Rust extension for performance
-cd rust
-PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 maturin develop --release
-```
-
-### Run the Backend
-
-```bash
-python main.py
-```
-
-The system will:
-- Start the Agent Orchestrator loop (5-second cycles)
-- Launch FastAPI server on `http://localhost:8000`
-- Begin processing mock signals and making decisions
-
-### Dashboard (Frontend)
-
-A high-density **Agent Intelligence Monitor** dashboard for human-agent symbiosis:
-
-```bash
-cd dashboard
-npm install
-npm run dev
-```
-
-Visit `http://localhost:5173` to see the dashboard.
-
-**Features**:
-- 🧠 **Agent Reasoning Trace** - See how the agent thinks in real-time
-- 👍 **Human Feedback Loop** - Reinforce or correct agent decisions
-- ⚡ **Strategy Approval** - Human-in-the-loop execution control
-- 📊 **Triangulation Matrix** - Multi-source correlation analysis
-- 📡 **X Intelligence Feed** - Curated social signals
-- 📈 **Polymarket Tracker** - Prediction market odds
-- 🎯 **Nautilus Integration** - Quant trading signals
-
-See [dashboard/README.md](dashboard/README.md) for detailed documentation.
-
-### API Endpoints
-
-- `GET /` - Health check
-- `GET /health` - Detailed health status with uptime and cycle count
-- `GET /status` - Full system state (decision + signals + metadata)
-- `GET /decision` - Latest decision only
-- `GET /signals` - Latest raw signals only
-- `GET /metrics` - Performance metrics (latency, sensor stats, safety gate)
-
-### Example Request
-
-```bash
-# Get the latest decision
-curl http://localhost:8000/status | jq
-
-# Monitor in real-time
-watch -n 2 'curl -s http://localhost:8000/decision | jq'
-
-# Check system health
-curl http://localhost:8000/health | jq
-
-# View performance metrics
-curl http://localhost:8000/metrics | jq
-```
+---
 
 ## 📊 Core Components
 
@@ -200,38 +279,11 @@ curl http://localhost:8000/metrics | jq
 - **FastAPI**: Non-blocking REST API
 - Separate tasks: Agent loop runs independently from HTTP server
 
-## 🧪 Testing
-
-```bash
-# Run all unit tests
-pytest tests/ --ignore=tests/test_api.py -v
-
-# Run with coverage report
-pytest tests/ --ignore=tests/test_api.py --cov=src --cov-report=term-missing
-
-# Run specific test modules
-pytest tests/test_brain.py -v          # Brain/attention tests
-pytest tests/test_safety.py -v         # Safety gate tests
-pytest tests/test_sensors.py -v        # Sensor tests
-
-# Run validation tests
-python src/validate.py
-
-# Run performance benchmarks
-python benchmarks/benchmark.py              # Single decision benchmark
-python benchmarks/benchmark_realistic.py    # End-to-end benchmark
-python benchmarks/benchmark_batch.py        # Batch processing benchmark
-
-# Check types
-mypy .
-
-# Lint
-ruff check .
-```
+---
 
 ## 🔧 Configuration
 
-Configuration can be managed via environment variables or a `.env` file:
+### Environment Variables
 
 ```bash
 # Copy example configuration
@@ -285,6 +337,39 @@ safety_gate = SafetyGate(
 )
 ```
 
+---
+
+## 🧪 Testing
+
+```bash
+# Run all unit tests
+pytest tests/ --ignore=tests/test_api.py -v
+
+# Run with coverage report
+pytest tests/ --ignore=tests/test_api.py --cov=src --cov-report=term-missing
+
+# Run specific test modules
+pytest tests/test_brain.py -v          # Brain/attention tests
+pytest tests/test_safety.py -v         # Safety gate tests
+pytest tests/test_sensors.py -v        # Sensor tests
+
+# Run validation tests
+uv run python src/validate.py
+
+# Run performance benchmarks
+uv run python benchmarks/benchmark.py              # Single decision benchmark
+uv run python benchmarks/benchmark_realistic.py    # End-to-end benchmark
+uv run python benchmarks/benchmark_batch.py        # Batch processing benchmark
+
+# Type checking
+mypy .
+
+# Linting
+ruff check .
+```
+
+---
+
 ## 📝 Example Output
 
 ```
@@ -306,6 +391,8 @@ Weights: twitter_sentiment: 42.3%, price_volatility: 35.1%, news_feed: 22.6%
 ⏱️  Cycle completed in 0.43s
 ```
 
+---
+
 ## 🛡️ Safety Features
 
 1. **Partial Failure Handling**: If a sensor fails, system continues with available signals
@@ -314,6 +401,26 @@ Weights: twitter_sentiment: 42.3%, price_volatility: 35.1%, news_feed: 22.6%
 4. **Confidence Thresholds**: Requires minimum signal strength
 5. **Full Transparency**: Every decision includes reasoning and weights
 6. **Performance Safety**: Automatic fallback to Python if Rust extension unavailable
+
+---
+
+## 🎯 Hackathon Alignment
+
+**Target Problem (Track 2):**
+> "How to design agent workflows and execution processes beyond just conversation? How can data, perception, execution, and incentives work together to enable agents to truly create value?"
+
+**Our Solution:**
+- ✅ **Beyond Chat**: Autonomous decision loop with perception → reasoning → execution workflow
+- ✅ **Multi-modal Context**: Real-time signal fusion from social media, market data, and news
+- ✅ **Human-Agent Symbiosis**: Dashboard with feedback loop and approval gates
+- ✅ **Transparent Execution**: Full reasoning trace and attention weights for every decision
+- ✅ **Safety-First Design**: Deterministic guardrails prevent unsafe actions
+
+**Category:** Agent workflows with strong execution capabilities (beyond chat) + Data collection, feedback, and incentive mechanisms around agent intelligence
+
+**Event:** Rebel in Paradise AI Hackathon - Track 2: Co-existing with Agents & Intelligent Markets
+
+---
 
 ## 🔮 Future Enhancements
 
@@ -326,9 +433,26 @@ Weights: twitter_sentiment: 42.3%, price_volatility: 35.1%, news_feed: 22.6%
 - SIMD vectorization for ultra-high throughput
 - GPU acceleration for massive-scale signal processing
 
+---
+
 ## 📄 License
 
-MIT
+MIT License - See [LICENSE](LICENSE) file for details
 
 ---
 
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to submit Issues or Pull Requests.
+
+---
+
+## 📞 Contact
+
+- **Project Homepage**: [https://github.com/iridite/decisify](https://github.com/iridite/decisify)
+- **Live Demo**: [https://iridite.github.io/decisify/](https://iridite.github.io/decisify/)
+- **Documentation**: [docs/](docs/)
+
+---
+
+**Built with ❤️ for Rebel in Paradise AI Hackathon**

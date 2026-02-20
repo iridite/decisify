@@ -2,59 +2,212 @@
 
 [![Live Demo](https://img.shields.io/badge/demo-live-success?style=for-the-badge)](https://iridite.github.io/decisify/)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.11+-blue?style=for-the-badge&logo=python)](https://www.python.org)
+[![Python](https://img.shields.io/badge/python-3.10+-blue?style=for-the-badge&logo=python)](https://www.python.org)
 [![Rust](https://img.shields.io/badge/rust-1.75+-orange?style=for-the-badge&logo=rust)](https://www.rust-lang.org)
 
 > **AI 驱动的决策智能平台，支持多源数据融合**
 
-**Rebel in Paradise AI Hackathon - Track 2: Co-existing with Agents & Intelligent Markets**
-
-[🚀 **在线演示**](https://iridite.github.io/decisify/) | [📖 文档](docs/) | [🎬 演示视频](docs/DEMO_VIDEO_SCRIPT.md) | [⭐ Star this repo](https://github.com/iridite/decisify)
+[🚀 **在线演示**](https://iridite.github.io/decisify/) | [📖 文档](docs/) | [🎬 演示视频](docs/DEMO_VIDEO_SCRIPT.md)
 
 **[English](README.md)** | **[中文](README.zh.md)**
 
 ---
 
-## 🚀 在线演示
+## 📖 项目概述
+
+Decisify 是一个高性能、逻辑透明的 AI 决策引擎，通过融合多源信号（社交媒体、市场数据、新闻）实现自主决策循环。系统采用 Python + Rust 混合架构，提供完整的感知→推理→执行工作流，并配备实时监控仪表板实现人机协同。
+
+**核心特性：**
+- 🧠 **透明推理**：每个决策都包含完整的推理轨迹和注意力权重
+- ⚡ **高性能**：Rust 加速的批处理，1.2-1.4x 性能提升
+- 🛡️ **安全优先**：确定性防护栏防止不安全操作
+- 🔄 **自主循环**：5 秒决策周期，无需人工干预
+- 📊 **实时监控**：高密度仪表板展示 Agent 智能状态
+- 🌐 **多源融合**：基于 Softmax 的注意力机制整合异构信号
+
+**适用场景：**
+- 量化交易决策
+- 风险管理系统
+- 智能投顾平台
+- 市场情报分析
+
+---
+
+## 🚀 主要功能
+
+### 1. 多源信号感知
+- **异步传感器中心**：并发获取多个数据源
+- **容错设计**：单个传感器失败不影响整体系统
+- **支持的信号类型**：
+  - 社交媒体情绪（Twitter/X）
+  - 市场价格波动率
+  - 新闻情感分析
+  - 预测市场赔率（Polymarket）
+  - 量化交易信号（Nautilus）
+
+### 2. 注意力融合引擎
+- **Softmax 注意力机制**：`Weight_i = exp(Score_i) / Σ exp(Score_j)`
+- **温度控制**：调节注意力集中度
+- **边界情况处理**：全空信号自动降级为中性决策
+- **混合实现**：Python 原型 + Rust 加速
+
+### 3. 安全防护系统
+- **波动率防护**：
+  - BUY 操作：波动率 > 5% 时阻止
+  - SELL 操作：波动率 > 8% 时阻止
+- **置信度阈值**：要求最低信号强度
+- **自动降级**：不安全操作强制转为 HOLD
+
+### 4. 实时监控仪表板
+- 🧠 Agent 推理轨迹可视化
+- 👍 人类反馈循环
+- ⚡ 策略审批（人在回路）
+- 📊 多源关联矩阵
+- 📡 X 情报信息流
+- 📈 Polymarket 追踪器
+- 🎯 Nautilus 集成
+
+---
+
+## 🛠️ 技术栈
+
+### 后端
+- **Python 3.10+**：核心逻辑和 API
+- **FastAPI**：高性能异步 Web 框架
+- **Pydantic**：数据验证和序列化
+- **Rust**：性能关键路径加速（可选）
+- **PyO3/Maturin**：Python-Rust 互操作
+
+### 前端
+- **React 18**：UI 框架
+- **TypeScript**：类型安全
+- **Vite**：构建工具
+- **TailwindCSS**：样式系统
+- **Recharts**：数据可视化
+
+### 开发工具
+- **uv**：Python 包管理器
+- **pytest**：测试框架
+- **ruff**：代码检查和格式化
+- **mypy**：静态类型检查
+
+---
+
+## 🎮 在线演示
 
 **仪表盘：** [https://iridite.github.io/decisify/](https://iridite.github.io/decisify/)
 
-体验实时智能体监控系统，可视化感知到行动的完整流程。
+体验实时 Agent 智能监控，包含感知-行动管道可视化。
 
-## 📸 系统截图
+### 截图预览
 
 <table>
   <tr>
     <td colspan="2">
       <img src="screenshots/dashboard-overview.png" alt="仪表盘总览" width="100%"/>
-      <p align="center"><strong>仪表盘总览</strong> - 实时多源信号聚合与 AI 驱动的决策智能</p>
+      <p align="center"><strong>仪表盘总览</strong> - 实时多源信号聚合和 AI 决策智能</p>
     </td>
   </tr>
   <tr>
     <td width="50%">
       <img src="screenshots/signal-detail.png" alt="信号详情" width="100%"/>
-      <p align="center"><strong>信号详情视图</strong> - 透明的推理轨迹与置信度分数</p>
+      <p align="center"><strong>信号详情视图</strong> - 透明推理轨迹和置信度分数</p>
     </td>
     <td width="50%">
       <img src="screenshots/decision-flow.png" alt="决策流程" width="100%"/>
-      <p align="center"><strong>决策流程</strong> - 交互式感知到行动管道</p>
+      <p align="center"><strong>决策流程</strong> - 交互式感知-行动管道</p>
     </td>
   </tr>
 </table>
 
-## 🎯 Hackathon 赛题对齐
+---
 
-**目标问题（Track 2）：**
-> "如何设计智能体工作流与执行流程，而不仅是对话？数据、感知、执行与激励如何协同让智能体真正创造价值？"
+## 🚀 快速开始
 
-**我们的解决方案：**
-- ✅ **超越对话**：自主决策循环，包含感知 → 推理 → 执行工作流
-- ✅ **多模态上下文**：实时融合社交媒体、市场数据和新闻信号
-- ✅ **人机共生**：带反馈循环和审批门的仪表盘
-- ✅ **透明执行**：每个决策都包含完整推理轨迹和注意力权重
-- ✅ **安全优先设计**：确定性护栏防止不安全操作
+### 环境要求
 
-**类别：** 具备强执行能力的智能体工作流（不仅是聊天）+ 围绕智能体智能的数据采集、反馈与激励机制
+- Python 3.10 或更高版本
+- Node.js 18+（仅前端需要）
+- Rust 1.75+（可选，用于性能加速）
+
+### 后端安装与运行
+
+#### 1. 安装依赖
+
+```bash
+# 使用 uv（推荐）
+uv pip install -e .
+
+# 或使用 pip
+pip install -e .
+
+# 安装开发依赖
+uv pip install -e ".[dev]"
+```
+
+#### 2. (可选) 构建 Rust 扩展
+
+```bash
+cd rust
+PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 maturin develop --release
+cd ..
+```
+
+> **注意**：Rust 扩展是可选的。如果不安装，系统会自动使用纯 Python 实现。
+
+#### 3. 启动后端服务
+
+```bash
+uv run python main.py
+```
+
+服务将在 `http://localhost:8000` 启动。
+
+**系统启动后会：**
+- 启动 Agent 编排循环（5 秒周期）
+- 启动 FastAPI 服务器
+- 开始处理模拟信号并做出决策
+
+### 前端安装与运行
+
+```bash
+cd dashboard
+npm install
+npm run dev
+```
+
+访问 `http://localhost:5173` 查看仪表板。
+
+详细文档请参考 [dashboard/README.md](dashboard/README.md)。
+
+### API 端点
+
+| 端点 | 方法 | 描述 |
+|------|------|------|
+| `/` | GET | 健康检查 |
+| `/health` | GET | 详细健康状态（运行时间、周期计数） |
+| `/status` | GET | 完整系统状态（决策 + 信号 + 元数据） |
+| `/decision` | GET | 仅最新决策 |
+| `/signals` | GET | 仅最新原始信号 |
+| `/metrics` | GET | 性能指标（延迟、传感器统计、安全门） |
+
+### 示例请求
+
+```bash
+# 获取最新决策
+curl http://localhost:8000/status | jq
+
+# 实时监控
+watch -n 2 'curl -s http://localhost:8000/decision | jq'
+
+# 检查系统健康
+curl http://localhost:8000/health | jq
+
+# 查看性能指标
+curl http://localhost:8000/metrics | jq
+```
+
+---
 
 ## 🏗️ 系统架构
 
@@ -76,7 +229,7 @@
          │                    │                    │
          ▼                    ▼                    ▼
 ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
-│  感知中心        │  │  注意���融合引擎  │  │  安全门          │
+│  感知中心        │  │  注意力融合引擎  │  │  安全门          │
 │  (异步传感器)    │→ │  Python + Rust  │→ │  (护栏)         │
 │                 │  │                 │  │                 │
 └─────────────────┘  └─────────────────┘  └─────────────────┘
@@ -84,68 +237,129 @@
 
 ### 性能层
 
-Decisify 采用**混合架构**，结合 Python 的灵活性和 Rust 的性能：
+Decisify 使用 **混合架构**，结合 Python 的灵活性和 Rust 的性能：
 
-- **Python 实现** (`src/brain.py`): 快速原型、实时单次决策
-- **Rust 加速** (`decisify_core`): 批处理、回测、高吞吐量场景
-- **自动回退**: Rust 扩展可选，未安装时自动使用纯 Python
+- **Python 实现** (`src/brain.py`)：快速原型、实时单决策
+- **Rust 加速** (`decisify_core`)：批处理、回测、高吞吐场景
+- **自动降级**：Rust 扩展可选，不可用时自动使用纯 Python
 
-详见 [RUST_OPTIMIZATION.md](RUST_OPTIMIZATION.md) 了解性能基准和使用建议。
+性能基准和使用建议请参考 [RUST_OPTIMIZATION.md](RUST_OPTIMIZATION.md)。
 
-## 🚀 快速开始
+---
 
-### 后端安装
+## 📊 核心组件
+
+### 1. Schemas (`src/schemas.py`)
+- **Signal**：来自任何源的多模态数据点
+- **DecisionChain**：包含透明度的完整决策工件
+- **SystemState**：Agent 循环和 API 之间的共享状态
+
+### 2. Sensors (`src/sensors.py`)
+- **AsyncPerceptionHub**：编排并发信号获取
+- 弹性设计：失败时返回空信号而非崩溃
+- 模拟数据生成器用于即时测试
+
+### 3. Brain (`src/brain.py` / `src/brain_hybrid.py`)
+- **AttentionFusionEngine**：基于 Softmax 的注意力机制
+- **HybridAttentionEngine**：Python + Rust 混合实现
+- 公式：`Weight_i = exp(Score_i) / Σ exp(Score_j)`
+- 边界情况处理：全空信号 → 中性决策
+- 性能：Rust 批处理提速 1.2-1.4x
+
+### 4. Safety (`src/safety.py`)
+- **SafetyGate**：确定性防护栏
+- 规则：
+  - 波动率 > 5% 时阻止 BUY
+  - 波动率 > 8% 时阻止 SELL
+  - 要求最低置信度阈值
+- 将不安全操作覆盖为 HOLD
+
+### 5. Main (`main.py`)
+- **AgentOrchestrator**：管理决策周期
+- **FastAPI**：非阻塞 REST API
+- 独立任务：Agent 循环独立于 HTTP 服务器运行
+
+---
+
+## 🔧 配置
+
+### 环境变量配置
 
 ```bash
-# 克隆仓库
-git clone https://github.com/iridite/decisify.git
-cd decisify
+# 复制示例配置
+cp .env.example .env
 
-# 安装 Python 依赖
-pip install -r requirements.txt
-
-# (可选) 构建 Rust 加速扩展
-cd rust
-cargo build --release
-cd ..
-
-# 启动后端服务器
-python main.py
+# 编辑配置
+nano .env
 ```
 
-服务器将在 `http://localhost:8000` 启动
-
-### 前端安装
+### 主要配置选项
 
 ```bash
-cd dashboard
-npm install
-npm run dev
+# 服务器
+HOST=0.0.0.0
+PORT=8000
+DEBUG=false
+
+# Agent 编排器
+CYCLE_INTERVAL=5.0          # 决策周期频率（秒）
+AGENT_TEMPERATURE=1.0       # 注意力锐度（越低越集中）
+
+# 安全门
+MAX_VOLATILITY_BUY=0.05     # BUY 的 5% 波动率阈值
+MAX_VOLATILITY_SELL=0.08    # SELL 的 8% 波动率阈值
+MIN_CONFIDENCE=0.15         # 最低置信度阈值
+
+# 传感器
+SENSOR_TIMEOUT=3.0          # 传感器超时（秒）
+SENSOR_MAX_RETRIES=3        # 最大重试次数
+SENSOR_RETRY_DELAY=0.5      # 初始重试延迟（秒）
+
+# 日志
+LOG_LEVEL=INFO              # DEBUG, INFO, WARNING, ERROR
+LOG_FILE=                   # 可选日志文件路径
+
+# 性能
+ENABLE_METRICS=true         # 启用性能跟踪
+METRICS_WINDOW_SIZE=100     # 指标滚动窗口大小
 ```
 
-前端将在 `http://localhost:5173` 启动
+### 程序化配置
 
-### 运行测试
+也可以直接在 `main.py` 中编辑参数：
+
+```python
+orchestrator = AgentOrchestrator(cycle_interval=5.0)  # 决策频率
+brain = AttentionFusionEngine(temperature=1.0)        # 注意力锐度
+safety_gate = SafetyGate(
+    max_volatility_for_buy=0.05,   # 5% 波动率阈值
+    max_volatility_for_sell=0.08,  # 8% 波动率阈值
+)
+```
+
+---
+
+## 🧪 测试
 
 ```bash
 # 运行所有单元测试
 pytest tests/ --ignore=tests/test_api.py -v
 
-# 运行测试并生成覆盖率报告
+# 运行覆盖率报告
 pytest tests/ --ignore=tests/test_api.py --cov=src --cov-report=term-missing
 
 # 运行特定测试模块
-pytest tests/test_brain.py -v          # 大脑/注意力测试
+pytest tests/test_brain.py -v          # Brain/注意力测试
 pytest tests/test_safety.py -v         # 安全门测试
 pytest tests/test_sensors.py -v        # 传感器测试
 
-# 验证测试
-python src/validate.py
+# 运行验证测试
+uv run python src/validate.py
 
-# 性能基准测试
-python benchmarks/benchmark.py              # 单次决策基准
-python benchmarks/benchmark_realistic.py    # 端到端基准
-python benchmarks/benchmark_batch.py        # 批处理基准
+# 运行性能基准测试
+uv run python benchmarks/benchmark.py              # 单决策基准
+uv run python benchmarks/benchmark_realistic.py    # 端到端基准
+uv run python benchmarks/benchmark_batch.py        # 批处理基准
 
 # 类型检查
 mypy .
@@ -154,103 +368,86 @@ mypy .
 ruff check .
 ```
 
-## 🧠 核心组件
+---
 
-### 1. 感知中心 (`src/sensors.py`)
-异步多源数据采集：
-- **社交媒体监控**：Twitter/X 情绪分析
-- **市场数据**：实时价格和交易量
-- **新闻聚合**：突发事件检测
-- **技术指标**：RSI、MACD、布林带
+## 📝 示例输出
 
-### 2. 注意力融合引擎 (`src/brain.py`)
-多头注意力机制，用于信号优先级排序：
-```python
-attention_weights = softmax(Q @ K.T / sqrt(d_k)) @ V
 ```
-- 动态权重分配
-- 上下文感知融合
-- 置信度评分
+============================================================
+🔄 Cycle #3 | 10:30:15
+============================================================
+📡 Fetching signals...
+  • twitter_sentiment: 0.742 | Market looking bullish! 🚀
+  • price_volatility: 0.034 | Volatility: 3.40%
+  • news_feed: 0.521 | Tech sector shows strong growth
 
-### 3. 安全门 (`src/safety.py`)
-确定性护栏系统：
-- 仓位限制（最大 30%）
-- 波动率检查
-- 流动性验证
-- 市场时间门控
+🧠 Processing through attention fusion...
+🛡️  Validating with safety gate...
 
-### 4. 实时仪表盘 (`dashboard/`)
-React + TypeScript 前端：
-- WebSocket 实时更新
-- 交互式信号可视化
-- 决策审批界面
-- 推理轨迹查看器
+✅ SAFE | Action: BUY
+Reasoning: Weighted signal: 0.612 | Dominant source: twitter_sentiment (42.3% weight) | Signal value: 0.742 | Context: Market looking bullish! 🚀
+Weights: twitter_sentiment: 42.3%, price_volatility: 35.1%, news_feed: 22.6%
 
-## 📊 示例输出
-
-```json
-{
-  "decision": "HOLD",
-  "confidence": 0.73,
-  "reasoning": "混合信号：技术指标看涨（RSI=45），但新闻情绪中性",
-  "signals": [
-    {
-      "source": "technical",
-      "value": 0.65,
-      "weight": 0.4,
-      "metadata": {"rsi": 45, "macd": "bullish"}
-    },
-    {
-      "source": "sentiment",
-      "value": 0.52,
-      "weight": 0.3,
-      "metadata": {"twitter_score": 0.1}
-    }
-  ],
-  "safety_checks": {
-    "position_limit": "PASS",
-    "volatility": "PASS",
-    "market_hours": "PASS"
-  }
-}
+⏱️  Cycle completed in 0.43s
 ```
-
-## 🔒 安全特性
-
-1. **确定性护栏**：硬编码限制，AI 无法绕过
-2. **人工审批**：高风险决策需要确认
-3. **完整审计日志**：所有决策都有可追溯的推理
-4. **沙盒执行**：测试模式用于验证
-5. **优雅降级**：传感器故障时的回退机制
-
-## 🎯 未来增强
-
-- [ ] 多智能体协作（共识机制）
-- [ ] 强化学习优化（PPO/A3C）
-- [ ] 链上执行（智能合约集成）
-- [ ] 高级风险模型（VaR、压力测试）
-- [ ] 自然语言查询界面
-
-## 📚 文档
-
-- [快速开始指南](docs/QUICKSTART.md)
-- [提交简介](docs/SUBMISSION_BRIEF.md)
-- [优化机会](docs/OPTIMIZATION_OPPORTUNITIES.md)
-- [演示视频脚本](docs/DEMO_VIDEO_SCRIPT.md)
-- [Rust 优化](RUST_OPTIMIZATION.md)
-
-## 🤝 贡献
-
-欢迎贡献！请查看我们的 [贡献指南](CONTRIBUTING.md)。
-
-## 📄 许可证
-
-本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件。
-
-## 🙏 致谢
-
-为 **Rebel in Paradise AI Hackathon** 构建 - 探索智能体与智能市场的共存。
 
 ---
 
-**由 [iridite](https://github.com/iridite) 用 ❤️ 和 🤖 构建**
+## 🛡️ 安全特性
+
+1. **部分失败处理**：传感器失败时，系统继续使用可用信号
+2. **空信号保护**：全空场景默认为 HOLD
+3. **波动率防护**：高波动期间防止风险操作
+4. **置信度阈值**：要求最低信号强度
+5. **完全透明**：每个决策包含推理和权重
+6. **性能安全**：Rust 扩展不可用时自动降级到 Python
+
+---
+
+## 🎯 Hackathon 对齐
+
+**目标问题（Track 2）：**
+> "如何设计超越对话的 Agent 工作流和执行流程？数据、感知、执行和激励如何协同工作，使 Agent 真正创造价值？"
+
+**我们的解决方案：**
+- ✅ **超越聊天**：感知 → 推理 → 执行的自主决策循环
+- ✅ **多模态上下文**：融合社交媒体、市场数据和新闻的实时信号
+- ✅ **人机共生**：带反馈循环和审批门的仪表板
+- ✅ **透明执行**：每个决策的完整推理轨迹和注意力权重
+- ✅ **安全优先设计**：确定性防护栏防止不安全操作
+
+**类别：** 具有强执行能力的 Agent 工作流（超越聊天）+ Agent 智能周围的数据收集、反馈和激励机制
+
+**活动：** Rebel in Paradise AI Hackathon - Track 2: Co-existing with Agents & Intelligent Markets
+
+---
+
+## 🔮 未来增强
+
+- 真实 API 集成（Twitter、价格源、新闻爬虫）
+- 持久化存储（PostgreSQL/TimescaleDB）
+- 基于 Rust 加速的回测框架
+- WebSocket 流式传输实时更新
+- 基于 ML 的注意力分数学习
+- 多资产支持
+- SIMD 矢量化实现超高吞吐量
+- GPU 加速大规模信号处理
+
+---
+
+## 📄 许可证
+
+MIT License - 详见 [LICENSE](LICENSE) 文件
+
+---
+
+## 🤝 贡献
+
+欢迎贡献！请随时提交 Issue 或 Pull Request。
+
+---
+
+## 📞 联系方式
+
+- **项目主页**：[https://github.com/iridite/decisify](https://github.com/iridite/decisify)
+- **在
