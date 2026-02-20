@@ -50,3 +50,6 @@ Cargo.lock
 .DS_Store
 Thumbs.db
 .internal-docs-backup/
+
+# Node.js
+node_modules/
