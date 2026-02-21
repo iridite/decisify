@@ -1,15 +1,44 @@
 # Decisify 🎯
 
 [![Live Demo](https://img.shields.io/badge/demo-live-success?style=for-the-badge)](https://iridite.github.io/decisify/)
+[![CI Status](https://img.shields.io/github/actions/workflow/status/iridite/decisify/ci.yml?branch=main&style=for-the-badge&label=CI)](https://github.com/iridite/decisify/actions)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10+-blue?style=for-the-badge&logo=python)](https://www.python.org)
 [![Rust](https://img.shields.io/badge/rust-1.75+-orange?style=for-the-badge&logo=rust)](https://www.rust-lang.org)
+[![Code Quality](https://img.shields.io/badge/code%20quality-A-brightgreen?style=for-the-badge)](https://github.com/iridite/decisify)
 
-> **AI-powered decision intelligence platform with multi-source data integration**
+<div align="center">
+  <img src="logo.svg" alt="Decisify Logo" width="120" />
 
-[🚀 **Live Demo**](https://iridite.github.io/decisify/) | [📖 Documentation](docs/) | [🎬 Demo Video](docs/DEMO_VIDEO_SCRIPT.md)
+  ### AI-powered decision intelligence platform with multi-source data integration
+
+  [🚀 **Live Demo**](https://iridite.github.io/decisify/) | [📖 Documentation](docs/) | [🎬 Demo Video](docs/DEMO_VIDEO_SCRIPT.md) | [⚡ Quick Start](#-quick-start)
+</div>
 
 **[English](README.md)** | **[中文](README.zh.md)**
+
+---
+
+## 🎥 Demo Preview
+
+> **📹 录制说明**: 建议使用以下工具录制 30-60 秒演示 GIF：
+> - **macOS**: [Kap](https://getkap.co/) 或 [Gifox](https://gifox.app/)
+> - **Linux**: `peek` 或 `byzanz`
+> - **Windows**: [ScreenToGif](https://www.screentogif.com/)
+> - **在线转换**: [ezgif.com](https://ezgif.com/video-to-gif)
+>
+> 录制内容建议：
+> 1. 打开 Dashboard (http://localhost:5173)
+> 2. 展示实时决策循环（5-10 秒周期）
+> 3. 点击性能对比组件展开详情
+> 4. 滚动展示多源信号融合
+>
+> 录制完成后，将 GIF 文件保存为 `screenshots/demo.gif`，然后取消下方注释：
+
+<!--
+![Decisify Demo](screenshots/demo.gif)
+*Real-time AI decision engine with transparent reasoning and multi-source signal fusion*
+-->
 
 ---
 
@@ -124,15 +153,42 @@ Experience real-time agent intelligence monitoring with perception-to-action pip
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### ⚡ One-Command Setup (Recommended)
+
+```bash
+# Clone the repository
+git clone https://github.com/iridite/decisify.git
+cd decisify
+
+# Run the quick start script
+./quick-start.sh
+```
+
+The script will:
+1. ✅ Check system dependencies (Python 3.10+, Node.js 18+)
+2. 📦 Install backend and frontend dependencies
+3. ⚡ Optionally build Rust performance extension
+4. 🚀 Start both backend and frontend services
+5. 🎉 Open dashboard at http://localhost:5173
+
+**Press `Ctrl+C` to stop all services.**
+
+---
+
+### 📋 Manual Setup
+
+<details>
+<summary>Click to expand manual installation steps</summary>
+
+#### Prerequisites
 
 - Python 3.10 or higher
 - Node.js 18+ (frontend only)
 - Rust 1.75+ (optional, for performance acceleration)
 
-### Backend Installation & Running
+#### Backend Installation & Running
 
-#### 1. Install Dependencies
+##### 1. Install Dependencies
 
 ```bash
 # Using uv (recommended)
@@ -145,7 +201,7 @@ pip install -e .
 uv pip install -e ".[dev]"
 ```
 
-#### 2. (Optional) Build Rust Extension
+##### 2. (Optional) Build Rust Extension
 
 ```bash
 cd rust
@@ -155,7 +211,7 @@ cd ..
 
 > **Note**: The Rust extension is optional. If not installed, the system will automatically use the pure Python implementation.
 
-#### 3. Start Backend Service
+##### 3. Start Backend Service
 
 ```bash
 uv run python main.py
@@ -168,7 +224,7 @@ The service will start at `http://localhost:8000`.
 - FastAPI server launches
 - Begins processing mock signals and making decisions
 
-### Frontend Installation & Running
+#### Frontend Installation & Running
 
 ```bash
 cd dashboard
@@ -179,6 +235,8 @@ npm run dev
 Visit `http://localhost:5173` to view the dashboard.
 
 For detailed documentation, see [dashboard/README.md](dashboard/README.md).
+
+</details>
 
 ### API Endpoints
 

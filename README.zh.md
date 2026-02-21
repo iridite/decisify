@@ -1,15 +1,44 @@
 # Decisify 🎯
 
 [![Live Demo](https://img.shields.io/badge/demo-live-success?style=for-the-badge)](https://iridite.github.io/decisify/)
+[![CI Status](https://img.shields.io/github/actions/workflow/status/iridite/decisify/ci.yml?branch=main&style=for-the-badge&label=CI)](https://github.com/iridite/decisify/actions)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10+-blue?style=for-the-badge&logo=python)](https://www.python.org)
 [![Rust](https://img.shields.io/badge/rust-1.75+-orange?style=for-the-badge&logo=rust)](https://www.rust-lang.org)
+[![Code Quality](https://img.shields.io/badge/code%20quality-A-brightgreen?style=for-the-badge)](https://github.com/iridite/decisify)
 
-> **AI 驱动的决策智能平台，支持多源数据融合**
+<div align="center">
+  <img src="logo.svg" alt="Decisify Logo" width="120" />
 
-[🚀 **在线演示**](https://iridite.github.io/decisify/) | [📖 文档](docs/) | [🎬 演示视频](docs/DEMO_VIDEO_SCRIPT.md)
+  ### AI 驱动的决策智能平台，支持多源数据融合
+
+  [🚀 **在线演示**](https://iridite.github.io/decisify/) | [📖 文档](docs/) | [🎬 演示视频](docs/DEMO_VIDEO_SCRIPT.md) | [⚡ 快速开始](#-快速开始)
+</div>
 
 **[English](README.md)** | **[中文](README.zh.md)**
+
+---
+
+## 🎥 演示预览
+
+> **📹 录制说明**: 建议使用以下工具录制 30-60 秒演示 GIF：
+> - **macOS**: [Kap](https://getkap.co/) 或 [Gifox](https://gifox.app/)
+> - **Linux**: `peek` 或 `byzanz`
+> - **Windows**: [ScreenToGif](https://www.screentogif.com/)
+> - **在线转换**: [ezgif.com](https://ezgif.com/video-to-gif)
+>
+> 录制内容建议：
+> 1. 打开 Dashboard (http://localhost:5173)
+> 2. 展示实时决策循环（5-10 秒周期）
+> 3. 点击性能对比组件展开详情
+> 4. 滚动展示多源信号融合
+>
+> 录制完成后，将 GIF 文件保存为 `screenshots/demo.gif`，然后取消下方注释：
+
+<!--
+![Decisify Demo](screenshots/demo.gif)
+*实时 AI 决策引擎，透明推理和多源信号融合*
+-->
 
 ---
 
@@ -124,15 +153,42 @@ Decisify 是一个高性能、逻辑透明的 AI 决策引擎，通过融合多�
 
 ## 🚀 快速开始
 
-### 环境要求
+### ⚡ 一键部署（推荐）
+
+```bash
+# 克隆仓库
+git clone https://github.com/iridite/decisify.git
+cd decisify
+
+# 运行快速启动脚本
+./quick-start.sh
+```
+
+脚本将自动完成：
+1. ✅ 检查系统依赖（Python 3.10+, Node.js 18+）
+2. 📦 安装后端和前端依赖
+3. ⚡ 可选构建 Rust 性能扩展
+4. 🚀 启动后端和前端服务
+5. 🎉 在 http://localhost:5173 打开仪表盘
+
+**按 `Ctrl+C` 停止所有服务。**
+
+---
+
+### 📋 手动安装
+
+<details>
+<summary>点击展开手动安装步骤</summary>
+
+#### 环境要求
 
 - Python 3.10 或更高版本
 - Node.js 18+（仅前端需要）
 - Rust 1.75+（可选，用于性能加速）
 
-### 后端安装与运行
+#### 后端安装与运行
 
-#### 1. 安装依赖
+##### 1. 安装依赖
 
 ```bash
 # 使用 uv（推荐）
@@ -145,7 +201,7 @@ pip install -e .
 uv pip install -e ".[dev]"
 ```
 
-#### 2. (可选) 构建 Rust 扩展
+##### 2. (可选) 构建 Rust 扩展
 
 ```bash
 cd rust
@@ -155,7 +211,7 @@ cd ..
 
 > **注意**：Rust 扩展是可选的。如果不安装，系统会自动使用纯 Python 实现。
 
-#### 3. 启动后端服务
+##### 3. 启动后端服务
 
 ```bash
 uv run python main.py
@@ -168,7 +224,7 @@ uv run python main.py
 - 启动 FastAPI 服务器
 - 开始处理模拟信号并做出决策
 
-### 前端安装与运行
+#### 前端安装与运行
 
 ```bash
 cd dashboard
@@ -179,6 +235,8 @@ npm run dev
 访问 `http://localhost:5173` 查看仪表板。
 
 详细文档请参考 [dashboard/README.md](dashboard/README.md)。
+
+</details>
 
 ### API 端点
 

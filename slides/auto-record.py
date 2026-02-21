@@ -14,7 +14,6 @@ Decisify 演示视频全自动录制脚本
 """
 
 import asyncio
-import os
 import subprocess
 import sys
 import time
@@ -80,7 +79,7 @@ def check_dependencies():
     # 检查配音文件
     missing_files = [f for f in VOICEOVER_FILES if not f.exists()]
     if missing_files:
-        print(f"  ❌ 缺少配音文件：")
+        print("  ❌ 缺少配音文件：")
         for f in missing_files:
             print(f"     {f}")
         print("\n  请先运行：./generate-voiceover-cn.sh")
@@ -103,7 +102,7 @@ def start_slidev_server():
         urllib.request.urlopen(SLIDEV_URL, timeout=1)
         print(f"  ✅ Slidev 已在 {SLIDEV_URL} 运行")
         return None
-    except:
+    except Exception:
         pass
 
     # 启动服务器

@@ -30,6 +30,8 @@ import {
 import { useDataPolling } from "./hooks/useDataPolling";
 import { useDemoMode } from "./hooks/useDemoMode";
 import { DemoControls, DemoModeToggle } from "./components/DemoControls";
+import { PerformanceMetrics } from "./components/PerformanceMetrics";
+import { RustPerformanceComparison } from "./components/RustPerformanceComparison";
 
 function App() {
   const {
@@ -139,6 +141,11 @@ function App() {
       {/* Header */}
       <Header data={data} agentThinking={agentThinking} />
 
+      {/* Performance Metrics - 性能指标卡片 */}
+      <div className="mt-6">
+        <PerformanceMetrics data={data} />
+      </div>
+
       {/* Main Bento Grid */}
       <div className="grid grid-cols-12 gap-4 mt-6">
         {/* Agent Thought Log - Main Center */}
@@ -163,6 +170,11 @@ function App() {
         {/* Bottom Row */}
         <div className="col-span-12 lg:col-span-7">
           <PolymarketTracker polymarket={data.perception.polymarket} />
+        </div>
+
+        {/* Rust Performance Comparison - 性能对比 */}
+        <div className="col-span-12">
+          <RustPerformanceComparison data={data} />
         </div>
 
         <div className="col-span-12 lg:col-span-5 space-y-4">
@@ -194,15 +206,22 @@ function Header({ data, agentThinking }) {
   return (
     <header className="bento-item">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        {/* Brand */}
-        <div>
-          <h1 className="text-2xl font-bold">
-            <span className="text-text-secondary">Iridyne /</span>{" "}
-            <span className="gradient-text">Decisify</span>
-          </h1>
-          <p className="text-sm text-text-secondary mt-1">
-            Agent Intelligence Monitor
-          </p>
+        {/* Brand with Logo */}
+        <div className="flex items-center gap-4">
+          <img
+            src="/logo.svg"
+            alt="Decisify Logo"
+            className="w-12 h-12 opacity-90"
+          />
+          <div>
+            <h1 className="text-2xl font-bold">
+              <span className="text-text-secondary">Iridyne /</span>{" "}
+              <span className="gradient-text">Decisify</span>
+            </h1>
+            <p className="text-sm text-text-secondary mt-1">
+              Agent Intelligence Monitor
+            </p>
+          </div>
         </div>
 
         {/* Status Indicators */}
