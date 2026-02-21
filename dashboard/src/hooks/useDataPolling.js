@@ -4,13 +4,13 @@ import { useState, useEffect, useCallback } from "react";
  * useDataPolling - Agent Intelligence Data Polling Hook
  *
  * Core functionality:
- * 1. Poll data.json every 30 seconds
+ * 1. Poll backend API every 2 seconds for real-time data
  * 2. Detect new agent thoughts (by comparing IDs)
  * 3. Stream new thoughts one-by-one with delay (simulate real-time)
  * 4. Manage loading states and error handling
  * 5. Track context memory and system status
  */
-export const useDataPolling = (pollInterval = 30000) => {
+export const useDataPolling = (pollInterval = 2000) => {
   const [data, setData] = useState(null);
   const [newThoughts, setNewThoughts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -20,12 +20,22 @@ export const useDataPolling = (pollInterval = 30000) => {
   const fetchData = useCallback(async () => {
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
 
-      const response = await fetch("./data.json", {
-        signal: controller.signal,
-        cache: "no-cache",
-      });
+      // Try backend API first, fallback to static data.json
+      let response;
+      try {
+        response = await fetch("http://localhost:8000/status", {
+          signal: controller.signal,
+          cache: "no-cache",
+        });
+      } catch (apiError) {
+        console.log("Backend API unavailable, using static data");
+        response = await fetch("./data.json", {
+          signal: controller.signal,
+          cache: "no-cache",
+        });
+      }
       clearTimeout(timeoutId);
 
       if (!response.ok) {
