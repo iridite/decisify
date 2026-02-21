@@ -100,7 +100,12 @@ class AgentOrchestrator:
             self.logger.info("🛡️  Validating with safety gate...")
             validated_decision = self.safety_gate.validate(decision, signals)
 
-            # Step 4: Update shared state
+            # Step 4: Generate natural language explanation
+            explanation = self.brain.explain_decision(validated_decision, signals)
+            validated_decision.explanation = explanation
+            self.logger.info(f"💬 Explanation: {explanation[:100]}...")
+
+            # Step 5: Update shared state
             system_state.latest_decision = validated_decision
             system_state.latest_signals = signals
             system_state.cycle_count += 1

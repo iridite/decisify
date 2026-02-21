@@ -51,6 +51,7 @@ class DecisionChain(BaseModel):
                 "reasoning": "High positive sentiment but volatility exceeds threshold",
                 "is_safe": True,
                 "override_reason": "Volatility > 5%, overriding BUY to HOLD",
+                "explanation": "I decided to HOLD based on moderate signals...",
             }
         }
     )
@@ -65,6 +66,7 @@ class DecisionChain(BaseModel):
     reasoning: str = Field(..., description="Human-readable explanation of the decision logic")
     is_safe: bool = Field(..., description="Whether this action passed safety guardrails")
     override_reason: Optional[str] = Field(None, description="If safety gate overrode, why?")
+    explanation: Optional[str] = Field(None, description="Natural language explanation of the decision")
 
 
 class SystemState(BaseModel):

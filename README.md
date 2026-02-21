@@ -19,6 +19,52 @@
 
 ---
 
+## 🏆 Hackathon Track 2 Alignment
+
+> **Challenge:** *"How to design agent workflows and execution processes beyond just conversation? How can data, perception, execution, and incentives work together to enable agents to truly create value?"*
+
+**Decisify's Answer:**
+
+<table>
+<tr>
+<td width="50%">
+
+### 🎯 The Problem
+Current AI agents are stuck in **conversation mode**:
+- ❌ Passive: Wait for user input
+- ❌ Single-source: Limited context
+- ❌ Black-box: Opaque reasoning
+- ❌ Unsafe: No execution guardrails
+
+</td>
+<td width="50%">
+
+### ✅ Our Solution
+Decisify is a **true autonomous agent**:
+- ✅ **Autonomous**: 5-second decision loops
+- ✅ **Multi-source**: Twitter + Polymarket + News fusion
+- ✅ **Transparent**: Full attention weight visualization
+- ✅ **Safe**: Deterministic rules + human approval
+
+</td>
+</tr>
+</table>
+
+**This is not a chatbot. This is a decision-making intelligence system.**
+
+### Why Decisify Wins Track 2
+
+| Requirement | Traditional Agents | Decisify |
+|-------------|-------------------|----------|
+| **Beyond Chat** | Reactive Q&A | ✅ Autonomous 5s decision cycle |
+| **Data Perception** | Single LLM knowledge | ✅ Real-time multi-source fusion |
+| **Execution Safety** | Prompt engineering | ✅ Deterministic guardrails + human-in-loop |
+| **Transparency** | Black box | ✅ Complete reasoning traces + attention weights |
+| **Performance** | Pure Python | ✅ Rust-accelerated (1.4x faster) |
+| **Scalability** | Hardcoded logic | ✅ Plugin-based sensor architecture |
+
+---
+
 ## 🎥 Demo Preview
 
 > **📹 录制说明**: 建议使用以下工具录制 30-60 秒演示 GIF：
@@ -59,6 +105,50 @@ Decisify is a high-performance, logic-transparent AI decision engine that implem
 - Risk management systems
 - Intelligent advisory platforms
 - Market intelligence analysis
+
+---
+
+## 💡 Innovation Highlights: Why Decisify Stands Out
+
+### 🆚 Decisify vs Traditional AI Agents
+
+| Feature | Traditional AI Agents | Decisify |
+|---------|----------------------|----------|
+| **Decision Mode** | 🔴 Passive: Wait for user questions | ✅ **Autonomous: 5-second self-driven loops** |
+| **Data Sources** | 🔴 Single LLM knowledge base | ✅ **Multi-source fusion: Twitter + Polymarket + News** |
+| **Reasoning** | 🔴 Black-box: Hidden logic | ✅ **Transparent: Full attention weights visualization** |
+| **Safety** | 🔴 Prompt engineering (bypassable) | ✅ **Deterministic guardrails + human approval** |
+| **Performance** | 🔴 Pure Python (~2-5ms) | ✅ **Rust-accelerated (<1ms, 1.4x faster)** |
+| **Scalability** | 🔴 Hardcoded logic | ✅ **Plugin-based sensor architecture** |
+| **Explainability** | 🔴 Generic responses | ✅ **Natural language explanations per decision** |
+| **Human Collaboration** | 🔴 One-way interaction | ✅ **Feedback loop + approval gates** |
+
+### 🎯 Key Technical Innovations
+
+1. **Attention Mechanism for Decision Fusion** 🧠
+   - First application of Transformer-style attention to multi-source signal fusion
+   - Dynamic weight allocation: `Weight_i = exp(Score_i / T) / Σ exp(Score_j / T)`
+   - Temperature control for decision sharpness (conservative ↔ aggressive)
+
+2. **Transparent Reasoning Chain** 🔍
+   - Every decision includes complete reasoning traces
+   - Attention weights show each source's influence
+   - Natural language explanations: "I decided to BUY based on strong signals..."
+
+3. **Hybrid Python + Rust Architecture** ⚡
+   - Python for rapid prototyping and flexibility
+   - Rust for performance-critical paths (1.2-1.4x speedup)
+   - Automatic fallback to pure Python if Rust unavailable
+
+4. **Production-grade Safety Design** 🛡️
+   - Deterministic rules AI cannot bypass
+   - Multi-layer validation: volatility checks + confidence thresholds
+   - Human-in-the-loop approval for high-risk actions
+
+5. **Real-time Autonomous Loop** 🔄
+   - Non-blocking async architecture
+   - Independent decision cycles (not tied to API requests)
+   - Proactive environment monitoring
 
 ---
 

@@ -152,6 +152,78 @@ class AttentionFusionEngine:
 
         return " | ".join(reasoning_parts)
 
+    def explain_decision(self, decision: DecisionChain, signals: Dict[str, Signal]) -> str:
+        """
+        Generate natural language explanation of the decision for better interpretability.
+
+        This method translates technical decision data into human-friendly explanations,
+        making the AI's reasoning process transparent and trustworthy.
+        """
+        if not decision.weights:
+            return "No signals available - maintaining neutral position for safety."
+
+        # Find dominant signal
+        dominant_source = max(decision.weights.items(), key=lambda x: x[1])[0]
+        dominant_weight = decision.weights[dominant_source]
+        dominant_signal = signals.get(dominant_source)
+
+        # Extract weighted value from reasoning string
+        try:
+            weighted_str = decision.reasoning.split("Weighted signal: ")[1].split(" |")[0]
+            weighted_value = abs(float(weighted_str))
+        except (IndexError, ValueError):
+            weighted_value = 0.0
+
+        # Interpret signal strength
+        if weighted_value > 0.5:
+            strength = "strong"
+        elif weighted_value > 0.3:
+            strength = "moderate"
+        else:
+            strength = "weak"
+
+        # Build explanation
+        explanation_parts = []
+
+        # 1. Decision summary
+        explanation_parts.append(
+            f"I decided to {decision.action} based on {strength} signals from multiple sources."
+        )
+
+        # 2. Main reasoning
+        if dominant_signal:
+            signal_direction = "positive" if dominant_signal.value > 0 else "negative"
+            explanation_parts.append(
+                f"The primary factor was {dominant_source} showing {signal_direction} sentiment "
+                f"(weight: {dominant_weight:.1%}, value: {dominant_signal.value:.2f})."
+            )
+
+        # 3. Supporting signals
+        other_signals = [
+            (src, weight) for src, weight in decision.weights.items()
+            if src != dominant_source and weight > 0.15
+        ]
+        if other_signals:
+            other_names = ", ".join([src for src, _ in other_signals])
+            explanation_parts.append(
+                f"Supporting signals from {other_names} reinforced this decision."
+            )
+
+        # 4. Safety status
+        if decision.is_safe:
+            explanation_parts.append("All safety checks passed.")
+        else:
+            explanation_parts.append(
+                f"Safety override applied: {decision.override_reason}"
+            )
+
+        # 5. Context
+        if dominant_signal and dominant_signal.raw_content:
+            context_preview = dominant_signal.raw_content[:80]
+            explanation_parts.append(f'Context: "{context_preview}..."')
+
+        return " ".join(explanation_parts)
+
     def _neutral_decision(self) -> DecisionChain:
         """
         Fallback decision when all signals are null or unavailable.
