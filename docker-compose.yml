@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  decisify:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: decisify-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - DEBUG=false
+      - CYCLE_INTERVAL=5.0
+      - AGENT_TEMPERATURE=1.0
+      - MAX_VOLATILITY_BUY=0.05
+      - MAX_VOLATILITY_SELL=0.08
+      - MIN_CONFIDENCE=0.15
+      - LOG_LEVEL=INFO
+      - ENABLE_METRICS=true
+    volumes:
+      # Mount source code for development (comment out for production)
+      - ./src:/app/src:ro
+      - ./main.py:/app/main.py:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - decisify-network
+
+networks:
+  decisify-network:
+    driver: bridge

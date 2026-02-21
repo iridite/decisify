@@ -7,14 +7,14 @@ import asyncio
 from contextlib import asynccontextmanager
 from datetime import datetime
 
-from fastapi import FastAPI, Depends
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from src.brain import AttentionFusionEngine
 from src.config import Settings, get_settings
-from src.logger import setup_logger, get_logger
-from src.metrics import Timer, get_metrics, MetricsCollector
+from src.logger import get_logger, setup_logger
+from src.metrics import MetricsCollector, Timer, get_metrics
 from src.safety import SafetyGate
 from src.schemas import SystemState
 from src.sensors import AsyncPerceptionHub
@@ -248,7 +248,7 @@ async def get_performance_metrics(metrics_collector: MetricsCollector = Depends(
 if __name__ == "__main__":
     import uvicorn
 
-    logger.info(f"""
+    logger.info("""
     ╔═══════════════════════════════════════════════════════════╗
     ║                      DECISIFY                             ║
     ║         Logic-Transparent Decision Engine                 ║

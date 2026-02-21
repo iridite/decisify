@@ -2,7 +2,6 @@
 Configuration Management - Centralized settings with environment variable support
 """
 
-import os
 from typing import Optional
 
 from pydantic import Field
