@@ -124,7 +124,7 @@ def start_slidev_server():
             print(" ✅")
             time.sleep(2)  # 额外等待确保完全加载
             return process
-        except:
+        except Exception:
             print(".", end="", flush=True)
             time.sleep(1)
 
@@ -253,15 +253,15 @@ def merge_audio_video():
         str(FINAL_VIDEO),
     ]
 
-    print(f"  执行 FFmpeg 命令...")
+    print("  执行 FFmpeg 命令...")
     print(f"  输出：{FINAL_VIDEO}")
 
     try:
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        subprocess.run(cmd, capture_output=True, text=True, check=True)
         print("  ✅ 视频合成完成！")
         return FINAL_VIDEO
     except subprocess.CalledProcessError as e:
-        print(f"  ❌ FFmpeg 错误：")
+        print("  ❌ FFmpeg 错误：")
         print(e.stderr)
         sys.exit(1)
 
@@ -300,7 +300,7 @@ def print_summary():
             duration = float(info["format"]["duration"])
             size_mb = int(info["format"]["size"]) / (1024 * 1024)
 
-            print(f"\n📹 视频信息：")
+            print("\n📹 视频信息：")
             print(f"  文件：{FINAL_VIDEO}")
             print(f"  时长：{duration:.1f} 秒 ({duration / 60:.1f} 分钟)")
             print(f"  大小：{size_mb:.1f} MB")

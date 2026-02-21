@@ -57,12 +57,12 @@ class AsyncPerceptionHub:
         Wrapper that catches exceptions and returns a null signal on failure.
         Includes retry logic with exponential backoff.
         """
-        last_exception = None
+        last_exception: Exception | None = None
 
         for attempt in range(self.max_retries):
             try:
                 with Timer() as timer:
-                    result = await fetch_func()
+                    result: Signal | None = await fetch_func()
 
                 # Record success metrics
                 self.metrics.record_sensor_success(source, timer.elapsed_ms)

@@ -34,9 +34,9 @@ def test_hold_action_always_passes(safety_gate):
     signals = {
         "market_volatility": Signal(source="market", value=0.9)
     }
-    
+
     result = safety_gate.validate(decision, signals)
-    
+
     assert result.is_safe is True
     assert result.action == "HOLD"
 
@@ -52,9 +52,9 @@ def test_buy_action_low_volatility_passes(safety_gate):
     signals = {
         "market_volatility": Signal(source="market", value=0.03)
     }
-    
+
     result = safety_gate.validate(decision, signals)
-    
+
     assert result.is_safe is True
     assert result.action == "BUY"
 
@@ -70,9 +70,9 @@ def test_buy_action_high_volatility_blocked(safety_gate):
     signals = {
         "market_volatility": Signal(source="market", value=0.10)
     }
-    
+
     result = safety_gate.validate(decision, signals)
-    
+
     assert result.is_safe is False
     assert result.action == "HOLD"
     assert "Volatility" in result.override_reason
@@ -89,9 +89,9 @@ def test_sell_action_low_volatility_passes(safety_gate):
     signals = {
         "market_volatility": Signal(source="market", value=0.06)
     }
-    
+
     result = safety_gate.validate(decision, signals)
-    
+
     assert result.is_safe is True
     assert result.action == "SELL"
 
@@ -107,9 +107,9 @@ def test_sell_action_high_volatility_blocked(safety_gate):
     signals = {
         "market_volatility": Signal(source="market", value=0.10)
     }
-    
+
     result = safety_gate.validate(decision, signals)
-    
+
     assert result.is_safe is False
     assert result.action == "HOLD"
 
@@ -125,9 +125,9 @@ def test_low_confidence_blocked(safety_gate):
     signals = {
         "market_volatility": Signal(source="market", value=0.02)
     }
-    
+
     result = safety_gate.validate(decision, signals)
-    
+
     assert result.is_safe is False
     assert result.action == "HOLD"
     assert "confidence" in result.override_reason.lower()
@@ -142,9 +142,9 @@ def test_missing_volatility_signal(safety_gate):
         is_safe=False
     )
     signals = {}
-    
+
     result = safety_gate.validate(decision, signals)
-    
+
     # Should default to HOLD when no signals
     assert result.is_safe is False
     assert result.action == "HOLD"
@@ -161,9 +161,9 @@ def test_edge_case_exact_threshold(safety_gate):
     signals = {
         "market_volatility": Signal(source="market", value=0.05)
     }
-    
+
     result = safety_gate.validate(decision, signals)
-    
+
     # At threshold should pass
     assert result.is_safe is True
     assert result.action == "BUY"
@@ -181,9 +181,9 @@ def test_multiple_safety_checks(safety_gate):
     signals1 = {
         "market_volatility": Signal(source="market", value=0.03)
     }
-    
+
     result1 = safety_gate.validate(decision1, signals1)
-    
+
     # Second check - should fail
     decision2 = DecisionChain(
         action="SELL",
@@ -194,9 +194,9 @@ def test_multiple_safety_checks(safety_gate):
     signals2 = {
         "market_volatility": Signal(source="market", value=0.15)
     }
-    
+
     result2 = safety_gate.validate(decision2, signals2)
-    
+
     # Third check - should pass
     decision3 = DecisionChain(
         action="HOLD",
@@ -207,9 +207,9 @@ def test_multiple_safety_checks(safety_gate):
     signals3 = {
         "market_volatility": Signal(source="market", value=0.99)
     }
-    
+
     result3 = safety_gate.validate(decision3, signals3)
-    
+
     assert result1.is_safe is True
     assert result2.is_safe is False
     assert result3.is_safe is True
@@ -222,7 +222,7 @@ def test_custom_thresholds():
         max_volatility_for_sell=0.15,
         min_confidence_threshold=0.20
     )
-    
+
     decision = DecisionChain(
         action="BUY",
         weights={"signal1": 0.25},
@@ -232,7 +232,7 @@ def test_custom_thresholds():
     signals = {
         "market_volatility": Signal(source="market", value=0.08)
     }
-    
+
     result = gate.validate(decision, signals)
-    
+
     assert result.is_safe is True

@@ -108,7 +108,7 @@ def generate_report():
         f.write("## 🔧 技术细节\n\n")
         f.write("### 测试环境\n\n")
         f.write(f"- **Python 版本**: {sys.version.split()[0]}\n")
-        f.write(f"- **操作系统**: Linux\n")
+        f.write("- **操作系统**: Linux\n")
         f.write("- **架构**: Python + Rust (PyO3 + Maturin)\n\n")
 
         f.write("### 优化技术\n\n")

@@ -12,7 +12,7 @@ from src.schemas import DecisionChain, Signal, SystemState
 def test_signal_creation_with_defaults():
     """Test Signal creation with default values."""
     signal = Signal(source="test_source", value=0.5)
-    
+
     assert signal.source == "test_source"
     assert signal.value == 0.5
     assert isinstance(signal.timestamp, datetime)
@@ -28,7 +28,7 @@ def test_signal_creation_with_all_fields():
         timestamp=timestamp,
         raw_content="Market is bullish!",
     )
-    
+
     assert signal.source == "twitter"
     assert signal.value == 0.75
     assert signal.timestamp == timestamp
@@ -63,7 +63,7 @@ def test_signal_json_serialization():
     """Test that Signal can be serialized to JSON."""
     signal = Signal(source="test", value=0.5, raw_content="test content")
     json_data = signal.model_dump()
-    
+
     assert json_data["source"] == "test"
     assert json_data["value"] == 0.5
     assert json_data["raw_content"] == "test content"
@@ -79,7 +79,7 @@ def test_decision_chain_creation():
         reasoning="Strong positive signals",
         is_safe=True,
     )
-    
+
     assert decision.weights == weights
     assert decision.action == "BUY"
     assert decision.reasoning == "Strong positive signals"
@@ -97,7 +97,7 @@ def test_decision_chain_with_override():
         is_safe=False,
         override_reason="Volatility > 5%",
     )
-    
+
     assert decision.is_safe is False
     assert decision.override_reason == "Volatility > 5%"
 
@@ -150,9 +150,9 @@ def test_decision_chain_json_serialization():
         reasoning="Neutral signals",
         is_safe=True,
     )
-    
+
     json_data = decision.model_dump()
-    
+
     assert json_data["weights"] == {"signal1": 0.5, "signal2": 0.5}
     assert json_data["action"] == "HOLD"
     assert json_data["reasoning"] == "Neutral signals"
@@ -163,7 +163,7 @@ def test_decision_chain_json_serialization():
 def test_system_state_creation_with_defaults():
     """Test SystemState creation with default values."""
     state = SystemState()
-    
+
     assert state.latest_decision is None
     assert state.latest_signals == {}
     assert state.cycle_count == 0
@@ -178,9 +178,9 @@ def test_system_state_with_decision():
         reasoning="test",
         is_safe=True,
     )
-    
+
     state = SystemState(latest_decision=decision, cycle_count=5)
-    
+
     assert state.latest_decision == decision
     assert state.cycle_count == 5
 
@@ -191,9 +191,9 @@ def test_system_state_with_signals():
         "twitter": Signal(source="twitter", value=0.5),
         "news": Signal(source="news", value=0.3),
     }
-    
+
     state = SystemState(latest_signals=signals)
-    
+
     assert len(state.latest_signals) == 2
     assert "twitter" in state.latest_signals
     assert "news" in state.latest_signals
@@ -203,7 +203,7 @@ def test_system_state_update_cycle_count():
     """Test updating SystemState cycle count."""
     state = SystemState()
     assert state.cycle_count == 0
-    
+
     state.cycle_count += 1
     assert state.cycle_count == 1
 
@@ -216,19 +216,19 @@ def test_system_state_json_serialization():
         reasoning="test",
         is_safe=True,
     )
-    
+
     signals = {
         "test": Signal(source="test", value=0.5),
     }
-    
+
     state = SystemState(
         latest_decision=decision,
         latest_signals=signals,
         cycle_count=10,
     )
-    
+
     json_data = state.model_dump()
-    
+
     assert json_data["cycle_count"] == 10
     assert "latest_decision" in json_data
     assert "latest_signals" in json_data
@@ -254,7 +254,7 @@ def test_signal_timestamp_auto_generation():
     before = datetime.now()
     signal = Signal(source="test", value=0.5)
     after = datetime.now()
-    
+
     assert before <= signal.timestamp <= after
 
 
@@ -268,7 +268,7 @@ def test_decision_chain_timestamp_auto_generation():
         is_safe=True,
     )
     after = datetime.now()
-    
+
     assert before <= decision.timestamp <= after
 
 
@@ -277,5 +277,5 @@ def test_system_state_last_update_auto_generation():
     before = datetime.now()
     state = SystemState()
     after = datetime.now()
-    
+
     assert before <= state.last_update <= after
