@@ -17,31 +17,6 @@
 
 **[English](README.md)** | **[中文](README.zh.md)**
 
----
-
-## 🎥 演示预览
-
-> **📹 录制说明**: 建议使用以下工具录制 30-60 秒演示 GIF：
-> - **macOS**: [Kap](https://getkap.co/) 或 [Gifox](https://gifox.app/)
-> - **Linux**: `peek` 或 `byzanz`
-> - **Windows**: [ScreenToGif](https://www.screentogif.com/)
-> - **在线转换**: [ezgif.com](https://ezgif.com/video-to-gif)
->
-> 录制内容建议：
-> 1. 打开 Dashboard (http://localhost:5173)
-> 2. 展示实时决策循环（5-10 秒周期）
-> 3. 点击性能对比组件展开详情
-> 4. 滚动展示多源信号融合
->
-> 录制完成后，将 GIF 文件保存为 `screenshots/demo.gif`，然后取消下方注释：
-
-<!--
-![Decisify Demo](screenshots/demo.gif)
-*实时 AI 决策引擎，透明推理和多源信号融合*
--->
-
----
-
 ## 📖 项目概述
 
 Decisify 是一个高性能、逻辑透明的 AI 决策引擎，通过融合多源信号（社交媒体、市场数据、新闻）实现自主决策循环。系统采用 Python + Rust 混合架构，提供完整的感知→推理→执行工作流，并配备实时监控仪表板实现人机协同。
@@ -59,8 +34,6 @@ Decisify 是一个高性能、逻辑透明的 AI 决策引擎，通过融合多�
 - 风险管理系统
 - 智能投顾平台
 - 市场情报分析
-
----
 
 ## 🚀 主要功能
 
@@ -96,8 +69,6 @@ Decisify 是一个高性能、逻辑透明的 AI 决策引擎，通过融合多�
 - 📈 Polymarket 追踪器
 - 🎯 Nautilus 集成
 
----
-
 ## 🛠️ 技术栈
 
 ### 后端
@@ -119,8 +90,6 @@ Decisify 是一个高性能、逻辑透明的 AI 决策引擎，通过融合多�
 - **pytest**：测试框架
 - **ruff**：代码检查和格式化
 - **mypy**：静态类型检查
-
----
 
 ## 🎮 在线演示
 
@@ -149,8 +118,6 @@ Decisify 是一个高性能、逻辑透明的 AI 决策引擎，通过融合多�
   </tr>
 </table>
 
----
-
 ## 🚀 快速开始
 
 ### ⚡ 一键部署（推荐）
@@ -172,8 +139,6 @@ cd decisify
 5. 🎉 在 http://localhost:5173 打开仪表盘
 
 **按 `Ctrl+C` 停止所有服务。**
-
----
 
 ### 📋 手动安装
 
@@ -265,8 +230,6 @@ curl http://localhost:8000/health | jq
 curl http://localhost:8000/metrics | jq
 ```
 
----
-
 ## 🏗️ 系统架构
 
 ```
@@ -303,8 +266,6 @@ Decisify 使用 **混合架构**，结合 Python 的灵活性和 Rust 的性能�
 
 性能基准和使用建议请参考 [RUST_OPTIMIZATION.md](RUST_OPTIMIZATION.md)。
 
----
-
 ## 📊 核心组件
 
 ### 1. Schemas (`src/schemas.py`)
@@ -336,8 +297,6 @@ Decisify 使用 **混合架构**，结合 Python 的灵活性和 Rust 的性能�
 - **AgentOrchestrator**：管理决策周期
 - **FastAPI**：非阻塞 REST API
 - 独立任务：Agent 循环独立于 HTTP 服务器运行
-
----
 
 ## 🔧 配置
 
@@ -395,8 +354,6 @@ safety_gate = SafetyGate(
 )
 ```
 
----
-
 ## 🧪 测试
 
 ```bash
@@ -426,8 +383,6 @@ mypy .
 ruff check .
 ```
 
----
-
 ## 📝 示例输出
 
 ```
@@ -449,8 +404,6 @@ Weights: twitter_sentiment: 42.3%, price_volatility: 35.1%, news_feed: 22.6%
 ⏱️  Cycle completed in 0.43s
 ```
 
----
-
 ## 🛡️ 安全特性
 
 1. **部分失败处理**：传感器失败时，系统继续使用可用信号
@@ -459,8 +412,6 @@ Weights: twitter_sentiment: 42.3%, price_volatility: 35.1%, news_feed: 22.6%
 4. **置信度阈值**：要求最低信号强度
 5. **完全透明**：每个决策包含推理和权重
 6. **性能安全**：Rust 扩展不可用时自动降级到 Python
-
----
 
 ## 🎯 Hackathon 对齐
 
@@ -478,8 +429,6 @@ Weights: twitter_sentiment: 42.3%, price_volatility: 35.1%, news_feed: 22.6%
 
 **活动：** Rebel in Paradise AI Hackathon - Track 2: Co-existing with Agents & Intelligent Markets
 
----
-
 ## 🔮 未来增强
 
 - 真实 API 集成（Twitter、价格源、新闻爬虫）
@@ -491,19 +440,13 @@ Weights: twitter_sentiment: 42.3%, price_volatility: 35.1%, news_feed: 22.6%
 - SIMD 矢量化实现超高吞吐量
 - GPU 加速大规模信号处理
 
----
-
 ## 📄 许可证
 
 MIT License - 详见 [LICENSE](LICENSE) 文件
 
----
-
 ## 🤝 贡献
 
 欢迎贡献！请随时提交 Issue 或 Pull Request。
-
----
 
 ## 📞 联系方式
 

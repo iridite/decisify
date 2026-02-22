@@ -17,8 +17,6 @@
 
 **[English](README.md)** | **[中文](README.zh.md)**
 
----
-
 ## 🏆 Hackathon Track 2 Alignment
 
 > **Challenge:** *"How to design agent workflows and execution processes beyond just conversation? How can data, perception, execution, and incentives work together to enable agents to truly create value?"*
@@ -63,31 +61,6 @@ Decisify is a **true autonomous agent**:
 | **Performance** | Pure Python | ✅ Rust-accelerated (1.4x faster) |
 | **Scalability** | Hardcoded logic | ✅ Plugin-based sensor architecture |
 
----
-
-## 🎥 Demo Preview
-
-> **📹 录制说明**: 建议使用以下工具录制 30-60 秒演示 GIF：
-> - **macOS**: [Kap](https://getkap.co/) 或 [Gifox](https://gifox.app/)
-> - **Linux**: `peek` 或 `byzanz`
-> - **Windows**: [ScreenToGif](https://www.screentogif.com/)
-> - **在线转换**: [ezgif.com](https://ezgif.com/video-to-gif)
->
-> 录制内容建议：
-> 1. 打开 Dashboard (http://localhost:5173)
-> 2. 展示实时决策循环（5-10 秒周期）
-> 3. 点击性能对比组件展开详情
-> 4. 滚动展示多源信号融合
->
-> 录制完成后，将 GIF 文件保存为 `screenshots/demo.gif`，然后取消下方注释：
-
-<!--
-![Decisify Demo](screenshots/demo.gif)
-*Real-time AI decision engine with transparent reasoning and multi-source signal fusion*
--->
-
----
-
 ## 📖 Project Overview
 
 Decisify is a high-performance, logic-transparent AI decision engine that implements autonomous decision loops through multi-source signal fusion (social media, market data, news). The system uses a Python + Rust hybrid architecture to provide a complete perception → reasoning → execution workflow, with a real-time monitoring dashboard for human-agent collaboration.
@@ -105,8 +78,6 @@ Decisify is a high-performance, logic-transparent AI decision engine that implem
 - Risk management systems
 - Intelligent advisory platforms
 - Market intelligence analysis
-
----
 
 ## 💡 Innovation Highlights: Why Decisify Stands Out
 
@@ -150,8 +121,6 @@ Decisify is a high-performance, logic-transparent AI decision engine that implem
    - Independent decision cycles (not tied to API requests)
    - Proactive environment monitoring
 
----
-
 ## 🚀 Key Features
 
 ### 1. Multi-source Signal Perception
@@ -186,8 +155,6 @@ Decisify is a high-performance, logic-transparent AI decision engine that implem
 - 📈 Polymarket tracker
 - 🎯 Nautilus integration
 
----
-
 ## 🛠️ Technology Stack
 
 ### Backend
@@ -209,8 +176,6 @@ Decisify is a high-performance, logic-transparent AI decision engine that implem
 - **pytest**: Testing framework
 - **ruff**: Code linting and formatting
 - **mypy**: Static type checking
-
----
 
 ## 🎮 Live Demo
 
@@ -239,8 +204,6 @@ Experience real-time agent intelligence monitoring with perception-to-action pip
   </tr>
 </table>
 
----
-
 ## 🚀 Quick Start
 
 ### ⚡ One-Command Setup (Recommended)
@@ -262,8 +225,6 @@ The script will:
 5. 🎉 Open dashboard at http://localhost:5173
 
 **Press `Ctrl+C` to stop all services.**
-
----
 
 ### 📋 Manual Setup
 
@@ -355,8 +316,6 @@ curl http://localhost:8000/health | jq
 curl http://localhost:8000/metrics | jq
 ```
 
----
-
 ## 🏗️ System Architecture
 
 ```
@@ -393,8 +352,6 @@ Decisify uses a **hybrid architecture** combining Python's flexibility with Rust
 
 See [RUST_OPTIMIZATION.md](RUST_OPTIMIZATION.md) for performance benchmarks and usage recommendations.
 
----
-
 ## 📊 Core Components
 
 ### 1. Schemas (`src/schemas.py`)
@@ -426,8 +383,6 @@ See [RUST_OPTIMIZATION.md](RUST_OPTIMIZATION.md) for performance benchmarks and 
 - **AgentOrchestrator**: Manages the decision cycle
 - **FastAPI**: Non-blocking REST API
 - Separate tasks: Agent loop runs independently from HTTP server
-
----
 
 ## 🔧 Configuration
 
@@ -485,8 +440,6 @@ safety_gate = SafetyGate(
 )
 ```
 
----
-
 ## 🧪 Testing
 
 ```bash
@@ -516,8 +469,6 @@ mypy .
 ruff check .
 ```
 
----
-
 ## 📝 Example Output
 
 ```
@@ -539,8 +490,6 @@ Weights: twitter_sentiment: 42.3%, price_volatility: 35.1%, news_feed: 22.6%
 ⏱️  Cycle completed in 0.43s
 ```
 
----
-
 ## 🛡️ Safety Features
 
 1. **Partial Failure Handling**: If a sensor fails, system continues with available signals
@@ -549,8 +498,6 @@ Weights: twitter_sentiment: 42.3%, price_volatility: 35.1%, news_feed: 22.6%
 4. **Confidence Thresholds**: Requires minimum signal strength
 5. **Full Transparency**: Every decision includes reasoning and weights
 6. **Performance Safety**: Automatic fallback to Python if Rust extension unavailable
-
----
 
 ## 🎯 Hackathon Alignment
 
@@ -568,8 +515,6 @@ Weights: twitter_sentiment: 42.3%, price_volatility: 35.1%, news_feed: 22.6%
 
 **Event:** Rebel in Paradise AI Hackathon - Track 2: Co-existing with Agents & Intelligent Markets
 
----
-
 ## 🔮 Future Enhancements
 
 - Real API integrations (Twitter, price feeds, news scrapers)
@@ -581,26 +526,18 @@ Weights: twitter_sentiment: 42.3%, price_volatility: 35.1%, news_feed: 22.6%
 - SIMD vectorization for ultra-high throughput
 - GPU acceleration for massive-scale signal processing
 
----
-
 ## 📄 License
 
 MIT License - See [LICENSE](LICENSE) file for details
 
----
-
 ## 🤝 Contributing
 
 Contributions are welcome! Feel free to submit Issues or Pull Requests.
-
----
 
 ## 📞 Contact
 
 - **Project Homepage**: [https://github.com/iridite/decisify](https://github.com/iridite/decisify)
 - **Live Demo**: [https://iridite.github.io/decisify/](https://iridite.github.io/decisify/)
 - **Documentation**: [docs/](docs/)
-
----
 
 **Built with ❤️ for Rebel in Paradise AI Hackathon**
