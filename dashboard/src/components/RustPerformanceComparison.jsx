@@ -15,8 +15,8 @@ import {
 } from "recharts";
 
 /**
- * RustPerformanceComparison - Rust vs Python 性能对比组件
- * 展示混合架构的性能优势，带实时动画效果
+ * RustPerformanceComparison - Rust vs Python Performance Comparison
+ * Showcases hybrid architecture performance advantages with real-time animations
  */
 export function RustPerformanceComparison({ data }) {
   const [showDetails, setShowDetails] = useState(false);
@@ -25,49 +25,50 @@ export function RustPerformanceComparison({ data }) {
     rust: 0,
   });
 
-  // 模拟性能数据（实际项目中应从 API 获取）
+  // Simulated performance data (should be fetched from API in production)
   const performanceData = [
     {
-      scenario: "单次决策",
+      scenario: "Single Decision",
       python: 0.85,
       rust: 0.62,
-      improvement: "1.37x"
+      improvement: "1.37x",
     },
     {
-      scenario: "批处理 (100)",
+      scenario: "Batch (100)",
       python: 82.5,
       rust: 58.3,
-      improvement: "1.42x"
+      improvement: "1.42x",
     },
     {
-      scenario: "批处理 (1000)",
+      scenario: "Batch (1000)",
       python: 825.0,
       rust: 612.5,
-      improvement: "1.35x"
+      improvement: "1.35x",
     },
     {
-      scenario: "高频场景",
+      scenario: "High Frequency",
       python: 1.2,
       rust: 0.88,
-      improvement: "1.36x"
-    }
+      improvement: "1.36x",
+    },
   ];
 
-  const chartData = performanceData.map(item => ({
+  const chartData = performanceData.map((item) => ({
     name: item.scenario,
     Python: item.python,
     Rust: item.rust,
   }));
 
-  // 计算平均加速比
-  const avgSpeedup = performanceData.reduce((acc, item) => {
-    return acc + parseFloat(item.improvement);
-  }, 0) / performanceData.length;
+  // Calculate average speedup
+  const avgSpeedup =
+    performanceData.reduce((acc, item) => {
+      return acc + parseFloat(item.improvement);
+    }, 0) / performanceData.length;
 
-  // 实时性能动画效果
+  // Real-time performance animation effect
   React.useEffect(() => {
     const interval = setInterval(() => {
-      // 模拟实时性能波动
+      // Simulate real-time performance fluctuation
       const pythonLatency = 0.85 + (Math.random() - 0.5) * 0.1;
       const rustLatency = 0.62 + (Math.random() - 0.5) * 0.08;
 
@@ -92,10 +93,10 @@ export function RustPerformanceComparison({ data }) {
           </div>
           <div>
             <h3 className="text-lg font-bold text-text-primary">
-              性能加速对比
+              Performance Acceleration
             </h3>
             <p className="text-sm text-text-secondary">
-              Python vs Rust 混合架构 - 实时监控
+              Python vs Rust Hybrid - Real-time Monitor
             </p>
           </div>
         </div>
@@ -110,7 +111,7 @@ export function RustPerformanceComparison({ data }) {
         </motion.button>
       </div>
 
-      {/* 实时性能对比卡片 */}
+      {/* Real-time Performance Comparison Cards */}
       <div className="grid grid-cols-2 gap-4 mb-6">
         {/* Python 实现 */}
         <motion.div
@@ -120,7 +121,9 @@ export function RustPerformanceComparison({ data }) {
         >
           <div className="flex items-center gap-2 mb-2">
             <Code2 className="w-4 h-4 text-orange-400" />
-            <span className="text-xs font-semibold text-orange-400">Python</span>
+            <span className="text-xs font-semibold text-orange-400">
+              Python
+            </span>
           </div>
           <motion.div
             key={animatedValues.python}
@@ -130,7 +133,9 @@ export function RustPerformanceComparison({ data }) {
           >
             {animatedValues.python.toFixed(2)}ms
           </motion.div>
-          <div className="text-xs text-text-secondary mt-1">决策延迟</div>
+          <div className="text-xs text-text-secondary mt-1">
+            Decision Latency
+          </div>
         </motion.div>
 
         {/* Rust 加速 */}
@@ -141,7 +146,9 @@ export function RustPerformanceComparison({ data }) {
         >
           <div className="flex items-center gap-2 mb-2">
             <Zap className="w-4 h-4 text-iridyne-green" />
-            <span className="text-xs font-semibold text-iridyne-green">Rust</span>
+            <span className="text-xs font-semibold text-iridyne-green">
+              Rust
+            </span>
           </div>
           <motion.div
             key={animatedValues.rust}
@@ -152,7 +159,7 @@ export function RustPerformanceComparison({ data }) {
             {animatedValues.rust.toFixed(2)}ms
           </motion.div>
           <div className="text-xs text-iridyne-green mt-1">
-            ⚡ {currentSpeedup.toFixed(2)}x 更快
+            ⚡ {currentSpeedup.toFixed(2)}x faster
           </div>
         </motion.div>
       </div>
@@ -165,19 +172,21 @@ export function RustPerformanceComparison({ data }) {
       >
         <div className="flex items-center justify-between">
           <div>
-            <div className="text-sm text-text-secondary mb-1">平均性能提升</div>
+            <div className="text-sm text-text-secondary mb-1">
+              Average Performance Gain
+            </div>
             <div className="text-3xl font-bold text-iridyne-green">
               {avgSpeedup.toFixed(2)}x
             </div>
             <div className="text-xs text-text-secondary mt-1">
-              基于 1000+ 次基准测试
+              Based on 1000+ benchmarks
             </div>
           </div>
           <TrendingUp className="w-12 h-12 text-iridyne-green opacity-50" />
         </div>
       </motion.div>
 
-      {/* 性能对比图表 */}
+      {/* Performance Comparison Chart */}
       <div className="mb-6">
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={chartData}>
@@ -185,24 +194,27 @@ export function RustPerformanceComparison({ data }) {
             <XAxis
               dataKey="name"
               stroke="#888"
-              tick={{ fill: '#888', fontSize: 12 }}
+              tick={{ fill: "#888", fontSize: 12 }}
             />
             <YAxis
               stroke="#888"
-              tick={{ fill: '#888', fontSize: 12 }}
-              label={{ value: '延迟 (ms)', angle: -90, position: 'insideLeft', fill: '#888' }}
+              tick={{ fill: "#888", fontSize: 12 }}
+              label={{
+                value: "Latency (ms)",
+                angle: -90,
+                position: "insideLeft",
+                fill: "#888",
+              }}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#1a1a1a',
-                border: '1px solid #2a2a2a',
-                borderRadius: '8px',
-                color: '#fff'
+                backgroundColor: "#1a1a1a",
+                border: "1px solid #2a2a2a",
+                borderRadius: "8px",
+                color: "#fff",
               }}
             />
-            <Legend
-              wrapperStyle={{ color: '#888' }}
-            />
+            <Legend wrapperStyle={{ color: "#888" }} />
             <Bar dataKey="Python" fill="#f59e0b" radius={[8, 8, 0, 0]} />
             <Bar dataKey="Rust" fill="#10b981" radius={[8, 8, 0, 0]} />
           </BarChart>
@@ -219,7 +231,7 @@ export function RustPerformanceComparison({ data }) {
         >
           <div className="bg-surface-secondary rounded-lg p-4">
             <h4 className="text-sm font-semibold text-text-primary mb-3">
-              详细性能数据
+              Detailed Performance Data
             </h4>
             <div className="space-y-2">
               {performanceData.map((item, index) => (
@@ -253,13 +265,19 @@ export function RustPerformanceComparison({ data }) {
               <Code2 className="w-5 h-5 text-iridyne-green mt-0.5" />
               <div className="text-sm text-text-secondary">
                 <p className="mb-2">
-                  <strong className="text-text-primary">混合架构优势：</strong>
+                  <strong className="text-text-primary">
+                    Hybrid Architecture Benefits:
+                  </strong>
                 </p>
                 <ul className="list-disc list-inside space-y-1">
-                  <li>Python 提供灵活的开发体验和快速原型</li>
-                  <li>Rust 通过 PyO3 加速核心融合算法</li>
-                  <li>自动回退机制，Rust 扩展可选</li>
-                  <li>批处理场景性能提升最显著 (1.2-1.4x)</li>
+                  <li>
+                    Python provides flexible development and rapid prototyping
+                  </li>
+                  <li>Rust accelerates core fusion algorithms via PyO3</li>
+                  <li>Automatic fallback mechanism, Rust extension optional</li>
+                  <li>
+                    Batch processing shows most significant gains (1.2-1.4x)
+                  </li>
                 </ul>
               </div>
             </div>
@@ -267,10 +285,10 @@ export function RustPerformanceComparison({ data }) {
         </motion.div>
       )}
 
-      {/* 实现状态标签 */}
+      {/* Implementation Status Tags */}
       <div className="flex items-center gap-2 mt-4">
         <span className="px-3 py-1 rounded-full bg-signal-bullish/10 text-signal-bullish text-xs font-medium">
-          ✓ Rust 扩展已实现
+          ✓ Rust Extension Implemented
         </span>
         <span className="px-3 py-1 rounded-full bg-iridyne-green/10 text-iridyne-green text-xs font-medium">
           PyO3 + Maturin

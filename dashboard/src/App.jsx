@@ -203,7 +203,7 @@ function App() {
           <PolymarketTracker polymarket={data.perception.polymarket} />
         </div>
 
-        {/* Rust Performance Comparison - 性能对比 */}
+        {/* Rust Performance Comparison */}
         <div className="col-span-12">
           <RustPerformanceComparison data={data} />
         </div>
