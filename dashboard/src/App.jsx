@@ -14,6 +14,9 @@ import {
   ThumbsDown,
   BarChart3,
   Radio,
+  Gauge,
+  DollarSign,
+  TrendingUp as TrendingUpIcon,
 } from "lucide-react";
 import {
   AreaChart,
@@ -32,8 +35,6 @@ import {
   DemoModeToggle,
   DemoModeBanner,
 } from "./components/DemoControls";
-import { PerformanceMetrics } from "./components/PerformanceMetrics";
-import { RustPerformanceComparison } from "./components/RustPerformanceComparison";
 
 function App() {
   const {
@@ -161,16 +162,13 @@ function App() {
       )}
 
       {/* Demo Controls - Hidden on GitHub Pages for clean demo */}
-      {!isGitHubPages && (
+      {!isGitHubPages && isDemoMode && (
         <DemoControls
-          isDemoMode={isDemoMode}
           isAutoPlay={isAutoPlay}
           isFullscreen={isFullscreen}
           demoSpeed={demoSpeed}
-          onToggleDemo={() => setIsDemoMode(!isDemoMode)}
           onToggleAutoPlay={() => setIsAutoPlay(!isAutoPlay)}
           onToggleFullscreen={toggleFullscreen}
-          onSpeedChange={(speed) => setDemoSpeed(speed)}
         />
       )}
 
@@ -203,11 +201,6 @@ function App() {
           <PolymarketTracker polymarket={data.perception.polymarket} />
         </div>
 
-        {/* Rust Performance Comparison */}
-        <div className="col-span-12">
-          <RustPerformanceComparison data={data} />
-        </div>
-
         <div className="col-span-12 lg:col-span-5 space-y-4">
           {/* Strategy Proposal */}
           <StrategyProposal
@@ -237,22 +230,15 @@ function Header({ data, agentThinking }) {
   return (
     <header className="bento-item">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        {/* Brand with Logo */}
-        <div className="flex items-center gap-4">
-          <img
-            src="/logo.svg"
-            alt="Decisify Logo"
-            className="w-12 h-12 opacity-90"
-          />
-          <div>
-            <h1 className="text-2xl font-bold">
-              <span className="text-text-secondary">Iridyne /</span>{" "}
-              <span className="gradient-text">Decisify</span>
-            </h1>
-            <p className="text-sm text-text-secondary mt-1">
-              Agent Intelligence Monitor
-            </p>
-          </div>
+        {/* Brand */}
+        <div>
+          <h1 className="text-2xl font-bold">
+            <span className="text-text-secondary">Iridyne /</span>{" "}
+            <span className="gradient-text">Decisify</span>
+          </h1>
+          <p className="text-sm text-text-secondary mt-1">
+            Agent Intelligence Monitor
+          </p>
         </div>
 
         {/* Status Indicators */}
@@ -524,17 +510,12 @@ function TriangulationMatrix({ matrix }) {
 }
 
 // X Intelligence Feed Component
-function XIntelligenceFeed({ signals, dataSource }) {
+function XIntelligenceFeed({ signals }) {
   return (
     <div className="bento-item h-[400px] flex flex-col">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold flex items-center gap-2">
-          <Radio className="w-5 h-5 text-iridyne-green" />X Intelligence Feed
-        </h2>
-        {dataSource && (
-          <DataSourceBadge type={dataSource.type} source={dataSource.source} />
-        )}
-      </div>
+      <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
+        <Radio className="w-5 h-5 text-iridyne-green" />X Intelligence Feed
+      </h2>
 
       <div className="flex-1 overflow-y-auto custom-scrollbar space-y-2">
         <AnimatePresence>
@@ -591,7 +572,7 @@ function XIntelligenceFeed({ signals, dataSource }) {
 }
 
 // Polymarket Tracker Component
-function PolymarketTracker({ polymarket, dataSource }) {
+function PolymarketTracker({ polymarket }) {
   const chartData = polymarket.history.map((point) => ({
     time: new Date(point.timestamp).toLocaleTimeString([], {
       hour: "2-digit",
@@ -603,22 +584,12 @@ function PolymarketTracker({ polymarket, dataSource }) {
   return (
     <div className="bento-item">
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <div>
-            <h2 className="text-lg font-bold flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-iridyne-green" />
-              Polymarket Odds Tracker
-            </h2>
-            <p className="text-sm text-text-secondary mt-1">
-              {polymarket.event}
-            </p>
-          </div>
-          {dataSource && (
-            <DataSourceBadge
-              type={dataSource.type}
-              source={dataSource.source}
-            />
-          )}
+        <div>
+          <h2 className="text-lg font-bold flex items-center gap-2">
+            <BarChart3 className="w-5 h-5 text-iridyne-green" />
+            Polymarket Odds Tracker
+          </h2>
+          <p className="text-sm text-text-secondary mt-1">{polymarket.event}</p>
         </div>
         <div className="text-right">
           <div className="text-3xl font-mono font-bold text-iridyne-green">
@@ -792,20 +763,6 @@ function StrategyProposal({ proposal, onDecision }) {
           </div>
         )}
 
-        {/* Toast Notification */}
-        <AnimatePresence>
-          {toast && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className={`mt-3 p-3 rounded border ${toast.color}`}
-            >
-              <div className="text-sm font-medium">{toast.message}</div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
         {proposal.human_decision && (
           <div
             className={`p-3 rounded ${
@@ -821,23 +778,32 @@ function StrategyProposal({ proposal, onDecision }) {
             </div>
           </div>
         )}
+      
+        {/* Toast Notification */}
+        <AnimatePresence>
+          {toast && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className={`mt-3 p-3 rounded border ${toast.color}`}
+            >
+              <div className="text-sm font-medium">{toast.message}</div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
 }
 
 // Nautilus Snapshot Component
-function NautilusSnapshot({ nautilus, dataSource }) {
+function NautilusSnapshot({ nautilus }) {
   const pnlPositive = nautilus.daily_pnl > 0;
 
   return (
     <div className="bento-item">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold">Nautilus Quant Snapshot</h2>
-        {dataSource && (
-          <DataSourceBadge type={dataSource.type} source={dataSource.source} />
-        )}
-      </div>
+      <h2 className="text-lg font-bold mb-4">Nautilus Quant Snapshot</h2>
 
       <div className="space-y-3">
         <div>
@@ -898,14 +864,6 @@ function NautilusSnapshot({ nautilus, dataSource }) {
 
 // Context Memory Component
 function ContextMemory({ events }) {
-  // Format event type for display
-  const formatEventType = (type) => {
-    return type
-      .split("_")
-      .map((word) => word.charAt(0) + word.slice(1).toLowerCase())
-      .join(" ");
-  };
-
   return (
     <div className="bento-item">
       <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
@@ -934,9 +892,7 @@ function ContextMemory({ events }) {
             className="p-3 rounded bg-border-subtle/20"
             style={{ opacity: event.relevance_decay }}
           >
-            <div className="text-xs text-text-secondary mb-1">
-              {formatEventType(event.type)}
-            </div>
+            <div className="text-xs text-text-secondary mb-1">{event.type}</div>
             <div className="text-xs leading-tight">{event.description}</div>
             <div className="text-xs text-text-secondary mt-1">
               {new Date(event.timestamp).toLocaleTimeString()}
