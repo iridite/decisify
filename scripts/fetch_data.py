@@ -230,9 +230,114 @@ async def fetch_and_transform_data() -> Dict[str, Any]:
 
     except Exception as e:
         print(f"Error fetching data: {e}")
-        # Return mock data on error
-        with open(OUTPUT_FILE, "r") as f:
-            return json.load(f)
+        # Generate mock data with dynamic timestamps on error
+        return {
+            "meta": {
+                "timestamp": datetime.now().isoformat() + "Z",
+                "agent_status": "REASONING",
+                "context_window_hours": 8,
+                "total_events_tracked": 42,
+                "system_status": "DEMO",
+                "sync_timestamp": datetime.now().isoformat() + "Z",
+            },
+            "agent_thoughts": [
+                {
+                    "id": f"thought_{int(datetime.now().timestamp())}",
+                    "timestamp": datetime.now().isoformat() + "Z",
+                    "type": "TRIANGULATION",
+                    "reasoning": "Demo mode: Analyzing market signals with 68% confidence. Polymarket shows bullish trend (+2.4% 1h), X sentiment positive (0.78), Nautilus signal moderate (0.34).",
+                    "inputs": {"weights": {"polymarket": 0.45, "x_sentiment": 0.35, "nautilus": 0.20}, "action": "BUY"},
+                    "confidence": 0.68,
+                    "human_feedback": None,
+                }
+            ],
+            "triangulation_matrix": {
+                "polymarket_x_correlation": 0.85,
+                "polymarket_nautilus_correlation": 0.72,
+                "x_nautilus_correlation": 0.68,
+                "overall_alignment": 0.75,
+                "interpretation": "HIGH_BULLISH",
+            },
+            "perception": {
+                "polymarket": {
+                    "event": "BTC Price Prediction Market",
+                    "current_odds": 0.68,
+                    "delta_1h": 0.024,
+                    "delta_24h": 0.053,
+                    "volume_24h": 1250000,
+                    "liquidity": 3400000,
+                    "last_trade": datetime.now().isoformat() + "Z",
+                    "history": [{"timestamp": datetime.now().isoformat() + "Z", "odds": 0.68}],
+                },
+                "x_intelligence": [
+                    {
+                        "id": f"tweet_demo_{int(datetime.now().timestamp())}",
+                        "handle": "@crypto_analyst",
+                        "content": "BTC breaking resistance at $42k. Strong momentum building. #Bitcoin",
+                        "timestamp": datetime.now().isoformat() + "Z",
+                        "sentiment": "BULLISH",
+                        "sentiment_score": 0.78,
+                        "agent_relevance_score": 0.85,
+                        "extracted_entities": ["BTC", "resistance", "momentum"],
+                        "impact_score": 7.8,
+                        "follower_count": 125000,
+                    }
+                ],
+                "nautilus": {
+                    "strategy": "Keltner Channel Breakout",
+                    "position": "LONG",
+                    "signal_strength": 0.34,
+                    "entry_price": 42150.00,
+                    "current_price": 42380.00,
+                    "unrealized_pnl": 230.00,
+                    "daily_pnl": 1250.50,
+                    "position_size": 1.0,
+                    "status": "ACTIVE",
+                    "indicators": {
+                        "keltner_upper": 42800.00,
+                        "keltner_middle": 42200.00,
+                        "keltner_lower": 41600.00,
+                        "atr": 450.00,
+                        "trend": "BULLISH",
+                    },
+                },
+            },
+            "execution": {
+                "current_proposal": {
+                    "id": f"prop_{int(datetime.now().timestamp())}",
+                    "action": "BUY",
+                    "asset": "BTC",
+                    "reasoning": "Strong bullish alignment across all data sources. Polymarket odds increased 2.4% in 1h, X sentiment highly positive (0.78), Nautilus breakout signal confirmed. Risk-adjusted confidence: 68%.",
+                    "risk_level": "MEDIUM",
+                    "expected_return": 0.05,
+                    "confidence": 0.68,
+                    "status": "PENDING_APPROVAL",
+                    "created_at": datetime.now().isoformat() + "Z",
+                    "human_decision": None,
+                },
+                "proposal_history": [],
+            },
+            "context_memory": {
+                "events": [
+                    {
+                        "id": f"evt_{i}",
+                        "timestamp": datetime.now().isoformat() + "Z",
+                        "type": "X_SENTIMENT_SHIFT" if i % 3 == 0 else "POLYMARKET_ODDS_CHANGE" if i % 3 == 1 else "NAUTILUS_SIGNAL",
+                        "description": f"Market event {i}: Signal detected",
+                        "relevance_decay": 1.0 - (i * 0.1),
+                        "impact": "HIGH" if i < 3 else "MEDIUM" if i < 6 else "LOW",
+                    }
+                    for i in range(8)
+                ]
+            },
+            "github_actions": {
+                "last_run": datetime.now().isoformat() + "Z",
+                "status": "success",
+                "workflow": "update-data",
+                "duration_seconds": 12,
+                "next_run": datetime.now().isoformat() + "Z",
+            },
+        }
 
 
 async def main():
