@@ -34,11 +34,6 @@ import {
 } from "./components/DemoControls";
 import { PerformanceMetrics } from "./components/PerformanceMetrics";
 import { RustPerformanceComparison } from "./components/RustPerformanceComparison";
-import {
-  AttentionWeightsCard,
-  QuickStatsCard,
-} from "./components/DashboardEnhancements";
-import DataSourceBadge from "./components/DataSourceBadge";
 
 function App() {
   const {
@@ -51,15 +46,6 @@ function App() {
   } = useDataPolling();
   const [agentThinking, setAgentThinking] = useState(false);
   const [demoThoughts, setDemoThoughts] = useState([]);
-  const [historyStats, setHistoryStats] = useState(null);
-
-  // Load decision history stats
-  useEffect(() => {
-    fetch("/decision-history.json")
-      .then((res) => res.json())
-      .then((data) => setHistoryStats(data.stats))
-      .catch((err) => console.error("Failed to load history stats:", err));
-  }, []);
 
   // Demo Mode hook
   const {
@@ -191,11 +177,6 @@ function App() {
       {/* Header */}
       <Header data={data} agentThinking={agentThinking} />
 
-      {/* Performance Metrics - 性能指标卡片 */}
-      <div className="mt-6">
-        <PerformanceMetrics data={data} />
-      </div>
-
       {/* Main Bento Grid */}
       <div className="grid grid-cols-12 gap-4 mt-6">
         {/* Agent Thought Log - Main Center */}
@@ -210,46 +191,22 @@ function App() {
 
         {/* Right Column */}
         <div className="col-span-12 lg:col-span-5 space-y-4">
-          {/* Attention Weights */}
-          {data.agent_thoughts?.[0]?.inputs?.weights && (
-            <AttentionWeightsCard
-              weights={data.agent_thoughts[0].inputs.weights}
-            />
-          )}
-
-          {/* Quick Stats */}
-          {historyStats && <QuickStatsCard stats={historyStats} />}
-
           {/* Triangulation Matrix */}
           <TriangulationMatrix matrix={data.triangulation_matrix} />
 
           {/* X Intelligence Feed */}
-          <XIntelligenceFeed
-            signals={data.perception.x_intelligence}
-            dataSource={data.data_sources?.x_intelligence}
-          />
+          <XIntelligenceFeed signals={data.perception.x_intelligence} />
         </div>
 
         {/* Bottom Row */}
         <div className="col-span-12 lg:col-span-7">
-          <PolymarketTracker
-            polymarket={data.perception.polymarket}
-            dataSource={data.data_sources?.polymarket}
-          />
+          <PolymarketTracker polymarket={data.perception.polymarket} />
         </div>
 
         {/* Rust Performance Comparison - 性能对比 */}
         <div className="col-span-12">
           <RustPerformanceComparison data={data} />
         </div>
-
-        {/* Decision Distribution */}
-        {/* TODO: DecisionDistributionCard component is missing */}
-        {/* {historyStats && (
-          <div className="col-span-12 lg:col-span-7">
-            <DecisionDistributionCard stats={historyStats} />
-          </div>
-        )} */}
 
         <div className="col-span-12 lg:col-span-5 space-y-4">
           {/* Strategy Proposal */}
@@ -259,10 +216,7 @@ function App() {
           />
 
           {/* Nautilus Snapshot */}
-          <NautilusSnapshot
-            nautilus={data.perception.nautilus}
-            dataSource={data.data_sources?.nautilus}
-          />
+          <NautilusSnapshot nautilus={data.perception.nautilus} />
         </div>
 
         {/* Context Memory Tracker */}
