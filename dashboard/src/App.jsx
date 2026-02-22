@@ -33,6 +33,7 @@ import { useLiveDataSimulation } from "./hooks/useLiveDataSimulation";
 import { DemoControls, DemoModeToggle } from "./components/DemoControls";
 import { PerformanceMetrics } from "./components/PerformanceMetrics";
 import { RustPerformanceComparison } from "./components/RustPerformanceComparison";
+import DataSourceBadge from "./components/DataSourceBadge";
 
 function App() {
   const {
@@ -171,12 +172,18 @@ function App() {
           <TriangulationMatrix matrix={data.triangulation_matrix} />
 
           {/* X Intelligence Feed */}
-          <XIntelligenceFeed signals={data.perception.x_intelligence} />
+          <XIntelligenceFeed
+            signals={data.perception.x_intelligence}
+            dataSource={data.data_sources?.x_intelligence}
+          />
         </div>
 
         {/* Bottom Row */}
         <div className="col-span-12 lg:col-span-7">
-          <PolymarketTracker polymarket={data.perception.polymarket} />
+          <PolymarketTracker
+            polymarket={data.perception.polymarket}
+            dataSource={data.data_sources?.polymarket}
+          />
         </div>
 
         {/* Rust Performance Comparison - 性能对比 */}
@@ -192,7 +199,10 @@ function App() {
           />
 
           {/* Nautilus Snapshot */}
-          <NautilusSnapshot nautilus={data.perception.nautilus} />
+          <NautilusSnapshot
+            nautilus={data.perception.nautilus}
+            dataSource={data.data_sources?.nautilus}
+          />
         </div>
 
         {/* Context Memory Tracker */}
@@ -500,12 +510,20 @@ function TriangulationMatrix({ matrix }) {
 }
 
 // X Intelligence Feed Component
-function XIntelligenceFeed({ signals }) {
+function XIntelligenceFeed({ signals, dataSource }) {
   return (
     <div className="bento-item h-[400px] flex flex-col">
-      <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
-        <Radio className="w-5 h-5 text-iridyne-green" />X Intelligence Feed
-      </h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-bold flex items-center gap-2">
+          <Radio className="w-5 h-5 text-iridyne-green" />X Intelligence Feed
+        </h2>
+        {dataSource && (
+          <DataSourceBadge
+            type={dataSource.type}
+            source={dataSource.source}
+          />
+        )}
+      </div>
 
       <div className="flex-1 overflow-y-auto custom-scrollbar space-y-2">
         <AnimatePresence>
@@ -562,7 +580,7 @@ function XIntelligenceFeed({ signals }) {
 }
 
 // Polymarket Tracker Component
-function PolymarketTracker({ polymarket }) {
+function PolymarketTracker({ polymarket, dataSource }) {
   const chartData = polymarket.history.map((point) => ({
     time: new Date(point.timestamp).toLocaleTimeString([], {
       hour: "2-digit",
@@ -574,12 +592,20 @@ function PolymarketTracker({ polymarket }) {
   return (
     <div className="bento-item">
       <div className="flex items-center justify-between mb-4">
-        <div>
-          <h2 className="text-lg font-bold flex items-center gap-2">
-            <BarChart3 className="w-5 h-5 text-iridyne-green" />
-            Polymarket Odds Tracker
-          </h2>
-          <p className="text-sm text-text-secondary mt-1">{polymarket.event}</p>
+        <div className="flex items-center gap-3">
+          <div>
+            <h2 className="text-lg font-bold flex items-center gap-2">
+              <BarChart3 className="w-5 h-5 text-iridyne-green" />
+              Polymarket Odds Tracker
+            </h2>
+            <p className="text-sm text-text-secondary mt-1">{polymarket.event}</p>
+          </div>
+          {dataSource && (
+            <DataSourceBadge
+              type={dataSource.type}
+              source={dataSource.source}
+            />
+          )}
         </div>
         <div className="text-right">
           <div className="text-3xl font-mono font-bold text-iridyne-green">
@@ -753,12 +779,20 @@ function StrategyProposal({ proposal, onDecision }) {
 }
 
 // Nautilus Snapshot Component
-function NautilusSnapshot({ nautilus }) {
+function NautilusSnapshot({ nautilus, dataSource }) {
   const pnlPositive = nautilus.daily_pnl > 0;
 
   return (
     <div className="bento-item">
-      <h2 className="text-lg font-bold mb-4">Nautilus Quant Snapshot</h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-bold">Nautilus Quant Snapshot</h2>
+        {dataSource && (
+          <DataSourceBadge
+            type={dataSource.type}
+            source={dataSource.source}
+          />
+        )}
+      </div>
 
       <div className="space-y-3">
         <div>

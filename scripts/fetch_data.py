@@ -141,6 +141,26 @@ async def fetch_and_transform_data() -> Dict[str, Any]:
                 "system_status": "LIVE",
                 "sync_timestamp": datetime.now().isoformat() + "Z",
             },
+            "data_sources": {
+                "polymarket": {
+                    "type": "SIMULATED",
+                    "source": "Decisify API (模拟数据)",
+                    "last_update": datetime.now().isoformat() + "Z",
+                    "status": "active"
+                },
+                "x_intelligence": {
+                    "type": "SIMULATED",
+                    "source": "Decisify API (模拟数据)",
+                    "last_update": datetime.now().isoformat() + "Z",
+                    "status": "active"
+                },
+                "nautilus": {
+                    "type": "SIMULATED",
+                    "source": "Decisify API (模拟数据)",
+                    "last_update": datetime.now().isoformat() + "Z",
+                    "status": "active"
+                }
+            },
             "agent_thoughts": [agent_thought],
             "triangulation_matrix": triangulation,
             "perception": {
@@ -239,6 +259,26 @@ async def fetch_and_transform_data() -> Dict[str, Any]:
                 "total_events_tracked": 42,
                 "system_status": "DEMO",
                 "sync_timestamp": datetime.now().isoformat() + "Z",
+            },
+            "data_sources": {
+                "polymarket": {
+                    "type": "DEMO",
+                    "source": "模拟 Polymarket API",
+                    "last_update": datetime.now().isoformat() + "Z",
+                    "status": "active"
+                },
+                "x_intelligence": {
+                    "type": "DEMO",
+                    "source": "模拟 X/Twitter API",
+                    "last_update": datetime.now().isoformat() + "Z",
+                    "status": "active"
+                },
+                "nautilus": {
+                    "type": "DEMO",
+                    "source": "模拟 Nautilus Trader",
+                    "last_update": datetime.now().isoformat() + "Z",
+                    "status": "active"
+                }
             },
             "agent_thoughts": [
                 {
