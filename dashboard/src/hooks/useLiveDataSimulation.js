@@ -23,6 +23,13 @@ export const useLiveDataSimulation = (
     return Math.max(min, Math.min(max, newValue));
   }, []);
 
+  // Sync initialData changes to simulatedData
+  useEffect(() => {
+    if (initialData) {
+      setSimulatedData(initialData);
+    }
+  }, [initialData]);
+
   // Simulate data changes
   useEffect(() => {
     if (!isActive || !initialData) return;
