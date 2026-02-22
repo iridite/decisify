@@ -30,9 +30,10 @@ import {
 import { useDataPolling } from "./hooks/useDataPolling";
 import { useDemoMode } from "./hooks/useDemoMode";
 import { useLiveDataSimulation } from "./hooks/useLiveDataSimulation";
-import { DemoControls, DemoModeToggle } from "./components/DemoControls";
+import { DemoControls, DemoModeToggle, DemoModeBanner } from "./components/DemoControls";
 import { PerformanceMetrics } from "./components/PerformanceMetrics";
 import { RustPerformanceComparison } from "./components/RustPerformanceComparison";
+import { AttentionWeightsCard, QuickStatsCard } from "./components/DashboardEnhancements";
 import DataSourceBadge from "./components/DataSourceBadge";
 
 function App() {
@@ -46,6 +47,15 @@ function App() {
   } = useDataPolling();
   const [agentThinking, setAgentThinking] = useState(false);
   const [demoThoughts, setDemoThoughts] = useState([]);
+  const [historyStats, setHistoryStats] = useState(null);
+
+  // Load decision history stats
+  useEffect(() => {
+    fetch('/decision-history.json')
+      .then(res => res.json())
+      .then(data => setHistoryStats(data.stats))
+      .catch(err => console.error('Failed to load history stats:', err));
+  }, []);
 
   // Demo Mode hook
   const {
@@ -129,22 +139,30 @@ function App() {
 
   return (
     <div className={`min-h-screen p-4 md:p-6 ${isFullscreen ? 'fixed inset-0 z-50 bg-background' : ''}`}>
-      {/* Demo Mode Toggle - Fixed top-right */}
+      {/* Demo Mode Banner - 顶部横幅 */}
+      <AnimatePresence>
+        {isDemoMode && (
+          <DemoModeBanner onExit={() => setIsDemoMode(false)} />
+        )}
+      </AnimatePresence>
+
+      {/* Demo Mode Toggle - Fixed bottom-right */}
       <DemoModeToggle
         isDemoMode={isDemoMode}
         onToggle={() => setIsDemoMode(!isDemoMode)}
       />
 
       {/* Demo Controls - Show when in demo mode */}
-      {isDemoMode && (
-        <DemoControls
-          isAutoPlay={isAutoPlay}
-          isFullscreen={isFullscreen}
-          demoSpeed={demoSpeed}
-          onToggleAutoPlay={() => setIsAutoPlay(!isAutoPlay)}
-          onToggleFullscreen={toggleFullscreen}
-        />
-      )}
+      <DemoControls
+        isDemoMode={isDemoMode}
+        isAutoPlay={isAutoPlay}
+        isFullscreen={isFullscreen}
+        demoSpeed={demoSpeed}
+        onToggleDemo={() => setIsDemoMode(!isDemoMode)}
+        onToggleAutoPlay={() => setIsAutoPlay(!isAutoPlay)}
+        onToggleFullscreen={toggleFullscreen}
+        onSpeedChange={(speed) => setDemoSpeed(speed)}
+      />
 
       {/* Header */}
       <Header data={data} agentThinking={agentThinking} />
@@ -168,6 +186,16 @@ function App() {
 
         {/* Right Column */}
         <div className="col-span-12 lg:col-span-5 space-y-4">
+          {/* Attention Weights */}
+          {data.agent_thoughts?.[0]?.inputs?.weights && (
+            <AttentionWeightsCard weights={data.agent_thoughts[0].inputs.weights} />
+          )}
+
+          {/* Quick Stats */}
+          {historyStats && (
+            <QuickStatsCard stats={historyStats} />
+          )}
+
           {/* Triangulation Matrix */}
           <TriangulationMatrix matrix={data.triangulation_matrix} />
 
@@ -190,6 +218,13 @@ function App() {
         <div className="col-span-12">
           <RustPerformanceComparison data={data} />
         </div>
+
+        {/* Decision Distribution */}
+        {historyStats && (
+          <div className="col-span-12 lg:col-span-7">
+            <DecisionDistributionCard stats={historyStats} />
+          </div>
+        )}
 
         <div className="col-span-12 lg:col-span-5 space-y-4">
           {/* Strategy Proposal */}
