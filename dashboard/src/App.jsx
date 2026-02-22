@@ -29,13 +29,14 @@ import {
 } from "recharts";
 import { useDataPolling } from "./hooks/useDataPolling";
 import { useDemoMode } from "./hooks/useDemoMode";
+import { useLiveDataSimulation } from "./hooks/useLiveDataSimulation";
 import { DemoControls, DemoModeToggle } from "./components/DemoControls";
 import { PerformanceMetrics } from "./components/PerformanceMetrics";
 import { RustPerformanceComparison } from "./components/RustPerformanceComparison";
 
 function App() {
   const {
-    data,
+    data: rawData,
     newThoughts,
     isLoading,
     error,
@@ -56,6 +57,12 @@ function App() {
     toggleFullscreen,
     generateDemoThought,
   } = useDemoMode();
+
+  // Live data simulation - only active in demo mode
+  const simulatedData = useLiveDataSimulation(rawData, isDemoMode, demoSpeed);
+
+  // Use simulated data in demo mode, otherwise use raw data
+  const data = isDemoMode ? simulatedData : rawData;
 
   // Simulate "agent is thinking" state when new data arrives
   useEffect(() => {
@@ -812,6 +819,14 @@ function NautilusSnapshot({ nautilus }) {
 
 // Context Memory Component
 function ContextMemory({ events }) {
+  // Format event type for display
+  const formatEventType = (type) => {
+    return type
+      .split('_')
+      .map(word => word.charAt(0) + word.slice(1).toLowerCase())
+      .join(' ');
+  };
+
   return (
     <div className="bento-item">
       <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
@@ -840,7 +855,7 @@ function ContextMemory({ events }) {
             className="p-3 rounded bg-border-subtle/20"
             style={{ opacity: event.relevance_decay }}
           >
-            <div className="text-xs text-text-secondary mb-1">{event.type}</div>
+            <div className="text-xs text-text-secondary mb-1">{formatEventType(event.type)}</div>
             <div className="text-xs leading-tight">{event.description}</div>
             <div className="text-xs text-text-secondary mt-1">
               {new Date(event.timestamp).toLocaleTimeString()}

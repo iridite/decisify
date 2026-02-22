@@ -49,6 +49,22 @@ export const useDataPolling = (pollInterval = 2000) => {
         throw new Error("Invalid data structure: missing agent_thoughts");
       }
 
+      // Update sync_timestamp to current time for demo mode
+      if (newData.meta) {
+        newData.meta.sync_timestamp = new Date().toISOString();
+      }
+
+      // Restore user decisions from localStorage
+      if (newData.execution?.current_proposal) {
+        const proposalId = newData.execution.current_proposal.id;
+        const savedDecision = localStorage.getItem(`proposal_${proposalId}_decision`);
+        if (savedDecision) {
+          newData.execution.current_proposal.human_decision = savedDecision;
+          newData.execution.current_proposal.status =
+            savedDecision === "approved" ? "EXECUTING" : "REJECTED";
+        }
+      }
+
       // Detect new thoughts
       if (data && data.agent_thoughts) {
         const currentLastId = data.agent_thoughts[0]?.id;
@@ -153,6 +169,9 @@ export const useDataPolling = (pollInterval = 2000) => {
         },
       },
     }));
+
+    // Store the decision in a separate state to persist across polling
+    localStorage.setItem(`proposal_${proposalId}_decision`, decision);
   }, []);
 
   return {
