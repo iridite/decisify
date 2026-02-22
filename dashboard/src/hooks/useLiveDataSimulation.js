@@ -172,7 +172,7 @@ export const useLiveDataSimulation = (
     }, 1200 / speed); // Faster interval for more visible updates
 
     return () => clearInterval(interval);
-  }, [isActive, speed, randomWalk, initialData]);
+  }, [isActive, speed, randomWalk]);
 
   return simulatedData;
 };
