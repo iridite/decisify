@@ -31,6 +31,7 @@ dev = [
     "pytest-cov>=4.1.0",
     "ruff>=0.1.0",
     "mypy>=1.6.0",
+    "bandit>=1.7.0",
 ]
 
 [tool.setuptools]
@@ -110,4 +111,4 @@ ignore_missing_imports = true
 
 [tool.bandit]
 exclude_dirs = ["tests", "benchmarks", ".venv", "venv"]
-skips = ["B101"]  # Skip assert_used check (needed for tests)
+skips = ["B101", "B311", "B104"]  # Skip assert_used, random (for mock data), and bind_all_interfaces

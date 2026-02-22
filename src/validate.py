@@ -35,8 +35,8 @@ async def test_attention_fusion():
     # Test 2: All null signals (edge case)
     print("Test 2: All null signals (edge case)")
     null_signals = {
-        "source1": Signal(source="source1", value=0.0),
-        "source2": Signal(source="source2", value=0.0),
+        "source1": Signal(source="source1", value=0.0, raw_content=None),
+        "source2": Signal(source="source2", value=0.0, raw_content=None),
     }
     decision = brain.decide(null_signals)
     print(f"  Action: {decision.action}")
@@ -77,10 +77,12 @@ def test_safety_gate():
         action="BUY",
         reasoning="Strong positive sentiment",
         is_safe=True,
+        override_reason=None,
+        explanation=None,
     )
     signals = {
-        "sentiment": Signal(source="sentiment", value=0.8),
-        "price_volatility": Signal(source="price_volatility", value=0.08),  # 8% > 5%
+        "sentiment": Signal(source="sentiment", value=0.8, raw_content=None),
+        "price_volatility": Signal(source="price_volatility", value=0.08, raw_content=None),  # 8% > 5%
     }
     validated = gate.validate(decision, signals)
     print(f"  Original action: {decision.action}")
@@ -98,10 +100,12 @@ def test_safety_gate():
         action="BUY",
         reasoning="Strong signal",
         is_safe=True,
+        override_reason=None,
+        explanation=None,
     )
     signals = {
-        "sentiment": Signal(source="sentiment", value=0.8),
-        "price_volatility": Signal(source="price_volatility", value=0.02),  # 2% < 5%
+        "sentiment": Signal(source="sentiment", value=0.8, raw_content=None),
+        "price_volatility": Signal(source="price_volatility", value=0.02, raw_content=None),  # 2% < 5%
     }
     validated = gate.validate(decision, signals)
     print(f"  Action: {validated.action}")
@@ -117,6 +121,8 @@ def test_safety_gate():
         action="BUY",
         reasoning="Weak signal",
         is_safe=True,
+        override_reason=None,
+        explanation=None,
     )
     # Create a decision with low max weight (unused but kept for reference)
     _ = DecisionChain(
@@ -124,8 +130,10 @@ def test_safety_gate():
         action="BUY",
         reasoning="Weak signal",
         is_safe=True,
+        override_reason=None,
+        explanation=None,
     )
-    signals = {"s1": Signal(source="s1", value=0.1)}
+    signals = {"s1": Signal(source="s1", value=0.1, raw_content=None)}
 
     # Actually test with a decision that has max weight < 0.15
     test_decision = DecisionChain(
@@ -133,6 +141,8 @@ def test_safety_gate():
         action="BUY",
         reasoning="Test",
         is_safe=True,
+        override_reason=None,
+        explanation=None,
     )
     # Let's create one that will actually fail
     test_decision = DecisionChain(
@@ -149,6 +159,8 @@ def test_safety_gate():
         action="BUY",
         reasoning="Test",
         is_safe=True,
+        override_reason=None,
+        explanation=None,
     )
     validated = gate.validate(test_decision, signals)
     print(f"  Max weight: {max(test_decision.weights.values()):.2f}")

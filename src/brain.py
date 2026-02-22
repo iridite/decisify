@@ -61,6 +61,7 @@ class AttentionFusionEngine:
             reasoning=reasoning,
             is_safe=True,  # Will be validated by SafetyGate
             override_reason=None,
+            explanation=None,
         )
 
     def _calculate_scores(self, signals: Dict[str, Signal]) -> Dict[str, float]:
@@ -235,4 +236,5 @@ class AttentionFusionEngine:
             reasoning="All signals null or unavailable - defaulting to neutral state",
             is_safe=True,
             override_reason=None,
+            explanation=None,
         )

@@ -91,6 +91,7 @@ class HybridAttentionEngine:
             reasoning=reasoning,
             is_safe=True,
             override_reason=None,
+            explanation=None,
         )
 
     def _decide_python(self, signals: Dict[str, Signal]) -> DecisionChain:
@@ -119,6 +120,7 @@ class HybridAttentionEngine:
             reasoning=reasoning,
             is_safe=True,
             override_reason=None,
+            explanation=None,
         )
 
     def _calculate_scores_python(self, signals: Dict[str, Signal]) -> Dict[str, float]:
@@ -190,6 +192,7 @@ class HybridAttentionEngine:
             reasoning="All signals null or unavailable - defaulting to neutral state",
             is_safe=True,
             override_reason=None,
+            explanation=None,
         )
 
 

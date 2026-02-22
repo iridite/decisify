@@ -119,6 +119,7 @@ class SafetyGate:
             reasoning=original.reasoning,
             is_safe=False,  # Mark as unsafe (overridden)
             override_reason=reason,
+            explanation=original.explanation,
         )
 
     def log_decision(self, decision: DecisionChain) -> None:
