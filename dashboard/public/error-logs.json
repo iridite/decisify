@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "generated_at": "2026-02-22T09:07:43.334Z",
+    "time_range_hours": 24,
+    "total_errors": 29
+  },
+  "stats": {
+    "total_errors": 29,
+    "resolved_errors": 17,
+    "resolution_rate": 58.6,
+    "errors_by_severity": {
+      "ERROR": 15,
+      "WARNING": 11,
+      "INFO": 3
+    },
+    "errors_by_type": {
+      "ATTENTION_WEIGHT_ANOMALY": 8,
+      "SENSOR_TIMEOUT": 9,
+      "EXECUTION_FAILURE": 7,
+      "SAFETY_GATE_TRIGGERED": 3,
+      "DATA_QUALITY_ISSUE": 2
+    },
+    "errors_last_24h": 29,
+    "avg_resolution_time_minutes": 6
+  },
+  "errors": [
+    {
+      "id": "error_1771754203333_pseoexvdt",
+      "timestamp": "2026-02-22T09:56:43.333Z",
+      "type": "ATTENTION_WEIGHT_ANOMALY",
+      "severity": "ERROR",
+      "source": "attention_mechanism",
+      "message": "Attention weight overflow: attention_mechanism > 1.0",
+      "resolved": true,
+      "resolution": "System reset completed",
+      "impact": "Decision aborted, system reset required"
+    },
+    {
+      "id": "error_1771753483333_ihz6ufqkn",
+      "timestamp": "2026-02-22T09:44:43.333Z",
+      "type": "SENSOR_TIMEOUT",
+      "severity": "WARNING",
+      "source": "x_intelligence",
+      "message": "Sensor timeout: x_intelligence failed to respond within 5s",
+      "resolved": true,
+      "resolution": "Switched to backup x_intelligence endpoint",
+      "impact": "Decision delayed by 2-5s, fallback to cached data"
+    },
+    {
+      "id": "error_1771749163333_i12ciwk0e",
+      "timestamp": "2026-02-22T08:32:43.333Z",
+      "type": "EXECUTION_FAILURE",
+      "severity": "ERROR",
+      "source": "nautilus_trader",
+      "message": "Market closed: nautilus_trader cannot execute",
+      "resolved": true,
+      "resolution": "nautilus_trader connection restored",
+      "impact": "Trade not executed, position unchanged"
+    },
+    {
+      "id": "error_1771748443333_dg2r8epmn",
+      "timestamp": "2026-02-22T08:20:43.333Z",
+      "type": "SENSOR_TIMEOUT",
+      "severity": "WARNING",
+      "source": "polymarket",
+      "message": "No response from polymarket after 3 retries",
+      "resolved": true,
+      "resolution": "Used cached polymarket data from 30s ago",
+      "impact": "Decision delayed by 2-5s, fallback to cached data"
+    },
+    {
+      "id": "error_1771743163333_c09nhfyj4",
+      "timestamp": "2026-02-22T06:52:43.333Z",
+      "type": "ATTENTION_WEIGHT_ANOMALY",
+      "severity": "ERROR",
+      "source": "attention_mechanism",
+      "message": "Attention weights sum != 1.0 (sum=0.967)",
+      "resolved": true,
+      "resolution": "System reset completed",
+      "impact": "Decision aborted, system reset required"
+    },
+    {
+      "id": "error_1771741003333_jjag9m90u",
+      "timestamp": "2026-02-22T06:16:43.333Z",
+      "type": "SAFETY_GATE_TRIGGERED",
+      "severity": "INFO",
+      "source": "correlation_check",
+      "message": "Safety Gate blocked: correlation_check threshold exceeded",
+      "resolved": true,
+      "resolution": "Volatility decreased below threshold, gate cleared",
+      "impact": "Proposed action blocked, no trade executed"
+    },
+    {
+      "id": "error_1771738783333_02qzmqoyc",
+      "timestamp": "2026-02-22T05:39:43.333Z",
+      "type": "SENSOR_TIMEOUT",
+      "severity": "WARNING",
+      "source": "x_intelligence",
+      "message": "No response from x_intelligence after 3 retries",
+      "resolved": true,
+      "resolution": "Switched to backup x_intelligence endpoint",
+      "impact": "Decision delayed by 2-5s, fallback to cached data"
+    },
+    {
+      "id": "error_1771730563333_1qcv8y38m",
+      "timestamp": "2026-02-22T03:22:43.333Z",
+      "type": "ATTENTION_WEIGHT_ANOMALY",
+      "severity": "ERROR",
+      "source": "attention_mechanism",
+      "message": "Attention weight overflow: attention_mechanism > 1.0",
+      "resolved": true,
+      "resolution": "Weights renormalized successfully",
+      "impact": "Decision aborted, system reset required"
+    },
+    {
+      "id": "error_1771726123333_ex2ndev0d",
+      "timestamp": "2026-02-22T02:08:43.333Z",
+      "type": "EXECUTION_FAILURE",
+      "severity": "ERROR",
+      "source": "nautilus_trader",
+      "message": "Market closed: nautilus_trader cannot execute",
+      "resolved": true,
+      "resolution": "nautilus_trader connection restored",
+      "impact": "Trade not executed, position unchanged"
+    },
+    {
+      "id": "error_1771725883333_z1emdpa1d",
+      "timestamp": "2026-02-22T02:04:43.333Z",
+      "type": "SENSOR_TIMEOUT",
+      "severity": "WARNING",
+      "source": "polymarket",
+      "message": "Connection timeout to polymarket API",
+      "resolved": false,
+      "resolution": null,
+      "impact": "Decision delayed by 2-5s, fallback to cached data"
+    },
+    {
+      "id": "error_1771724983333_p5hkxiiif",
+      "timestamp": "2026-02-22T01:49:43.333Z",
+      "type": "EXECUTION_FAILURE",
+      "severity": "ERROR",
+      "source": "nautilus_trader",
+      "message": "Order execution failed: nautilus_trader rejected trade",
+      "resolved": false,
+      "resolution": null,
+      "impact": "Trade not executed, position unchanged"
+    },
+    {
+      "id": "error_1771720423333_puconzw49",
+      "timestamp": "2026-02-22T00:33:43.333Z",
+      "type": "DATA_QUALITY_ISSUE",
+      "severity": "WARNING",
+      "source": "nautilus",
+      "message": "Stale data detected from nautilus (>10min old)",
+      "resolved": false,
+      "resolution": null,
+      "impact": "Reduced confidence score by 10-20%"
+    },
+    {
+      "id": "error_1771720363333_jc6je8qmi",
+      "timestamp": "2026-02-22T00:32:43.333Z",
+      "type": "ATTENTION_WEIGHT_ANOMALY",
+      "severity": "ERROR",
+      "source": "attention_mechanism",
+      "message": "Attention weights sum != 1.0 (sum=0.961)",
+      "resolved": true,
+      "resolution": "Attention mechanism reinitialized",
+      "impact": "Decision aborted, system reset required"
+    },
+    {
+      "id": "error_1771716103333_2oxufg64l",
+      "timestamp": "2026-02-21T23:21:43.333Z",
+      "type": "SAFETY_GATE_TRIGGERED",
+      "severity": "INFO",
+      "source": "correlation_check",
+      "message": "Risk control activated: correlation_check triggered",
+      "resolved": false,
+      "resolution": null,
+      "impact": "Proposed action blocked, no trade executed"
+    },
+    {
+      "id": "error_1771716103333_y2ua6f74i",
+      "timestamp": "2026-02-21T23:21:43.333Z",
+      "type": "SENSOR_TIMEOUT",
+      "severity": "WARNING",
+      "source": "x_intelligence",
+      "message": "Connection timeout to x_intelligence API",
+      "resolved": true,
+      "resolution": "Switched to backup x_intelligence endpoint",
+      "impact": "Decision delayed by 2-5s, fallback to cached data"
+    },
+    {
+      "id": "error_1771714063333_x1cgkfnmh",
+      "timestamp": "2026-02-21T22:47:43.333Z",
+      "type": "ATTENTION_WEIGHT_ANOMALY",
+      "severity": "ERROR",
+      "source": "attention_mechanism",
+      "message": "Negative attention weight detected for attention_mechanism",
+      "resolved": false,
+      "resolution": null,
+      "impact": "Decision aborted, system reset required"
+    },
+    {
+      "id": "error_1771712743333_c1d6epqb3",
+      "timestamp": "2026-02-21T22:25:43.333Z",
+      "type": "SENSOR_TIMEOUT",
+      "severity": "WARNING",
+      "source": "x_intelligence",
+      "message": "Connection timeout to x_intelligence API",
+      "resolved": true,
+      "resolution": "Switched to backup x_intelligence endpoint",
+      "impact": "Decision delayed by 2-5s, fallback to cached data"
+    },
+    {
+      "id": "error_1771709083333_e995mrgcm",
+      "timestamp": "2026-02-21T21:24:43.333Z",
+      "type": "SAFETY_GATE_TRIGGERED",
+      "severity": "INFO",
+      "source": "volatility_check",
+      "message": "Risk control activated: volatility_check triggered",
+      "resolved": true,
+      "resolution": "Confidence improved to acceptable level",
+      "impact": "Proposed action blocked, no trade executed"
+    },
+    {
+      "id": "error_1771705603333_b6jhfnho7",
+      "timestamp": "2026-02-21T20:26:43.333Z",
+      "type": "EXECUTION_FAILURE",
+      "severity": "ERROR",
+      "source": "nautilus_trader",
+      "message": "Market closed: nautilus_trader cannot execute",
+      "resolved": true,
+      "resolution": "nautilus_trader connection restored",
+      "impact": "Trade not executed, position unchanged"
+    },
+    {
+      "id": "error_1771704883333_7v4kq9ak0",
+      "timestamp": "2026-02-21T20:14:43.333Z",
+      "type": "EXECUTION_FAILURE",
+      "severity": "ERROR",
+      "source": "nautilus_trader",
+      "message": "Order execution failed: nautilus_trader rejected trade",
+      "resolved": false,
+      "resolution": null,
+      "impact": "Trade not executed, position unchanged"
+    },
+    {
+      "id": "error_1771699243333_f3yr988qw",
+      "timestamp": "2026-02-21T18:40:43.333Z",
+      "type": "EXECUTION_FAILURE",
+      "severity": "ERROR",
+      "source": "nautilus_trader",
+      "message": "Order execution failed: nautilus_trader rejected trade",
+      "resolved": false,
+      "resolution": null,
+      "impact": "Trade not executed, position unchanged"
+    },
+    {
+      "id": "error_1771699003333_l5780yihw",
+      "timestamp": "2026-02-21T18:36:43.333Z",
+      "type": "SENSOR_TIMEOUT",
+      "severity": "WARNING",
+      "source": "nautilus",
+      "message": "Connection timeout to nautilus API",
+      "resolved": true,
+      "resolution": "Used cached nautilus data from 30s ago",
+      "impact": "Decision delayed by 2-5s, fallback to cached data"
+    },
+    {
+      "id": "error_1771689283333_f30b260ij",
+      "timestamp": "2026-02-21T15:54:43.333Z",
+      "type": "ATTENTION_WEIGHT_ANOMALY",
+      "severity": "ERROR",
+      "source": "attention_mechanism",
+      "message": "Attention weights sum != 1.0 (sum=1.051)",
+      "resolved": false,
+      "resolution": null,
+      "impact": "Decision aborted, system reset required"
+    },
+    {
+      "id": "error_1771686403333_io9sy8d29",
+      "timestamp": "2026-02-21T15:06:43.333Z",
+      "type": "DATA_QUALITY_ISSUE",
+      "severity": "WARNING",
+      "source": "nautilus",
+      "message": "Anomaly detected in nautilus signal",
+      "resolved": false,
+      "resolution": null,
+      "impact": "Reduced confidence score by 10-20%"
+    },
+    {
+      "id": "error_1771681123333_tjf8gt7u9",
+      "timestamp": "2026-02-21T13:38:43.333Z",
+      "type": "SENSOR_TIMEOUT",
+      "severity": "WARNING",
+      "source": "x_intelligence",
+      "message": "Sensor timeout: x_intelligence failed to respond within 5s",
+      "resolved": false,
+      "resolution": null,
+      "impact": "Decision delayed by 2-5s, fallback to cached data"
+    },
+    {
+      "id": "error_1771679743333_8y6j6hp39",
+      "timestamp": "2026-02-21T13:15:43.333Z",
+      "type": "SENSOR_TIMEOUT",
+      "severity": "WARNING",
+      "source": "nautilus",
+      "message": "Sensor timeout: nautilus failed to respond within 5s",
+      "resolved": false,
+      "resolution": null,
+      "impact": "Decision delayed by 2-5s, fallback to cached data"
+    },
+    {
+      "id": "error_1771678603333_zi8pibl5y",
+      "timestamp": "2026-02-21T12:56:43.333Z",
+      "type": "ATTENTION_WEIGHT_ANOMALY",
+      "severity": "ERROR",
+      "source": "attention_mechanism",
+      "message": "Negative attention weight detected for attention_mechanism",
+      "resolved": true,
+      "resolution": "System reset completed",
+      "impact": "Decision aborted, system reset required"
+    },
+    {
+      "id": "error_1771677763333_j2ejorrg4",
+      "timestamp": "2026-02-21T12:42:43.333Z",
+      "type": "EXECUTION_FAILURE",
+      "severity": "ERROR",
+      "source": "nautilus_trader",
+      "message": "Order execution failed: nautilus_trader rejected trade",
+      "resolved": false,
+      "resolution": null,
+      "impact": "Trade not executed, position unchanged"
+    },
+    {
+      "id": "error_1771675183333_mar39p4gy",
+      "timestamp": "2026-02-21T11:59:43.333Z",
+      "type": "ATTENTION_WEIGHT_ANOMALY",
+      "severity": "ERROR",
+      "source": "attention_mechanism",
+      "message": "Attention weights sum != 1.0 (sum=1.012)",
+      "resolved": true,
+      "resolution": "System reset completed",
+      "impact": "Decision aborted, system reset required"
+    }
+  ]
+}

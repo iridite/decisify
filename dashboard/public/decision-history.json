@@ -1,0 +1,384 @@
+{
+  "meta": {
+    "generated_at": "2026-02-22T09:05:15.055Z",
+    "time_range_days": 7,
+    "total_decisions": 18
+  },
+  "stats": {
+    "total_decisions": 18,
+    "success_rate": 77.8,
+    "decisions_by_action": {
+      "BUY": 3,
+      "SELL": 6,
+      "HOLD": 9
+    },
+    "total_pnl": 4180.5,
+    "avg_confidence": 0.72,
+    "safety_gate_triggered": 4,
+    "human_approved": 2,
+    "human_rejected": 1,
+    "avg_execution_time_ms": 31.8
+  },
+  "decisions": [
+    {
+      "id": "decision_1771767795054",
+      "timestamp": "2026-02-22T13:43:15.054Z",
+      "action": "HOLD",
+      "confidence": 0.58,
+      "event_type": "NAUTILUS_SIGNAL_CHANGE",
+      "reasoning": "Market uncertainty elevated. nautilus signal change shows conflicting data. HOLD position at 58% confidence.",
+      "attention_weights": {
+        "polymarket": 0.36,
+        "x_sentiment": 0.55,
+        "nautilus": 0.23
+      },
+      "outcome": {
+        "status": "SUCCESS",
+        "pnl": 533.8,
+        "execution_time_ms": 13
+      },
+      "human_decision": "approved",
+      "safety_gate_triggered": false
+    },
+    {
+      "id": "decision_1771700055054",
+      "timestamp": "2026-02-21T18:54:15.054Z",
+      "action": "SELL",
+      "confidence": 0.7,
+      "event_type": "NAUTILUS_SIGNAL_CHANGE",
+      "reasoning": "Bearish indicators detected. Polymarket odds declining, X sentiment negative. Recommending SELL with 70% confidence.",
+      "attention_weights": {
+        "polymarket": 0.32,
+        "x_sentiment": 0.48,
+        "nautilus": 0.27
+      },
+      "outcome": {
+        "status": "SUCCESS",
+        "pnl": 261.77,
+        "execution_time_ms": 27
+      },
+      "human_decision": "rejected",
+      "safety_gate_triggered": false
+    },
+    {
+      "id": "decision_1771659975054",
+      "timestamp": "2026-02-21T07:46:15.054Z",
+      "action": "SELL",
+      "confidence": 0.88,
+      "event_type": "VOLATILITY_SPIKE",
+      "reasoning": "Risk signals elevated. volatility spike suggests downward pressure. SELL signal at 88% confidence.",
+      "attention_weights": {
+        "polymarket": 0.66,
+        "x_sentiment": 0.2,
+        "nautilus": 0.35
+      },
+      "outcome": {
+        "status": "SUCCESS",
+        "pnl": 142.02,
+        "execution_time_ms": 33
+      },
+      "human_decision": null,
+      "safety_gate_triggered": false
+    },
+    {
+      "id": "decision_1771617855054",
+      "timestamp": "2026-02-20T20:04:15.054Z",
+      "action": "HOLD",
+      "confidence": 0.75,
+      "event_type": "VOLATILITY_SPIKE",
+      "reasoning": "Market uncertainty elevated. volatility spike shows conflicting data. HOLD position at 75% confidence.",
+      "attention_weights": {
+        "polymarket": 0.66,
+        "x_sentiment": 0.47,
+        "nautilus": 0.29
+      },
+      "outcome": {
+        "status": "SUCCESS",
+        "pnl": 204.87,
+        "execution_time_ms": 27
+      },
+      "human_decision": null,
+      "safety_gate_triggered": false
+    },
+    {
+      "id": "decision_1771603755054",
+      "timestamp": "2026-02-20T16:09:15.054Z",
+      "action": "HOLD",
+      "confidence": 0.83,
+      "event_type": "CORRELATION_BREAK",
+      "reasoning": "Waiting for clearer signal. Current data inconclusive. HOLD recommendation with 83% confidence.",
+      "attention_weights": {
+        "polymarket": 0.5,
+        "x_sentiment": 0.39,
+        "nautilus": 0.22
+      },
+      "outcome": {
+        "status": "SUCCESS",
+        "pnl": 349.84,
+        "execution_time_ms": 57
+      },
+      "human_decision": null,
+      "safety_gate_triggered": false
+    },
+    {
+      "id": "decision_1771594635054",
+      "timestamp": "2026-02-20T13:37:15.054Z",
+      "action": "SELL",
+      "confidence": 0.53,
+      "event_type": "X_SENTIMENT_SHIFT",
+      "reasoning": "Market divergence detected. Nautilus signal bearish, sentiment weakening. SELL recommendation with 53% confidence.",
+      "attention_weights": {
+        "polymarket": 0.21,
+        "x_sentiment": 0.48,
+        "nautilus": 0.27
+      },
+      "outcome": {
+        "status": "FAILED",
+        "pnl": -257.32,
+        "execution_time_ms": 37
+      },
+      "human_decision": null,
+      "safety_gate_triggered": true
+    },
+    {
+      "id": "decision_1771550535054",
+      "timestamp": "2026-02-20T01:22:15.054Z",
+      "action": "BUY",
+      "confidence": 0.53,
+      "event_type": "POLYMARKET_ODDS_SHIFT",
+      "reasoning": "Strong bullish signal detected. Polymarket odds increased by 5.8%, X sentiment positive (0.48). Recommending BUY with 53% confidence.",
+      "attention_weights": {
+        "polymarket": 0.24,
+        "x_sentiment": 0.26,
+        "nautilus": 0.28
+      },
+      "outcome": {
+        "status": "SUCCESS",
+        "pnl": 464.44,
+        "execution_time_ms": 54
+      },
+      "human_decision": null,
+      "safety_gate_triggered": true
+    },
+    {
+      "id": "decision_1771518075054",
+      "timestamp": "2026-02-19T16:21:15.054Z",
+      "action": "SELL",
+      "confidence": 0.61,
+      "event_type": "POLYMARKET_ODDS_SHIFT",
+      "reasoning": "Risk signals elevated. polymarket odds shift suggests downward pressure. SELL signal at 61% confidence.",
+      "attention_weights": {
+        "polymarket": 0.67,
+        "x_sentiment": 0.39,
+        "nautilus": 0.38
+      },
+      "outcome": {
+        "status": "SUCCESS",
+        "pnl": 210.24,
+        "execution_time_ms": 11
+      },
+      "human_decision": "approved",
+      "safety_gate_triggered": false
+    },
+    {
+      "id": "decision_1771506075054",
+      "timestamp": "2026-02-19T13:01:15.054Z",
+      "action": "HOLD",
+      "confidence": 0.85,
+      "event_type": "VOLATILITY_SPIKE",
+      "reasoning": "Market uncertainty elevated. volatility spike shows conflicting data. HOLD position at 85% confidence.",
+      "attention_weights": {
+        "polymarket": 0.51,
+        "x_sentiment": 0.41,
+        "nautilus": 0.38
+      },
+      "outcome": {
+        "status": "SUCCESS",
+        "pnl": 594.68,
+        "execution_time_ms": 23
+      },
+      "human_decision": null,
+      "safety_gate_triggered": false
+    },
+    {
+      "id": "decision_1771434255054",
+      "timestamp": "2026-02-18T17:04:15.054Z",
+      "action": "HOLD",
+      "confidence": 0.64,
+      "event_type": "CORRELATION_BREAK",
+      "reasoning": "Mixed signals detected. Insufficient confidence for directional trade. Recommending HOLD with 64% confidence.",
+      "attention_weights": {
+        "polymarket": 0.55,
+        "x_sentiment": 0.38,
+        "nautilus": 0.35
+      },
+      "outcome": {
+        "status": "SUCCESS",
+        "pnl": 135.44,
+        "execution_time_ms": 50
+      },
+      "human_decision": null,
+      "safety_gate_triggered": false
+    },
+    {
+      "id": "decision_1771430415054",
+      "timestamp": "2026-02-18T16:00:15.054Z",
+      "action": "HOLD",
+      "confidence": 0.86,
+      "event_type": "NAUTILUS_SIGNAL_CHANGE",
+      "reasoning": "Market uncertainty elevated. nautilus signal change shows conflicting data. HOLD position at 86% confidence.",
+      "attention_weights": {
+        "polymarket": 0.49,
+        "x_sentiment": 0.46,
+        "nautilus": 0.13
+      },
+      "outcome": {
+        "status": "FAILED",
+        "pnl": -75.01,
+        "execution_time_ms": 49
+      },
+      "human_decision": null,
+      "safety_gate_triggered": false
+    },
+    {
+      "id": "decision_1771358235054",
+      "timestamp": "2026-02-17T19:57:15.054Z",
+      "action": "HOLD",
+      "confidence": 0.57,
+      "event_type": "VOLATILITY_SPIKE",
+      "reasoning": "Market uncertainty elevated. volatility spike shows conflicting data. HOLD position at 57% confidence.",
+      "attention_weights": {
+        "polymarket": 0.37,
+        "x_sentiment": 0.23,
+        "nautilus": 0.31
+      },
+      "outcome": {
+        "status": "SUCCESS",
+        "pnl": 336.71,
+        "execution_time_ms": 19
+      },
+      "human_decision": null,
+      "safety_gate_triggered": false
+    },
+    {
+      "id": "decision_1771340895054",
+      "timestamp": "2026-02-17T15:08:15.054Z",
+      "action": "SELL",
+      "confidence": 0.87,
+      "event_type": "NAUTILUS_SIGNAL_CHANGE",
+      "reasoning": "Bearish indicators detected. Polymarket odds declining, X sentiment negative. Recommending SELL with 87% confidence.",
+      "attention_weights": {
+        "polymarket": 0.42,
+        "x_sentiment": 0.43,
+        "nautilus": 0.26
+      },
+      "outcome": {
+        "status": "SUCCESS",
+        "pnl": 380.03,
+        "execution_time_ms": 30
+      },
+      "human_decision": null,
+      "safety_gate_triggered": false
+    },
+    {
+      "id": "decision_1771284015054",
+      "timestamp": "2026-02-16T23:20:15.054Z",
+      "action": "SELL",
+      "confidence": 0.85,
+      "event_type": "POLYMARKET_ODDS_SHIFT",
+      "reasoning": "Market divergence detected. Nautilus signal bearish, sentiment weakening. SELL recommendation with 85% confidence.",
+      "attention_weights": {
+        "polymarket": 0.35,
+        "x_sentiment": 0.54,
+        "nautilus": 0.21
+      },
+      "outcome": {
+        "status": "SUCCESS",
+        "pnl": 403.92,
+        "execution_time_ms": 14
+      },
+      "human_decision": null,
+      "safety_gate_triggered": false
+    },
+    {
+      "id": "decision_1771274955054",
+      "timestamp": "2026-02-16T20:49:15.054Z",
+      "action": "BUY",
+      "confidence": 0.76,
+      "event_type": "NAUTILUS_SIGNAL_CHANGE",
+      "reasoning": "Strong bullish signal detected. Polymarket odds increased by 4.2%, X sentiment positive (0.68). Recommending BUY with 76% confidence.",
+      "attention_weights": {
+        "polymarket": 0.33,
+        "x_sentiment": 0.42,
+        "nautilus": 0.18
+      },
+      "outcome": {
+        "status": "SUCCESS",
+        "pnl": 572.53,
+        "execution_time_ms": 29
+      },
+      "human_decision": null,
+      "safety_gate_triggered": false
+    },
+    {
+      "id": "decision_1771240275054",
+      "timestamp": "2026-02-16T11:11:15.054Z",
+      "action": "HOLD",
+      "confidence": 0.61,
+      "event_type": "NAUTILUS_SIGNAL_CHANGE",
+      "reasoning": "Waiting for clearer signal. Current data inconclusive. HOLD recommendation with 61% confidence.",
+      "attention_weights": {
+        "polymarket": 0.34,
+        "x_sentiment": 0.53,
+        "nautilus": 0.14
+      },
+      "outcome": {
+        "status": "FAILED",
+        "pnl": -327.06,
+        "execution_time_ms": 27
+      },
+      "human_decision": null,
+      "safety_gate_triggered": true
+    },
+    {
+      "id": "decision_1771213155054",
+      "timestamp": "2026-02-16T03:39:15.054Z",
+      "action": "HOLD",
+      "confidence": 0.62,
+      "event_type": "CORRELATION_BREAK",
+      "reasoning": "Mixed signals detected. Insufficient confidence for directional trade. Recommending HOLD with 62% confidence.",
+      "attention_weights": {
+        "polymarket": 0.23,
+        "x_sentiment": 0.36,
+        "nautilus": 0.38
+      },
+      "outcome": {
+        "status": "FAILED",
+        "pnl": -56.96,
+        "execution_time_ms": 15
+      },
+      "human_decision": null,
+      "safety_gate_triggered": true
+    },
+    {
+      "id": "decision_1771183815054",
+      "timestamp": "2026-02-15T19:30:15.054Z",
+      "action": "BUY",
+      "confidence": 0.85,
+      "event_type": "CORRELATION_BREAK",
+      "reasoning": "Market momentum turning positive. correlation break indicates upward trend. BUY signal with 85% confidence.",
+      "attention_weights": {
+        "polymarket": 0.41,
+        "x_sentiment": 0.39,
+        "nautilus": 0.29
+      },
+      "outcome": {
+        "status": "SUCCESS",
+        "pnl": 306.56,
+        "execution_time_ms": 57
+      },
+      "human_decision": null,
+      "safety_gate_triggered": false
+    }
+  ]
+}
