@@ -110,6 +110,7 @@ export const useDemoMode = () => {
     demoSpeed,
     setIsDemoMode,
     setIsAutoPlay,
+    setDemoSpeed,
     toggleFullscreen,
     generateDemoThought,
   };

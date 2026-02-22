@@ -4,8 +4,9 @@ on:
   push:
     branches: [main]
     paths:
-      - 'dashboard/**'
-      - '.github/workflows/deploy.yml'
+      - "dashboard/**"
+      - "!dashboard/public/data.json" # Exclude data.json (handled by update-data.yml)
+      - ".github/workflows/deploy.yml"
   workflow_dispatch:
 
 permissions:
@@ -14,7 +15,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: "pages-deploy"
   cancel-in-progress: false
 
 jobs:
@@ -28,8 +29,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
           cache-dependency-path: dashboard/package-lock.json
 
       - name: Install dependencies
@@ -48,7 +49,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dashboard/dist'
+          path: "./dashboard/dist"
 
   deploy:
     environment:

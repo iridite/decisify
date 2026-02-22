@@ -25,7 +25,7 @@ async def fetch_decisify_status() -> Dict[str, Any]:
 
 def calculate_triangulation(
     polymarket_delta: float, x_sentiment: float, nautilus_signal: float
-) -> Dict[str, float]:
+) -> Dict[str, Any]:
     """Calculate correlation matrix between data sources"""
     # Simple correlation calculation (can be enhanced with real statistical methods)
     pm_x_corr = min(1.0, abs(polymarket_delta * 10) * x_sentiment)
@@ -61,8 +61,7 @@ def generate_agent_thought(decision: Dict[str, Any], signals: Dict[str, Any]) ->
     # Generate reasoning text
     dominant_weight = weights.get(dominant_source, 0)
     reasoning = (
-        f"Decision: {action}. Dominant signal: {dominant_source} "
-        f"({dominant_weight:.2%} weight). "
+        f"Decision: {action}. Dominant signal: {dominant_source} ({dominant_weight:.2%} weight). "
     )
 
     if decision.get("is_safe"):
@@ -146,20 +145,20 @@ async def fetch_and_transform_data() -> Dict[str, Any]:
                     "type": "SIMULATED",
                     "source": "Decisify API (模拟数据)",
                     "last_update": datetime.now().isoformat() + "Z",
-                    "status": "active"
+                    "status": "active",
                 },
                 "x_intelligence": {
                     "type": "SIMULATED",
                     "source": "Decisify API (模拟数据)",
                     "last_update": datetime.now().isoformat() + "Z",
-                    "status": "active"
+                    "status": "active",
                 },
                 "nautilus": {
                     "type": "SIMULATED",
                     "source": "Decisify API (模拟数据)",
                     "last_update": datetime.now().isoformat() + "Z",
-                    "status": "active"
-                }
+                    "status": "active",
+                },
             },
             "agent_thoughts": [agent_thought],
             "triangulation_matrix": triangulation,
@@ -265,20 +264,20 @@ async def fetch_and_transform_data() -> Dict[str, Any]:
                     "type": "DEMO",
                     "source": "模拟 Polymarket API",
                     "last_update": datetime.now().isoformat() + "Z",
-                    "status": "active"
+                    "status": "active",
                 },
                 "x_intelligence": {
                     "type": "DEMO",
                     "source": "模拟 X/Twitter API",
                     "last_update": datetime.now().isoformat() + "Z",
-                    "status": "active"
+                    "status": "active",
                 },
                 "nautilus": {
                     "type": "DEMO",
                     "source": "模拟 Nautilus Trader",
                     "last_update": datetime.now().isoformat() + "Z",
-                    "status": "active"
-                }
+                    "status": "active",
+                },
             },
             "agent_thoughts": [
                 {
@@ -286,7 +285,10 @@ async def fetch_and_transform_data() -> Dict[str, Any]:
                     "timestamp": datetime.now().isoformat() + "Z",
                     "type": "TRIANGULATION",
                     "reasoning": "Demo mode: Analyzing market signals with 68% confidence. Polymarket shows bullish trend (+2.4% 1h), X sentiment positive (0.78), Nautilus signal moderate (0.34).",
-                    "inputs": {"weights": {"polymarket": 0.45, "x_sentiment": 0.35, "nautilus": 0.20}, "action": "BUY"},
+                    "inputs": {
+                        "weights": {"polymarket": 0.45, "x_sentiment": 0.35, "nautilus": 0.20},
+                        "action": "BUY",
+                    },
                     "confidence": 0.68,
                     "human_feedback": None,
                 }
@@ -362,7 +364,11 @@ async def fetch_and_transform_data() -> Dict[str, Any]:
                     {
                         "id": f"evt_{i}",
                         "timestamp": datetime.now().isoformat() + "Z",
-                        "type": "X_SENTIMENT_SHIFT" if i % 3 == 0 else "POLYMARKET_ODDS_CHANGE" if i % 3 == 1 else "NAUTILUS_SIGNAL",
+                        "type": "X_SENTIMENT_SHIFT"
+                        if i % 3 == 0
+                        else "POLYMARKET_ODDS_CHANGE"
+                        if i % 3 == 1
+                        else "NAUTILUS_SIGNAL",
                         "description": f"Market event {i}: Signal detected",
                         "relevance_decay": 1.0 - (i * 0.1),
                         "impact": "HIGH" if i < 3 else "MEDIUM" if i < 6 else "LOW",

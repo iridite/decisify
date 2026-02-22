@@ -14,9 +14,6 @@ import {
   ThumbsDown,
   BarChart3,
   Radio,
-  Gauge,
-  DollarSign,
-  TrendingUp as TrendingUpIcon,
 } from "lucide-react";
 import {
   AreaChart,
@@ -30,10 +27,17 @@ import {
 import { useDataPolling } from "./hooks/useDataPolling";
 import { useDemoMode } from "./hooks/useDemoMode";
 import { useLiveDataSimulation } from "./hooks/useLiveDataSimulation";
-import { DemoControls, DemoModeToggle, DemoModeBanner } from "./components/DemoControls";
+import {
+  DemoControls,
+  DemoModeToggle,
+  DemoModeBanner,
+} from "./components/DemoControls";
 import { PerformanceMetrics } from "./components/PerformanceMetrics";
 import { RustPerformanceComparison } from "./components/RustPerformanceComparison";
-import { AttentionWeightsCard, QuickStatsCard } from "./components/DashboardEnhancements";
+import {
+  AttentionWeightsCard,
+  QuickStatsCard,
+} from "./components/DashboardEnhancements";
 import DataSourceBadge from "./components/DataSourceBadge";
 
 function App() {
@@ -51,10 +55,10 @@ function App() {
 
   // Load decision history stats
   useEffect(() => {
-    fetch('/decision-history.json')
-      .then(res => res.json())
-      .then(data => setHistoryStats(data.stats))
-      .catch(err => console.error('Failed to load history stats:', err));
+    fetch("/decision-history.json")
+      .then((res) => res.json())
+      .then((data) => setHistoryStats(data.stats))
+      .catch((err) => console.error("Failed to load history stats:", err));
   }, []);
 
   // Demo Mode hook
@@ -65,9 +69,23 @@ function App() {
     demoSpeed,
     setIsDemoMode,
     setIsAutoPlay,
+    setDemoSpeed,
     toggleFullscreen,
     generateDemoThought,
   } = useDemoMode();
+
+  // Auto-enable Demo Mode on GitHub Pages for impressive live demo
+  useEffect(() => {
+    const isGitHubPages = window.location.hostname.includes("github.io");
+    if (isGitHubPages && !isDemoMode) {
+      setIsDemoMode(true);
+      setIsAutoPlay(true);
+      setDemoSpeed(2); // Faster for more visible updates
+    }
+  }, []); // Only run once on mount
+
+  // Check if running on GitHub Pages
+  const isGitHubPages = window.location.hostname.includes("github.io");
 
   // Live data simulation - only active in demo mode
   const simulatedData = useLiveDataSimulation(rawData, isDemoMode, demoSpeed);
@@ -138,31 +156,37 @@ function App() {
   const allThoughts = isDemoMode ? demoThoughts : data.agent_thoughts;
 
   return (
-    <div className={`min-h-screen p-4 md:p-6 ${isFullscreen ? 'fixed inset-0 z-50 bg-background' : ''}`}>
-      {/* Demo Mode Banner - 顶部横幅 */}
+    <div
+      className={`min-h-screen p-4 md:p-6 ${isFullscreen ? "fixed inset-0 z-50 bg-background" : ""}`}
+    >
+      {/* Demo Mode Banner - Hidden on GitHub Pages for realistic demo */}
       <AnimatePresence>
-        {isDemoMode && (
+        {isDemoMode && !isGitHubPages && (
           <DemoModeBanner onExit={() => setIsDemoMode(false)} />
         )}
       </AnimatePresence>
 
-      {/* Demo Mode Toggle - Fixed bottom-right */}
-      <DemoModeToggle
-        isDemoMode={isDemoMode}
-        onToggle={() => setIsDemoMode(!isDemoMode)}
-      />
+      {/* Demo Mode Toggle - Hidden on GitHub Pages */}
+      {!isGitHubPages && (
+        <DemoModeToggle
+          isDemoMode={isDemoMode}
+          onToggle={() => setIsDemoMode(!isDemoMode)}
+        />
+      )}
 
-      {/* Demo Controls - Show when in demo mode */}
-      <DemoControls
-        isDemoMode={isDemoMode}
-        isAutoPlay={isAutoPlay}
-        isFullscreen={isFullscreen}
-        demoSpeed={demoSpeed}
-        onToggleDemo={() => setIsDemoMode(!isDemoMode)}
-        onToggleAutoPlay={() => setIsAutoPlay(!isAutoPlay)}
-        onToggleFullscreen={toggleFullscreen}
-        onSpeedChange={(speed) => setDemoSpeed(speed)}
-      />
+      {/* Demo Controls - Hidden on GitHub Pages for clean demo */}
+      {!isGitHubPages && (
+        <DemoControls
+          isDemoMode={isDemoMode}
+          isAutoPlay={isAutoPlay}
+          isFullscreen={isFullscreen}
+          demoSpeed={demoSpeed}
+          onToggleDemo={() => setIsDemoMode(!isDemoMode)}
+          onToggleAutoPlay={() => setIsAutoPlay(!isAutoPlay)}
+          onToggleFullscreen={toggleFullscreen}
+          onSpeedChange={(speed) => setDemoSpeed(speed)}
+        />
+      )}
 
       {/* Header */}
       <Header data={data} agentThinking={agentThinking} />
@@ -188,13 +212,13 @@ function App() {
         <div className="col-span-12 lg:col-span-5 space-y-4">
           {/* Attention Weights */}
           {data.agent_thoughts?.[0]?.inputs?.weights && (
-            <AttentionWeightsCard weights={data.agent_thoughts[0].inputs.weights} />
+            <AttentionWeightsCard
+              weights={data.agent_thoughts[0].inputs.weights}
+            />
           )}
 
           {/* Quick Stats */}
-          {historyStats && (
-            <QuickStatsCard stats={historyStats} />
-          )}
+          {historyStats && <QuickStatsCard stats={historyStats} />}
 
           {/* Triangulation Matrix */}
           <TriangulationMatrix matrix={data.triangulation_matrix} />
@@ -220,11 +244,12 @@ function App() {
         </div>
 
         {/* Decision Distribution */}
-        {historyStats && (
+        {/* TODO: DecisionDistributionCard component is missing */}
+        {/* {historyStats && (
           <div className="col-span-12 lg:col-span-7">
             <DecisionDistributionCard stats={historyStats} />
           </div>
-        )}
+        )} */}
 
         <div className="col-span-12 lg:col-span-5 space-y-4">
           {/* Strategy Proposal */}
@@ -553,10 +578,7 @@ function XIntelligenceFeed({ signals, dataSource }) {
           <Radio className="w-5 h-5 text-iridyne-green" />X Intelligence Feed
         </h2>
         {dataSource && (
-          <DataSourceBadge
-            type={dataSource.type}
-            source={dataSource.source}
-          />
+          <DataSourceBadge type={dataSource.type} source={dataSource.source} />
         )}
       </div>
 
@@ -633,7 +655,9 @@ function PolymarketTracker({ polymarket, dataSource }) {
               <BarChart3 className="w-5 h-5 text-iridyne-green" />
               Polymarket Odds Tracker
             </h2>
-            <p className="text-sm text-text-secondary mt-1">{polymarket.event}</p>
+            <p className="text-sm text-text-secondary mt-1">
+              {polymarket.event}
+            </p>
           </div>
           {dataSource && (
             <DataSourceBadge
@@ -724,6 +748,8 @@ function PolymarketTracker({ polymarket, dataSource }) {
 
 // Strategy Proposal Component
 function StrategyProposal({ proposal, onDecision }) {
+  const [toast, setToast] = useState(null);
+
   if (!proposal) return null;
 
   const riskColors = {
@@ -733,6 +759,25 @@ function StrategyProposal({ proposal, onDecision }) {
   };
 
   const isPending = proposal.status === "ACTIVE" && !proposal.human_decision;
+
+  const handleDecision = (proposalId, decision) => {
+    onDecision(proposalId, decision);
+
+    // Show toast notification
+    const message =
+      decision === "approved"
+        ? "✓ Strategy approved and executing..."
+        : "✗ Strategy rejected";
+    const color =
+      decision === "approved"
+        ? "bg-iridyne-green/20 text-iridyne-green border-iridyne-green/30"
+        : "bg-red-500/20 text-red-400 border-red-500/30";
+
+    setToast({ message, color });
+
+    // Clear toast after 4 seconds
+    setTimeout(() => setToast(null), 4000);
+  };
 
   return (
     <div className="bento-item">
@@ -777,14 +822,14 @@ function StrategyProposal({ proposal, onDecision }) {
         {isPending && (
           <div className="flex gap-2 pt-3 border-t border-border-subtle/30">
             <button
-              onClick={() => onDecision(proposal.id, "approved")}
+              onClick={() => handleDecision(proposal.id, "approved")}
               className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-iridyne-green/20 hover:bg-iridyne-green/30 text-iridyne-green rounded transition-colors"
             >
               <CheckCircle2 className="w-4 h-4" />
               Execute
             </button>
             <button
-              onClick={() => onDecision(proposal.id, "rejected")}
+              onClick={() => handleDecision(proposal.id, "rejected")}
               className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded transition-colors"
             >
               <AlertCircle className="w-4 h-4" />
@@ -792,6 +837,20 @@ function StrategyProposal({ proposal, onDecision }) {
             </button>
           </div>
         )}
+
+        {/* Toast Notification */}
+        <AnimatePresence>
+          {toast && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className={`mt-3 p-3 rounded border ${toast.color}`}
+            >
+              <div className="text-sm font-medium">{toast.message}</div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {proposal.human_decision && (
           <div
@@ -822,10 +881,7 @@ function NautilusSnapshot({ nautilus, dataSource }) {
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-bold">Nautilus Quant Snapshot</h2>
         {dataSource && (
-          <DataSourceBadge
-            type={dataSource.type}
-            source={dataSource.source}
-          />
+          <DataSourceBadge type={dataSource.type} source={dataSource.source} />
         )}
       </div>
 
@@ -891,9 +947,9 @@ function ContextMemory({ events }) {
   // Format event type for display
   const formatEventType = (type) => {
     return type
-      .split('_')
-      .map(word => word.charAt(0) + word.slice(1).toLowerCase())
-      .join(' ');
+      .split("_")
+      .map((word) => word.charAt(0) + word.slice(1).toLowerCase())
+      .join(" ");
   };
 
   return (
@@ -924,7 +980,9 @@ function ContextMemory({ events }) {
             className="p-3 rounded bg-border-subtle/20"
             style={{ opacity: event.relevance_decay }}
           >
-            <div className="text-xs text-text-secondary mb-1">{formatEventType(event.type)}</div>
+            <div className="text-xs text-text-secondary mb-1">
+              {formatEventType(event.type)}
+            </div>
             <div className="text-xs leading-tight">{event.description}</div>
             <div className="text-xs text-text-secondary mt-1">
               {new Date(event.timestamp).toLocaleTimeString()}
