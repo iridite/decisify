@@ -5,7 +5,8 @@ Fetches data from Decisify API and transforms it for frontend consumption
 
 import asyncio
 import json
-from datetime import datetime
+import random
+from datetime import datetime, timedelta
 from typing import Any, Dict, List
 
 import httpx
@@ -249,13 +250,59 @@ async def fetch_and_transform_data() -> Dict[str, Any]:
 
     except Exception as e:
         print(f"Error fetching data: {e}")
-        # Generate mock data with dynamic timestamps on error
+        # Generate mock data with random fluctuations
+
+        # Random market values with realistic ranges
+        base_price = 42000 + random.uniform(-2000, 2000)
+        current_price = base_price + random.uniform(-500, 500)
+        entry_price = base_price - random.uniform(0, 300)
+
+        current_odds = 0.5 + random.uniform(-0.2, 0.3)
+        delta_1h = random.uniform(-0.05, 0.05)
+        delta_24h = random.uniform(-0.1, 0.15)
+
+        sentiment_score = random.uniform(0.3, 0.9)
+        signal_strength = random.uniform(0.2, 0.8)
+
+        # Determine sentiment and action based on scores
+        sentiment = "BULLISH" if sentiment_score > 0.6 else "BEARISH" if sentiment_score < 0.4 else "NEUTRAL"
+        action = "BUY" if sentiment_score > 0.65 else "SELL" if sentiment_score < 0.35 else "HOLD"
+        position = "LONG" if signal_strength > 0.5 else "SHORT" if signal_strength < 0.3 else "FLAT"
+
+        # Random weights that sum to 1.0
+        w1 = random.uniform(0.3, 0.5)
+        w2 = random.uniform(0.2, 0.4)
+        w3 = 1.0 - w1 - w2
+
+        # Correlations
+        pm_x_corr = random.uniform(0.6, 0.95)
+        pm_n_corr = random.uniform(0.5, 0.85)
+        x_n_corr = random.uniform(0.5, 0.8)
+        overall = (pm_x_corr + pm_n_corr + x_n_corr) / 3
+
+        interpretation = "HIGH_BULLISH" if overall > 0.75 else "MODERATE_BULLISH" if overall > 0.6 else "NEUTRAL" if overall > 0.4 else "BEARISH"
+
+        # Random tweet content
+        tweet_templates = [
+            "BTC breaking resistance at ${:.0f}k. Strong momentum building. #Bitcoin",
+            "Market showing bullish signals. Volume increasing at ${:.0f}k level. #Crypto",
+            "Technical analysis suggests ${:.0f}k is key support. Watch closely. #BTC",
+            "Institutional interest growing. BTC holding ${:.0f}k. #Bitcoin #Crypto",
+            "On-chain metrics bullish. Price action at ${:.0f}k looking strong. #BTC",
+        ]
+        tweet_content = random.choice(tweet_templates).format(current_price / 1000)
+
+        confidence = round(random.uniform(0.55, 0.85), 2)
+
+        unrealized_pnl = round(current_price - entry_price, 2)
+        daily_pnl = round(random.uniform(-500, 2000), 2)
+
         return {
             "meta": {
                 "timestamp": datetime.now().isoformat() + "Z",
-                "agent_status": "REASONING",
+                "agent_status": random.choice(["REASONING", "ANALYZING", "MONITORING"]),
                 "context_window_hours": 8,
-                "total_events_tracked": 42,
+                "total_events_tracked": random.randint(35, 50),
                 "system_status": "DEMO",
                 "sync_timestamp": datetime.now().isoformat() + "Z",
             },
@@ -284,76 +331,76 @@ async def fetch_and_transform_data() -> Dict[str, Any]:
                     "id": f"thought_{int(datetime.now().timestamp())}",
                     "timestamp": datetime.now().isoformat() + "Z",
                     "type": "TRIANGULATION",
-                    "reasoning": "Demo mode: Analyzing market signals with 68% confidence. Polymarket shows bullish trend (+2.4% 1h), X sentiment positive (0.78), Nautilus signal moderate (0.34).",
+                    "reasoning": f"Demo mode: Analyzing market signals with {int(confidence*100)}% confidence. Polymarket shows {sentiment.lower()} trend ({delta_1h:+.1%} 1h), X sentiment {sentiment_score:.2f}, Nautilus signal {signal_strength:.2f}.",
                     "inputs": {
-                        "weights": {"polymarket": 0.45, "x_sentiment": 0.35, "nautilus": 0.20},
-                        "action": "BUY",
+                        "weights": {"polymarket": round(w1, 2), "x_sentiment": round(w2, 2), "nautilus": round(w3, 2)},
+                        "action": action,
                     },
-                    "confidence": 0.68,
+                    "confidence": confidence,
                     "human_feedback": None,
                 }
             ],
             "triangulation_matrix": {
-                "polymarket_x_correlation": 0.85,
-                "polymarket_nautilus_correlation": 0.72,
-                "x_nautilus_correlation": 0.68,
-                "overall_alignment": 0.75,
-                "interpretation": "HIGH_BULLISH",
+                "polymarket_x_correlation": round(pm_x_corr, 2),
+                "polymarket_nautilus_correlation": round(pm_n_corr, 2),
+                "x_nautilus_correlation": round(x_n_corr, 2),
+                "overall_alignment": round(overall, 2),
+                "interpretation": interpretation,
             },
             "perception": {
                 "polymarket": {
                     "event": "BTC Price Prediction Market",
-                    "current_odds": 0.68,
-                    "delta_1h": 0.024,
-                    "delta_24h": 0.053,
-                    "volume_24h": 1250000,
-                    "liquidity": 3400000,
+                    "current_odds": round(current_odds, 2),
+                    "delta_1h": round(delta_1h, 3),
+                    "delta_24h": round(delta_24h, 3),
+                    "volume_24h": int(random.uniform(800000, 2000000)),
+                    "liquidity": int(random.uniform(2500000, 4500000)),
                     "last_trade": datetime.now().isoformat() + "Z",
-                    "history": [{"timestamp": datetime.now().isoformat() + "Z", "odds": 0.68}],
+                    "history": [{"timestamp": datetime.now().isoformat() + "Z", "odds": round(current_odds, 2)}],
                 },
                 "x_intelligence": [
                     {
                         "id": f"tweet_demo_{int(datetime.now().timestamp())}",
-                        "handle": "@crypto_analyst",
-                        "content": "BTC breaking resistance at $42k. Strong momentum building. #Bitcoin",
+                        "handle": random.choice(["@crypto_analyst", "@btc_trader", "@market_watch", "@chain_analysis"]),
+                        "content": tweet_content,
                         "timestamp": datetime.now().isoformat() + "Z",
-                        "sentiment": "BULLISH",
-                        "sentiment_score": 0.78,
-                        "agent_relevance_score": 0.85,
+                        "sentiment": sentiment,
+                        "sentiment_score": round(sentiment_score, 2),
+                        "agent_relevance_score": round(random.uniform(0.7, 0.95), 2),
                         "extracted_entities": ["BTC", "resistance", "momentum"],
-                        "impact_score": 7.8,
-                        "follower_count": 125000,
+                        "impact_score": round(sentiment_score * 10, 1),
+                        "follower_count": random.randint(50000, 200000),
                     }
                 ],
                 "nautilus": {
                     "strategy": "Keltner Channel Breakout",
-                    "position": "LONG",
-                    "signal_strength": 0.34,
-                    "entry_price": 42150.00,
-                    "current_price": 42380.00,
-                    "unrealized_pnl": 230.00,
-                    "daily_pnl": 1250.50,
-                    "position_size": 1.0,
-                    "status": "ACTIVE",
+                    "position": position,
+                    "signal_strength": round(signal_strength, 2),
+                    "entry_price": round(entry_price, 2),
+                    "current_price": round(current_price, 2),
+                    "unrealized_pnl": unrealized_pnl,
+                    "daily_pnl": daily_pnl,
+                    "position_size": round(random.uniform(0.5, 1.5), 1),
+                    "status": "ACTIVE" if position != "FLAT" else "IDLE",
                     "indicators": {
-                        "keltner_upper": 42800.00,
-                        "keltner_middle": 42200.00,
-                        "keltner_lower": 41600.00,
-                        "atr": 450.00,
-                        "trend": "BULLISH",
+                        "keltner_upper": round(current_price + 600, 2),
+                        "keltner_middle": round(current_price, 2),
+                        "keltner_lower": round(current_price - 600, 2),
+                        "atr": round(random.uniform(350, 550), 2),
+                        "trend": "BULLISH" if signal_strength > 0.5 else "BEARISH",
                     },
                 },
             },
             "execution": {
                 "current_proposal": {
                     "id": f"prop_{int(datetime.now().timestamp())}",
-                    "action": "BUY",
+                    "action": action,
                     "asset": "BTC",
-                    "reasoning": "Strong bullish alignment across all data sources. Polymarket odds increased 2.4% in 1h, X sentiment highly positive (0.78), Nautilus breakout signal confirmed. Risk-adjusted confidence: 68%.",
-                    "risk_level": "MEDIUM",
-                    "expected_return": 0.05,
-                    "confidence": 0.68,
-                    "status": "PENDING_APPROVAL",
+                    "reasoning": f"Market analysis: Polymarket odds at {current_odds:.2f} ({delta_1h:+.1%} 1h), X sentiment {sentiment.lower()} ({sentiment_score:.2f}), Nautilus {position.lower()} signal ({signal_strength:.2f}). Risk-adjusted confidence: {int(confidence*100)}%.",
+                    "risk_level": random.choice(["LOW", "MEDIUM", "MEDIUM", "HIGH"]),
+                    "expected_return": round(random.uniform(-0.02, 0.08), 3) if action != "HOLD" else None,
+                    "confidence": confidence,
+                    "status": random.choice(["ACTIVE", "PENDING_APPROVAL", "PENDING_APPROVAL"]),
                     "created_at": datetime.now().isoformat() + "Z",
                     "human_decision": None,
                 },
@@ -363,14 +410,14 @@ async def fetch_and_transform_data() -> Dict[str, Any]:
                 "events": [
                     {
                         "id": f"evt_{i}",
-                        "timestamp": datetime.now().isoformat() + "Z",
+                        "timestamp": (datetime.now() - timedelta(minutes=i*15)).isoformat() + "Z",
                         "type": "X_SENTIMENT_SHIFT"
                         if i % 3 == 0
                         else "POLYMARKET_ODDS_CHANGE"
                         if i % 3 == 1
                         else "NAUTILUS_SIGNAL",
                         "description": f"Market event {i}: Signal detected",
-                        "relevance_decay": 1.0 - (i * 0.1),
+                        "relevance_decay": round(1.0 - (i * 0.1), 2),
                         "impact": "HIGH" if i < 3 else "MEDIUM" if i < 6 else "LOW",
                     }
                     for i in range(8)
@@ -380,8 +427,8 @@ async def fetch_and_transform_data() -> Dict[str, Any]:
                 "last_run": datetime.now().isoformat() + "Z",
                 "status": "success",
                 "workflow": "update-data",
-                "duration_seconds": 12,
-                "next_run": datetime.now().isoformat() + "Z",
+                "duration_seconds": random.randint(8, 18),
+                "next_run": (datetime.now() + timedelta(minutes=5)).isoformat() + "Z",
             },
         }
 
