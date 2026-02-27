@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 /**
  * useDataPolling - Agent Intelligence Data Polling Hook
@@ -16,6 +16,9 @@ export const useDataPolling = (pollInterval = 2000) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [retryCount, setRetryCount] = useState(0);
+
+  // Track timeout IDs for cleanup
+  const timeoutIdsRef = useRef([]);
 
   const fetchData = useCallback(async () => {
     try {
@@ -75,9 +78,10 @@ export const useDataPolling = (pollInterval = 2000) => {
         // Stream new thoughts with stagger effect
         if (newThoughtsList.length > 0) {
           newThoughtsList.reverse().forEach((thought, index) => {
-            setTimeout(() => {
+            const timeoutId = setTimeout(() => {
               setNewThoughts((prev) => [thought, ...prev]);
             }, index * 2000); // 2 second delay between each thought
+            timeoutIdsRef.current.push(timeoutId);
           });
         }
       }
@@ -114,7 +118,12 @@ export const useDataPolling = (pollInterval = 2000) => {
     // Set up polling interval
     const interval = setInterval(fetchData, pollInterval);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      // Clear all pending timeouts
+      timeoutIdsRef.current.forEach(clearTimeout);
+      timeoutIdsRef.current = [];
+    };
   }, [fetchData, pollInterval]);
 
   // Clear new thoughts after they've been displayed

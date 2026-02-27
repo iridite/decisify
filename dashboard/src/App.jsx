@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AlertCircle } from "lucide-react";
 import { useDataPolling } from "./hooks/useDataPolling";
@@ -32,6 +32,9 @@ function App() {
   } = useDataPolling();
   const [agentThinking, setAgentThinking] = useState(false);
   const [demoThoughts, setDemoThoughts] = useState([]);
+
+  // Track timeout IDs for cleanup
+  const timeoutIdsRef = useRef([]);
 
   // Guided Tour state
   const { runTour, handleTourComplete, restartTour } = useTourState();
@@ -72,7 +75,8 @@ function App() {
   useEffect(() => {
     if (newThoughts.length > 0) {
       setAgentThinking(true);
-      setTimeout(() => setAgentThinking(false), 3000);
+      const timeoutId = setTimeout(() => setAgentThinking(false), 3000);
+      return () => clearTimeout(timeoutId);
     }
   }, [newThoughts]);
 
@@ -87,10 +91,18 @@ function App() {
       const newThought = generateDemoThought();
       setDemoThoughts((prev) => [newThought, ...prev].slice(0, 20)); // Keep last 20
       setAgentThinking(true);
-      setTimeout(() => setAgentThinking(false), 2000);
+
+      // Track timeout for cleanup
+      const timeoutId = setTimeout(() => setAgentThinking(false), 2000);
+      timeoutIdsRef.current.push(timeoutId);
     }, interval);
 
-    return () => clearInterval(timer);
+    return () => {
+      clearInterval(timer);
+      // Clear all pending timeouts
+      timeoutIdsRef.current.forEach(clearTimeout);
+      timeoutIdsRef.current = [];
+    };
   }, [isDemoMode, isAutoPlay, demoSpeed, generateDemoThought]);
 
   if (isLoading) {
