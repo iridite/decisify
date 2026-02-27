@@ -183,6 +183,30 @@ Decisify is a high-performance, logic-transparent AI decision engine that implem
 
 Experience real-time agent intelligence monitoring with perception-to-action pipeline visualization.
 
+### 🔴 Live Data Simulation
+
+The demo dashboard uses **client-side real-time data simulation** to provide an immersive experience:
+
+- **Why?** The backend API requires real data source integrations (Twitter API, Polymarket, etc.) which need API keys and paid subscriptions. For demo purposes, we simulate realistic market behavior entirely in the browser.
+
+- **How it works:**
+  - Frontend detects demo mode and activates live simulation
+  - Uses Random Walk algorithm to generate realistic market fluctuations
+  - Data updates every 2 seconds with smooth, continuous evolution
+  - Prices, sentiment scores, and trading signals all fluctuate naturally
+  - No backend required - works immediately when you open the page
+
+- **What you see:**
+  - BTC prices fluctuating between $38k-$46k
+  - Real-time sentiment analysis from "social media"
+  - Dynamic trading signals and position updates
+  - Correlation matrices updating continuously
+  - Agent reasoning that adapts to market changes
+
+**This gives evaluators an immediate sense of how the system would behave with real data sources, without requiring complex API setup.**
+
+To connect real data sources, see the [Backend Setup](#backend-installation--running) section.
+
 ### Screenshots
 
 <table>
