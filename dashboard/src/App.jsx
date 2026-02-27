@@ -35,6 +35,7 @@ import {
   DemoModeToggle,
   DemoModeBanner,
 } from "./components/DemoControls";
+import { GuidedTour, useTourState } from "./components/GuidedTour";
 
 function App() {
   const {
@@ -47,6 +48,9 @@ function App() {
   } = useDataPolling();
   const [agentThinking, setAgentThinking] = useState(false);
   const [demoThoughts, setDemoThoughts] = useState([]);
+
+  // Guided Tour state
+  const { runTour, handleTourComplete, restartTour } = useTourState();
 
   // Demo Mode hook
   const {
@@ -146,6 +150,9 @@ function App() {
     <div
       className={`min-h-screen p-4 md:p-6 ${isFullscreen ? "fixed inset-0 z-50 bg-background" : ""}`}
     >
+      {/* Guided Tour */}
+      <GuidedTour run={runTour} onComplete={handleTourComplete} />
+
       {/* Demo Mode Banner - Hidden on GitHub Pages for realistic demo */}
       <AnimatePresence>
         {isDemoMode && !isGitHubPages && (
@@ -178,7 +185,7 @@ function App() {
       {/* Main Bento Grid */}
       <div className="grid grid-cols-12 gap-4 mt-6">
         {/* Agent Thought Log - Main Center */}
-        <div className="col-span-12 lg:col-span-7">
+        <div className="col-span-12 lg:col-span-7" data-tour="agent-thoughts">
           <AgentThoughtLog
             thoughts={allThoughts}
             newThoughts={displayThoughts}
@@ -190,26 +197,34 @@ function App() {
         {/* Right Column */}
         <div className="col-span-12 lg:col-span-5 space-y-4">
           {/* Triangulation Matrix */}
-          <TriangulationMatrix matrix={data.triangulation_matrix} />
+          <div data-tour="triangulation">
+            <TriangulationMatrix matrix={data.triangulation_matrix} />
+          </div>
 
           {/* X Intelligence Feed */}
-          <XIntelligenceFeed signals={data.perception.x_intelligence} />
+          <div data-tour="x-intelligence">
+            <XIntelligenceFeed signals={data.perception.x_intelligence} />
+          </div>
         </div>
 
         {/* Bottom Row */}
-        <div className="col-span-12 lg:col-span-7">
+        <div className="col-span-12 lg:col-span-7" data-tour="polymarket">
           <PolymarketTracker polymarket={data.perception.polymarket} />
         </div>
 
         <div className="col-span-12 lg:col-span-5 space-y-4">
           {/* Strategy Proposal */}
-          <StrategyProposal
-            proposal={data.execution.current_proposal}
-            onDecision={handleProposal}
-          />
+          <div data-tour="proposal">
+            <StrategyProposal
+              proposal={data.execution.current_proposal}
+              onDecision={handleProposal}
+            />
+          </div>
 
           {/* Nautilus Snapshot */}
-          <NautilusSnapshot nautilus={data.perception.nautilus} />
+          <div data-tour="nautilus">
+            <NautilusSnapshot nautilus={data.perception.nautilus} />
+          </div>
         </div>
 
         {/* Context Memory Tracker */}
@@ -390,10 +405,11 @@ function ThoughtCard({ thought, onFeedback, isNew }) {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             className="mt-3 pt-3 border-t border-border-subtle/30"
+            data-tour="attention-weights"
           >
             <div className="text-xs space-y-2">
               <div>
-                <span className="text-text-secondary">Input Sources:</span>
+                <span className="text-text-secondary">Input Sources & Attention Weights:</span>
                 <pre className="mt-1 p-2 bg-midnight-onyx rounded text-iridyne-green font-mono">
                   {JSON.stringify(thought.inputs, null, 2)}
                 </pre>

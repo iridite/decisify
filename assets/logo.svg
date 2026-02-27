@@ -1,0 +1,120 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient definitions -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a2e;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00ffc2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00d9ff;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Glow filter -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="512" height="512" fill="url(#bgGradient)" rx="80"/>
+  
+  <!-- Outer ring (perception layer) -->
+  <circle cx="256" cy="256" r="200" fill="none" stroke="url(#primaryGradient)" stroke-width="3" opacity="0.3"/>
+  <circle cx="256" cy="256" r="180" fill="none" stroke="url(#primaryGradient)" stroke-width="2" opacity="0.2"/>
+  
+  <!-- Signal nodes (multi-source inputs) -->
+  <!-- Top node -->
+  <circle cx="256" cy="80" r="16" fill="url(#primaryGradient)" filter="url(#glow)"/>
+  <line x1="256" y1="96" x2="256" y2="160" stroke="url(#primaryGradient)" stroke-width="2" opacity="0.6"/>
+  
+  <!-- Top-right node -->
+  <circle cx="400" cy="140" r="14" fill="url(#accentGradient)" filter="url(#glow)"/>
+  <line x1="388" y1="152" x2="300" y2="210" stroke="url(#accentGradient)" stroke-width="2" opacity="0.6"/>
+  
+  <!-- Right node -->
+  <circle cx="432" cy="256" r="16" fill="url(#primaryGradient)" filter="url(#glow)"/>
+  <line x1="416" y1="256" x2="352" y2="256" stroke="url(#primaryGradient)" stroke-width="2" opacity="0.6"/>
+  
+  <!-- Bottom-right node -->
+  <circle cx="400" cy="372" r="14" fill="url(#accentGradient)" filter="url(#glow)"/>
+  <line x1="388" y1="360" x2="300" y2="302" stroke="url(#accentGradient)" stroke-width="2" opacity="0.6"/>
+  
+  <!-- Bottom node -->
+  <circle cx="256" cy="432" r="16" fill="url(#primaryGradient)" filter="url(#glow)"/>
+  <line x1="256" y1="416" x2="256" y2="352" stroke="url(#primaryGradient)" stroke-width="2" opacity="0.6"/>
+  
+  <!-- Bottom-left node -->
+  <circle cx="112" cy="372" r="14" fill="url(#accentGradient)" filter="url(#glow)"/>
+  <line x1="124" y1="360" x2="212" y2="302" stroke="url(#accentGradient)" stroke-width="2" opacity="0.6"/>
+  
+  <!-- Left node -->
+  <circle cx="80" cy="256" r="16" fill="url(#primaryGradient)" filter="url(#glow)"/>
+  <line x1="96" y1="256" x2="160" y2="256" stroke="url(#primaryGradient)" stroke-width="2" opacity="0.6"/>
+  
+  <!-- Top-left node -->
+  <circle cx="112" cy="140" r="14" fill="url(#accentGradient)" filter="url(#glow)"/>
+  <line x1="124" y1="152" x2="212" y2="210" stroke="url(#accentGradient)" stroke-width="2" opacity="0.6"/>
+  
+  <!-- Central fusion core (hexagon) -->
+  <path d="M 256 176 L 326 216 L 326 296 L 256 336 L 186 296 L 186 216 Z" 
+        fill="none" 
+        stroke="url(#primaryGradient)" 
+        stroke-width="4" 
+        filter="url(#glow)"/>
+  
+  <!-- Inner hexagon -->
+  <path d="M 256 196 L 306 226 L 306 286 L 256 316 L 206 286 L 206 226 Z" 
+        fill="url(#bgGradient)" 
+        stroke="url(#accentGradient)" 
+        stroke-width="3" 
+        opacity="0.8"/>
+  
+  <!-- Central decision point (brain/AI core) -->
+  <circle cx="256" cy="256" r="40" fill="url(#primaryGradient)" opacity="0.2"/>
+  <circle cx="256" cy="256" r="30" fill="url(#primaryGradient)" opacity="0.4"/>
+  <circle cx="256" cy="256" r="20" fill="url(#primaryGradient)" filter="url(#glow)"/>
+  
+  <!-- Neural network pattern in center -->
+  <circle cx="246" cy="246" r="4" fill="#ffffff" opacity="0.8"/>
+  <circle cx="266" cy="246" r="4" fill="#ffffff" opacity="0.8"/>
+  <circle cx="256" cy="256" r="4" fill="#ffffff" opacity="0.8"/>
+  <circle cx="246" cy="266" r="4" fill="#ffffff" opacity="0.8"/>
+  <circle cx="266" cy="266" r="4" fill="#ffffff" opacity="0.8"/>
+  
+  <!-- Connecting lines between neural nodes -->
+  <line x1="246" y1="246" x2="256" y2="256" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+  <line x1="266" y1="246" x2="256" y2="256" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+  <line x1="246" y1="266" x2="256" y2="256" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+  <line x1="266" y1="266" x2="256" y2="256" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+  
+  <!-- Attention weight indicators (small arcs) -->
+  <path d="M 256 140 A 116 116 0 0 1 340 180" 
+        fill="none" 
+        stroke="url(#primaryGradient)" 
+        stroke-width="2" 
+        opacity="0.3"
+        stroke-dasharray="5,5"/>
+  <path d="M 340 332 A 116 116 0 0 1 256 372" 
+        fill="none" 
+        stroke="url(#primaryGradient)" 
+        stroke-width="2" 
+        opacity="0.3"
+        stroke-dasharray="5,5"/>
+  <path d="M 172 332 A 116 116 0 0 1 172 180" 
+        fill="none" 
+        stroke="url(#primaryGradient)" 
+        stroke-width="2" 
+        opacity="0.3"
+        stroke-dasharray="5,5"/>
+</svg>
