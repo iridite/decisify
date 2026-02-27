@@ -37,6 +37,7 @@ import {
 } from "./components/DemoControls";
 import { GuidedTour, useTourState } from "./components/GuidedTour";
 import { KeyMetricsBar, SectionHeader } from "./components/VisualComponents";
+import { SkeletonLoader, ProgressBar } from "./components/LoadingComponents";
 
 function App() {
   const {
@@ -112,18 +113,10 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-            className="w-16 h-16 border-4 border-iridyne-green border-t-transparent rounded-full mx-auto mb-4"
-          />
-          <p className="text-text-secondary">
-            Initializing Agent Intelligence...
-          </p>
-        </div>
-      </div>
+      <>
+        <ProgressBar progress={50} />
+        <SkeletonLoader />
+      </>
     );
   }
 
