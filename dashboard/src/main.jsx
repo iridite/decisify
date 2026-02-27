@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import App from './App.jsx'
-import { DecisionHistory } from './components/DecisionHistory.jsx'
-import { ErrorLogs } from './components/ErrorLogs.jsx'
+import { SkeletonLoader } from './components/LoadingComponents.jsx'
 import './index.css'
 import { History, Home, AlertTriangle } from 'lucide-react'
+
+// 路由级代码分割
+const DecisionHistory = lazy(() => import('./components/DecisionHistory.jsx').then(module => ({ default: module.DecisionHistory })))
+const ErrorLogs = lazy(() => import('./components/ErrorLogs.jsx').then(module => ({ default: module.ErrorLogs })))
 
 function Root() {
   return (
@@ -50,11 +53,13 @@ function Root() {
         </nav>
 
         {/* Routes */}
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/history" element={<DecisionHistory />} />
-          <Route path="/errors" element={<ErrorLogs />} />
-        </Routes>
+        <Suspense fallback={<SkeletonLoader />}>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/history" element={<DecisionHistory />} />
+            <Route path="/errors" element={<ErrorLogs />} />
+          </Routes>
+        </Suspense>
       </div>
     </BrowserRouter>
   )
