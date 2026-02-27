@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Brain, ThumbsUp, ThumbsDown } from 'lucide-react';
 import { SectionHeader } from './VisualComponents';
 
-export function AgentThoughtLog({ thoughts, newThoughts, onFeedback, agentThinking }) {
+export const AgentThoughtLog = memo(function AgentThoughtLog({ thoughts, newThoughts, onFeedback, agentThinking }) {
   return (
     <div className="bento-item h-[600px] flex flex-col">
       <SectionHeader
@@ -27,9 +27,9 @@ export function AgentThoughtLog({ thoughts, newThoughts, onFeedback, agentThinki
       </div>
     </div>
   );
-}
+});
 
-function ThoughtCard({ thought, onFeedback, isNew }) {
+const ThoughtCard = memo(function ThoughtCard({ thought, onFeedback, isNew }) {
   const [expanded, setExpanded] = useState(false);
 
   const typeColors = {
@@ -141,4 +141,4 @@ function ThoughtCard({ thought, onFeedback, isNew }) {
       </div>
     </motion.div>
   );
-}
+});

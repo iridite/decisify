@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { motion } from 'framer-motion';
 import { Activity } from 'lucide-react';
 
-export function ContextMemory({ events }) {
+const MemoryEvent = memo(function MemoryEvent({ event, index }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: index * 0.05 }}
+      className="flex items-start gap-3 p-3 rounded-lg bg-slate-800/30 border border-slate-700/30"
+    >
+      <Activity className="w-4 h-4 text-cyan-400 mt-1 flex-shrink-0" />
+      <div className="flex-1 min-w-0">
+        <div className="text-sm text-slate-300">{event.description}</div>
+        <div className="text-xs text-slate-500 mt-1">{event.timestamp}</div>
+      </div>
+    </motion.div>
+  );
+});
+
+export const ContextMemory = memo(function ContextMemory({ events }) {
   return (
     <div className="bento-item">
       <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
@@ -41,4 +58,4 @@ export function ContextMemory({ events }) {
       </div>
     </div>
   );
-}
+});

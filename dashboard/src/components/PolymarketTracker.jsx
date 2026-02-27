@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { BarChart3, TrendingUp, TrendingDown } from 'lucide-react';
 import { AreaChartLW } from './LightweightChart';
 
-export function PolymarketTracker({ polymarket }) {
+export const PolymarketTracker = memo(function PolymarketTracker({ polymarket }) {
   return (
     <div className="bento-item">
       <div className="flex items-center justify-between mb-4">
@@ -57,4 +57,4 @@ export function PolymarketTracker({ polymarket }) {
       </div>
     </div>
   );
-}
+});

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-export function NautilusSnapshot({ nautilus }) {
+export const NautilusSnapshot = memo(function NautilusSnapshot({ nautilus }) {
   const pnlPositive = nautilus.daily_pnl > 0;
 
   return (
@@ -62,4 +62,4 @@ export function NautilusSnapshot({ nautilus }) {
       </div>
     </div>
   );
-}
+});

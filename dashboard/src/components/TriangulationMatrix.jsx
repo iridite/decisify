@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Target } from 'lucide-react';
 
-export function TriangulationMatrix({ matrix }) {
+export const TriangulationMatrix = memo(function TriangulationMatrix({ matrix }) {
   const sources = ["Polymarket", "X Sentiment", "Nautilus"];
   const correlations = [
     [
@@ -69,4 +69,4 @@ export function TriangulationMatrix({ matrix }) {
       </div>
     </div>
   );
-}
+});

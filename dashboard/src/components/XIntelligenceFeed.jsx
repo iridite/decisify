@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Radio, Clock } from 'lucide-react';
 
-export function XIntelligenceFeed({ signals }) {
+export const XIntelligenceFeed = memo(function XIntelligenceFeed({ signals }) {
   return (
     <div className="bento-item h-[400px] flex flex-col">
       <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
@@ -61,4 +61,4 @@ export function XIntelligenceFeed({ signals }) {
       </div>
     </div>
   );
-}
+});
