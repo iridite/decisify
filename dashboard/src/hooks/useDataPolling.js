@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { createLogger } from "../utils/logger";
+import { generateLiveData } from "../utils/dataSimulator";
 
 const logger = createLogger('DataPolling');
 
@@ -28,27 +29,52 @@ export const useDataPolling = (pollInterval = 2000) => {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
 
-      // Try backend API first, fallback to static data.json
-      let response;
+      let newData;
+
+      // Try backend API first, fallback to static data.json, then to live simulation
       try {
-        response = await fetch("http://localhost:8000/status", {
+        const response = await fetch("http://localhost:8000/status", {
           signal: controller.signal,
           cache: "no-cache",
         });
+        clearTimeout(timeoutId);
+
+        if (response.ok) {
+          newData = await response.json();
+          logger.info("Using backend API data");
+        } else {
+          throw new Error("Backend API not available");
+        }
       } catch (apiError) {
-        logger.info("Backend API unavailable, using static data");
-        response = await fetch("./data.json", {
-          signal: controller.signal,
-          cache: "no-cache",
-        });
-      }
-      clearTimeout(timeoutId);
+        clearTimeout(timeoutId);
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
+        // Try static data.json
+        try {
+          const response = await fetch("./data.json", {
+            cache: "no-cache",
+          });
 
-      const newData = await response.json();
+          if (response.ok) {
+            const staticData = await response.json();
+
+            // Check if static data is in DEMO mode
+            if (staticData.meta?.system_status === "DEMO") {
+              // Use live simulation instead of static demo data
+              logger.info("Static data is DEMO mode, using live simulation");
+              newData = generateLiveData(data);
+            } else {
+              logger.info("Using static data.json");
+              newData = staticData;
+            }
+          } else {
+            throw new Error("Static data not available");
+          }
+        } catch (staticError) {
+          // Fallback to live simulation
+          logger.info("All sources unavailable, using live simulation");
+          newData = generateLiveData(data);
+        }
+      }
 
       // Validate data structure
       if (!newData.agent_thoughts || !Array.isArray(newData.agent_thoughts)) {
