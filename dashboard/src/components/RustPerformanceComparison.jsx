@@ -1,18 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Zap, Code2, TrendingUp, Info } from "lucide-react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-  LineChart,
-  Line,
-} from "recharts";
+import { BarChartLW } from "./LightweightChart";
 
 /**
  * RustPerformanceComparison - Rust vs Python Performance Comparison
@@ -52,12 +41,6 @@ export function RustPerformanceComparison({ data }) {
       improvement: "1.36x",
     },
   ];
-
-  const chartData = performanceData.map((item) => ({
-    name: item.scenario,
-    Python: item.python,
-    Rust: item.rust,
-  }));
 
   // Calculate average speedup
   const avgSpeedup =
@@ -188,37 +171,19 @@ export function RustPerformanceComparison({ data }) {
 
       {/* Performance Comparison Chart */}
       <div className="mb-6">
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2a" />
-            <XAxis
-              dataKey="name"
-              stroke="#888"
-              tick={{ fill: "#888", fontSize: 12 }}
-            />
-            <YAxis
-              stroke="#888"
-              tick={{ fill: "#888", fontSize: 12 }}
-              label={{
-                value: "Latency (ms)",
-                angle: -90,
-                position: "insideLeft",
-                fill: "#888",
-              }}
-            />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "#1a1a1a",
-                border: "1px solid #2a2a2a",
-                borderRadius: "8px",
-                color: "#fff",
-              }}
-            />
-            <Legend wrapperStyle={{ color: "#888" }} />
-            <Bar dataKey="Python" fill="#f59e0b" radius={[8, 8, 0, 0]} />
-            <Bar dataKey="Rust" fill="#10b981" radius={[8, 8, 0, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
+        <BarChartLW
+          data={performanceData.map(item => ({
+            date: item.scenario,
+            timestamp: new Date().toISOString(),
+            Python: item.python,
+            Rust: item.rust,
+          }))}
+          height={300}
+          bars={[
+            { dataKey: 'Python', color: '#f59e0b' },
+            { dataKey: 'Rust', color: '#10b981' },
+          ]}
+        />
       </div>
 
       {/* 详细数据表格 */}

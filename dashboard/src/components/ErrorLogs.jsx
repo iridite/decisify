@@ -12,7 +12,7 @@ import {
   Shield,
   Zap
 } from 'lucide-react';
-import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { LineChartLW, PieChartLW } from './LightweightChart';
 
 export function ErrorLogs() {
   const [logsData, setLogsData] = useState(null);
@@ -123,72 +123,37 @@ export function ErrorLogs() {
           {/* Severity Distribution */}
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50">
             <h3 className="text-lg font-semibold mb-4">Errors by Severity</h3>
-            <ResponsiveContainer width="100%" height={200}>
-              <PieChart>
-                <Pie
-                  data={severityData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={80}
-                  paddingAngle={5}
-                  dataKey="value"
-                >
-                  {severityData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: 'rgba(17, 24, 39, 0.95)',
-                    border: '1px solid rgba(75, 85, 99, 0.5)',
-                    borderRadius: '8px'
-                  }}
-                />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
+            <PieChartLW data={severityData} height={200} />
           </div>
 
-          {/* Error Types */}
+          {/* Error Types - 使用简单的条形图展示 */}
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50">
             <h3 className="text-lg font-semibold mb-4">Errors by Type</h3>
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={typeData} layout="vertical">
-                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                <XAxis type="number" stroke="#9ca3af" />
-                <YAxis dataKey="type" type="category" stroke="#9ca3af" width={150} />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: 'rgba(17, 24, 39, 0.95)',
-                    border: '1px solid rgba(75, 85, 99, 0.5)',
-                    borderRadius: '8px'
-                  }}
-                />
-                <Bar dataKey="count" fill="#ef4444" />
-              </BarChart>
-            </ResponsiveContainer>
+            <div className="space-y-3">
+              {typeData.map((item, index) => (
+                <div key={index} className="flex items-center gap-3">
+                  <span className="text-sm text-gray-400 w-32 truncate">{item.type}</span>
+                  <div className="flex-1 h-6 bg-gray-700/30 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-red-500 rounded-full transition-all duration-500"
+                      style={{ width: `${(item.count / Math.max(...typeData.map(t => t.count))) * 100}%` }}
+                    />
+                  </div>
+                  <span className="text-sm font-mono text-white w-8 text-right">{item.count}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Hourly Trend */}
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 mb-8">
           <h3 className="text-lg font-semibold mb-4">Error Frequency (24h)</h3>
-          <ResponsiveContainer width="100%" height={150}>
-            <LineChart data={hourlyTrend}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-              <XAxis dataKey="hour" stroke="#9ca3af" />
-              <YAxis stroke="#9ca3af" />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: 'rgba(17, 24, 39, 0.95)',
-                  border: '1px solid rgba(75, 85, 99, 0.5)',
-                  borderRadius: '8px'
-                }}
-              />
-              <Line type="monotone" dataKey="errors" stroke="#ef4444" strokeWidth={2} />
-            </LineChart>
-          </ResponsiveContainer>
+          <LineChartLW
+            data={hourlyTrend}
+            height={150}
+            lines={[{ dataKey: 'errors', color: '#ef4444', name: 'Errors' }]}
+          />
         </div>
 
         {/* Filters */}

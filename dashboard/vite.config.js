@@ -91,7 +91,7 @@ export default defineConfig({
         manualChunks: {
           "react-vendor": ["react", "react-dom"],
           "motion-vendor": ["framer-motion"],
-          "chart-vendor": ["recharts"],
+          "chart-vendor": ["lightweight-charts"],
           "icons-vendor": ["lucide-react"],
         },
         // Optimize chunk loading
@@ -132,7 +132,7 @@ export default defineConfig({
       "react",
       "react-dom",
       "framer-motion",
-      "recharts",
+      "lightweight-charts",
       "lucide-react",
     ],
   },

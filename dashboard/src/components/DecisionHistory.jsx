@@ -15,7 +15,7 @@ import {
   DollarSign,
   Zap
 } from 'lucide-react';
-import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { LineChartLW, PieChartLW } from './LightweightChart';
 
 export function DecisionHistory() {
   const [historyData, setHistoryData] = useState(null);
@@ -123,51 +123,17 @@ export function DecisionHistory() {
           {/* Action Distribution */}
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50">
             <h3 className="text-lg font-semibold mb-4">Decision Distribution</h3>
-            <ResponsiveContainer width="100%" height={200}>
-              <PieChart>
-                <Pie
-                  data={actionDistribution}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={80}
-                  paddingAngle={5}
-                  dataKey="value"
-                >
-                  {actionDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: 'rgba(17, 24, 39, 0.95)',
-                    border: '1px solid rgba(75, 85, 99, 0.5)',
-                    borderRadius: '8px'
-                  }}
-                />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
+            <PieChartLW data={actionDistribution} height={200} />
           </div>
 
           {/* P&L Trend */}
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50">
             <h3 className="text-lg font-semibold mb-4">P&L Trend</h3>
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={pnlTrend}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                <XAxis dataKey="date" stroke="#9ca3af" />
-                <YAxis stroke="#9ca3af" />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: 'rgba(17, 24, 39, 0.95)',
-                    border: '1px solid rgba(75, 85, 99, 0.5)',
-                    borderRadius: '8px'
-                  }}
-                />
-                <Bar dataKey="pnl" fill="#10b981" />
-              </BarChart>
-            </ResponsiveContainer>
+            <LineChartLW
+              data={pnlTrend}
+              height={200}
+              lines={[{ dataKey: 'pnl', color: '#10b981', name: 'P&L' }]}
+            />
           </div>
         </div>
 
