@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   TrendingUp,
@@ -51,33 +51,37 @@ export function DecisionHistory() {
   const { stats, decisions } = historyData;
 
   // 过滤决策
-  const filteredDecisions = decisions.filter(d => {
-    if (filterAction !== 'ALL' && d.action !== filterAction) return false;
-    if (filterStatus !== 'ALL' && d.outcome.status !== filterStatus) return false;
-    return true;
-  });
+  const filteredDecisions = useMemo(() => {
+    return decisions.filter(d => {
+      if (filterAction !== 'ALL' && d.action !== filterAction) return false;
+      if (filterStatus !== 'ALL' && d.outcome.status !== filterStatus) return false;
+      return true;
+    });
+  }, [decisions, filterAction, filterStatus]);
 
   // 准备图表数据
-  const actionDistribution = [
+  const actionDistribution = useMemo(() => [
     { name: 'BUY', value: stats.decisions_by_action.BUY, color: '#10b981' },
     { name: 'SELL', value: stats.decisions_by_action.SELL, color: '#ef4444' },
     { name: 'HOLD', value: stats.decisions_by_action.HOLD, color: '#f59e0b' }
-  ];
+  ], [stats.decisions_by_action]);
 
   // 按天统计 PnL
-  const pnlByDay = decisions.reduce((acc, d) => {
-    const date = new Date(d.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    if (!acc[date]) {
-      acc[date] = { date, pnl: 0, count: 0 };
-    }
-    acc[date].pnl += d.outcome.pnl;
-    acc[date].count += 1;
-    return acc;
-  }, {});
+  const pnlTrend = useMemo(() => {
+    const pnlByDay = decisions.reduce((acc, d) => {
+      const date = new Date(d.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      if (!acc[date]) {
+        acc[date] = { date, pnl: 0, count: 0 };
+      }
+      acc[date].pnl += d.outcome.pnl;
+      acc[date].count += 1;
+      return acc;
+    }, {});
 
-  const pnlTrend = Object.values(pnlByDay).sort((a, b) =>
-    new Date(a.date) - new Date(b.date)
-  );
+    return Object.values(pnlByDay).sort((a, b) =>
+      new Date(a.date) - new Date(b.date)
+    );
+  }, [decisions]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-6">

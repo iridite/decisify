@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   AlertTriangle,
@@ -48,36 +48,42 @@ export function ErrorLogs() {
   const { stats, errors } = logsData;
 
   // 过滤错误
-  const filteredErrors = errors.filter(e => {
-    if (filterSeverity !== 'ALL' && e.severity !== filterSeverity) return false;
-    if (filterResolved === 'RESOLVED' && !e.resolved) return false;
-    if (filterResolved === 'UNRESOLVED' && e.resolved) return false;
-    return true;
-  });
+  const filteredErrors = useMemo(() => {
+    return errors.filter(e => {
+      if (filterSeverity !== 'ALL' && e.severity !== filterSeverity) return false;
+      if (filterResolved === 'RESOLVED' && !e.resolved) return false;
+      if (filterResolved === 'UNRESOLVED' && e.resolved) return false;
+      return true;
+    });
+  }, [errors, filterSeverity, filterResolved]);
 
   // 准备图表数据
-  const severityData = [
+  const severityData = useMemo(() => [
     { name: 'ERROR', value: stats.errors_by_severity.ERROR, color: '#ef4444' },
     { name: 'WARNING', value: stats.errors_by_severity.WARNING, color: '#f59e0b' },
     { name: 'INFO', value: stats.errors_by_severity.INFO, color: '#3b82f6' }
-  ];
+  ], [stats.errors_by_severity]);
 
-  const typeData = Object.entries(stats.errors_by_type).map(([type, count]) => ({
-    type: type.replace(/_/g, ' '),
-    count
-  }));
+  const typeData = useMemo(() => {
+    return Object.entries(stats.errors_by_type).map(([type, count]) => ({
+      type: type.replace(/_/g, ' '),
+      count
+    }));
+  }, [stats.errors_by_type]);
 
   // 按小时统计错误
-  const errorsByHour = errors.reduce((acc, e) => {
-    const hour = new Date(e.timestamp).getHours();
-    acc[hour] = (acc[hour] || 0) + 1;
-    return acc;
-  }, {});
+  const hourlyTrend = useMemo(() => {
+    const errorsByHour = errors.reduce((acc, e) => {
+      const hour = new Date(e.timestamp).getHours();
+      acc[hour] = (acc[hour] || 0) + 1;
+      return acc;
+    }, {});
 
-  const hourlyTrend = Array.from({ length: 24 }, (_, i) => ({
-    hour: `${i}:00`,
-    errors: errorsByHour[i] || 0
-  }));
+    return Array.from({ length: 24 }, (_, i) => ({
+      hour: `${i}:00`,
+      errors: errorsByHour[i] || 0
+    }));
+  }, [errors]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-6">
