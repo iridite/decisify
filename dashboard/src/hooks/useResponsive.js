@@ -200,14 +200,17 @@ export function useMobileScroll() {
         }
       };
 
-      document.addEventListener("touchstart", (e) => {
+      const handleTouchStart = (e) => {
         lastTouchY = e.touches[0].clientY;
-      });
+      };
+
+      document.addEventListener("touchstart", handleTouchStart);
       document.addEventListener("touchmove", preventPullToRefresh, {
         passive: false,
       });
 
       return () => {
+        document.removeEventListener("touchstart", handleTouchStart);
         document.removeEventListener("touchmove", preventPullToRefresh);
       };
     }
