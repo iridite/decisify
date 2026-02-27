@@ -13,6 +13,9 @@ import {
   Zap
 } from 'lucide-react';
 import { LineChartLW, PieChartLW } from './LightweightChart';
+import { createLogger } from '../utils/logger';
+
+const logger = createLogger('ErrorLogs');
 
 export function ErrorLogs() {
   const [logsData, setLogsData] = useState(null);
@@ -24,7 +27,7 @@ export function ErrorLogs() {
     fetch('/error-logs.json')
       .then(res => res.json())
       .then(data => setLogsData(data))
-      .catch(err => console.error('Failed to load error logs:', err));
+      .catch(err => logger.error('Failed to load error logs:', err));
   }, []);
 
   if (!logsData) {

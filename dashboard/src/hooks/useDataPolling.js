@@ -1,4 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { createLogger } from "../utils/logger";
+
+const logger = createLogger('DataPolling');
 
 /**
  * useDataPolling - Agent Intelligence Data Polling Hook
@@ -33,7 +36,7 @@ export const useDataPolling = (pollInterval = 2000) => {
           cache: "no-cache",
         });
       } catch (apiError) {
-        console.log("Backend API unavailable, using static data");
+        logger.info("Backend API unavailable, using static data");
         response = await fetch("./data.json", {
           signal: controller.signal,
           cache: "no-cache",
@@ -91,7 +94,7 @@ export const useDataPolling = (pollInterval = 2000) => {
       setIsLoading(false);
       setRetryCount(0); // Reset retry count on success
     } catch (err) {
-      console.error("Data polling error:", err);
+      logger.error("Data polling error:", err);
 
       // Handle different error types
       let errorMessage = err.message;

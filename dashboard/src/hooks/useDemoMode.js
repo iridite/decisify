@@ -1,4 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
+import { createLogger } from "../utils/logger";
+
+const logger = createLogger('DemoMode');
 
 /**
  * useDemoMode - Hackathon Demo Mode Hook
@@ -57,7 +60,7 @@ export const useDemoMode = () => {
   const toggleFullscreen = useCallback(() => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().catch((err) => {
-        console.error("Fullscreen error:", err);
+        logger.error("Fullscreen error:", err);
       });
       setIsFullscreen(true);
     } else {

@@ -4,6 +4,7 @@ import { AlertCircle } from "lucide-react";
 import { useDataPolling } from "./hooks/useDataPolling";
 import { useDemoMode } from "./hooks/useDemoMode";
 import { useLiveDataSimulation } from "./hooks/useLiveDataSimulation";
+import { createLogger } from "./utils/logger";
 import {
   DemoControls,
   DemoModeToggle,
@@ -20,6 +21,8 @@ import { PolymarketTracker } from "./components/PolymarketTracker";
 import { StrategyProposal } from "./components/StrategyProposal";
 import { NautilusSnapshot } from "./components/NautilusSnapshot";
 import { ContextMemory } from "./components/ContextMemory";
+
+const logger = createLogger('App');
 
 function App() {
   const {
@@ -242,7 +245,7 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error("Dashboard Error:", error, errorInfo);
+    logger.error("Dashboard Error:", error, errorInfo);
   }
 
   render() {

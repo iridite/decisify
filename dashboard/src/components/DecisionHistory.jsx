@@ -16,6 +16,9 @@ import {
   Zap
 } from 'lucide-react';
 import { LineChartLW, PieChartLW } from './LightweightChart';
+import { createLogger } from '../utils/logger';
+
+const logger = createLogger('DecisionHistory');
 
 export function DecisionHistory() {
   const [historyData, setHistoryData] = useState(null);
@@ -27,7 +30,7 @@ export function DecisionHistory() {
     fetch('/decision-history.json')
       .then(res => res.json())
       .then(data => setHistoryData(data))
-      .catch(err => console.error('Failed to load decision history:', err));
+      .catch(err => logger.error('Failed to load decision history:', err));
   }, []);
 
   if (!historyData) {
