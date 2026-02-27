@@ -36,6 +36,7 @@ import {
   DemoModeBanner,
 } from "./components/DemoControls";
 import { GuidedTour, useTourState } from "./components/GuidedTour";
+import { KeyMetricsBar, SectionHeader } from "./components/VisualComponents";
 
 function App() {
   const {
@@ -182,6 +183,12 @@ function App() {
       {/* Header */}
       <Header data={data} agentThinking={agentThinking} />
 
+      {/* Key Metrics Bar - 突出显示核心决策信息 */}
+      <KeyMetricsBar
+        proposal={data.execution.current_proposal}
+        triangulation={data.triangulation_matrix}
+      />
+
       {/* Main Bento Grid */}
       <div className="grid grid-cols-12 gap-4 mt-6">
         {/* Agent Thought Log - Main Center */}
@@ -307,22 +314,12 @@ function Header({ data, agentThinking }) {
 function AgentThoughtLog({ thoughts, newThoughts, onFeedback, agentThinking }) {
   return (
     <div className="bento-item h-[600px] flex flex-col">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold flex items-center gap-2">
-          <Brain className="w-5 h-5 text-iridyne-green" />
-          Agent Reasoning Trace
-        </h2>
-        {agentThinking && (
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-2 text-sm text-volatility-orange"
-          >
-            <Zap className="w-4 h-4 animate-pulse" />
-            Agent is thinking...
-          </motion.div>
-        )}
-      </div>
+      <SectionHeader
+        icon={Brain}
+        title="Agent Reasoning Trace"
+        subtitle="实时推理过程与决策轨迹"
+        badge={agentThinking ? "THINKING..." : `${thoughts.length} thoughts`}
+      />
 
       <div className="flex-1 overflow-y-auto custom-scrollbar space-y-3">
         <AnimatePresence>
