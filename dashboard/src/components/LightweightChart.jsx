@@ -7,6 +7,34 @@ import { createChart } from 'lightweight-charts';
  * 包大小: ~60KB vs Recharts 541KB (减少 89%)
  */
 
+// 公共图表配置
+const CHART_CONFIG = {
+  layout: {
+    background: { color: 'transparent' },
+    textColor: '#a1a1aa',
+  },
+  grid: {
+    vertLines: { color: '#27272a' },
+    horzLines: { color: '#27272a' },
+  },
+  timeScale: {
+    borderColor: '#27272a',
+    timeVisible: true,
+  },
+  rightPriceScale: {
+    borderColor: '#27272a',
+  },
+};
+
+// 公共 resize 处理器
+const createResizeHandler = (chart, containerRef) => () => {
+  if (containerRef.current) {
+    chart.applyOptions({
+      width: containerRef.current.clientWidth,
+    });
+  }
+};
+
 export function AreaChartLW({ data, height = 200, color = '#00ffc2' }) {
   const chartContainerRef = useRef();
   const chartRef = useRef();
@@ -19,21 +47,7 @@ export function AreaChartLW({ data, height = 200, color = '#00ffc2' }) {
     const chart = createChart(chartContainerRef.current, {
       width: chartContainerRef.current.clientWidth,
       height: height,
-      layout: {
-        background: { color: 'transparent' },
-        textColor: '#a1a1aa',
-      },
-      grid: {
-        vertLines: { color: '#27272a' },
-        horzLines: { color: '#27272a' },
-      },
-      timeScale: {
-        borderColor: '#27272a',
-        timeVisible: true,
-      },
-      rightPriceScale: {
-        borderColor: '#27272a',
-      },
+      ...CHART_CONFIG,
     });
 
     // 创建面积图系列
@@ -57,14 +71,7 @@ export function AreaChartLW({ data, height = 200, color = '#00ffc2' }) {
     seriesRef.current = areaSeries;
 
     // 响应式调整
-    const handleResize = () => {
-      if (chartContainerRef.current) {
-        chart.applyOptions({
-          width: chartContainerRef.current.clientWidth,
-        });
-      }
-    };
-
+    const handleResize = createResizeHandler(chart, chartContainerRef);
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -86,21 +93,7 @@ export function LineChartLW({ data, height = 300, lines = [] }) {
     const chart = createChart(chartContainerRef.current, {
       width: chartContainerRef.current.clientWidth,
       height: height,
-      layout: {
-        background: { color: 'transparent' },
-        textColor: '#a1a1aa',
-      },
-      grid: {
-        vertLines: { color: '#27272a' },
-        horzLines: { color: '#27272a' },
-      },
-      timeScale: {
-        borderColor: '#27272a',
-        timeVisible: true,
-      },
-      rightPriceScale: {
-        borderColor: '#27272a',
-      },
+      ...CHART_CONFIG,
     });
 
     // 为每条线创建系列
@@ -122,14 +115,7 @@ export function LineChartLW({ data, height = 300, lines = [] }) {
     chart.timeScale().fitContent();
     chartRef.current = chart;
 
-    const handleResize = () => {
-      if (chartContainerRef.current) {
-        chart.applyOptions({
-          width: chartContainerRef.current.clientWidth,
-        });
-      }
-    };
-
+    const handleResize = createResizeHandler(chart, chartContainerRef);
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -151,21 +137,7 @@ export function BarChartLW({ data, height = 300, bars = [] }) {
     const chart = createChart(chartContainerRef.current, {
       width: chartContainerRef.current.clientWidth,
       height: height,
-      layout: {
-        background: { color: 'transparent' },
-        textColor: '#a1a1aa',
-      },
-      grid: {
-        vertLines: { color: '#27272a' },
-        horzLines: { color: '#27272a' },
-      },
-      timeScale: {
-        borderColor: '#27272a',
-        timeVisible: true,
-      },
-      rightPriceScale: {
-        borderColor: '#27272a',
-      },
+      ...CHART_CONFIG,
     });
 
     // 使用 Histogram 系列模拟柱状图
@@ -189,14 +161,7 @@ export function BarChartLW({ data, height = 300, bars = [] }) {
     chart.timeScale().fitContent();
     chartRef.current = chart;
 
-    const handleResize = () => {
-      if (chartContainerRef.current) {
-        chart.applyOptions({
-          width: chartContainerRef.current.clientWidth,
-        });
-      }
-    };
-
+    const handleResize = createResizeHandler(chart, chartContainerRef);
     window.addEventListener('resize', handleResize);
 
     return () => {
