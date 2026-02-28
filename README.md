@@ -1,21 +1,57 @@
-# Decisify 🎯
-
-[![Live Demo](https://img.shields.io/badge/demo-live-success?style=for-the-badge)](https://iridite.github.io/decisify/)
-[![CI Status](https://img.shields.io/github/actions/workflow/status/iridite/decisify/ci.yml?branch=main&style=for-the-badge&label=CI)](https://github.com/iridite/decisify/actions)
-[![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.10+-blue?style=for-the-badge&logo=python)](https://www.python.org)
-[![Rust](https://img.shields.io/badge/rust-1.75+-orange?style=for-the-badge&logo=rust)](https://www.rust-lang.org)
-[![Code Quality](https://img.shields.io/badge/code%20quality-A-brightgreen?style=for-the-badge)](https://github.com/iridite/decisify)
-
 <div align="center">
-  <img src="logo.svg" alt="Decisify Logo" width="120" />
+  <img src="assets/logo.svg" alt="Decisify Logo" width="180" />
 
-  ### AI-powered decision intelligence platform with multi-source data integration
+  # Decisify
 
-  [🚀 **Live Demo**](https://iridite.github.io/decisify/) | [📖 Documentation](docs/) | [🎬 Demo Video](docs/DEMO_VIDEO_SCRIPT.md) | [⚡ Quick Start](#-quick-start)
+  ### 🎯 AI-Powered Decision Intelligence Platform
+
+  **Multi-source data fusion • Transparent reasoning • Autonomous execution**
+
+  [![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Try_Now-success?style=for-the-badge)](https://iridite.github.io/decisify/)
+  [![Documentation](https://img.shields.io/badge/📖_Docs-Read-blue?style=for-the-badge)](docs/)
+  [![Quick Start](https://img.shields.io/badge/⚡_Quick_Start-5_min-orange?style=for-the-badge)](#-quick-start)
+
+  <br/>
+
+  [![CI Status](https://img.shields.io/github/actions/workflow/status/iridite/decisify/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/iridite/decisify/actions)
+  [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
+  [![Python](https://img.shields.io/badge/python-3.10+-blue?style=flat-square&logo=python&logoColor=white)](https://www.python.org)
+  [![Rust](https://img.shields.io/badge/rust-1.75+-orange?style=flat-square&logo=rust)](https://www.rust-lang.org)
+  [![GitHub Stars](https://img.shields.io/github/stars/iridite/decisify?style=flat-square)](https://github.com/iridite/decisify/stargazers)
+  [![GitHub Forks](https://img.shields.io/github/forks/iridite/decisify?style=flat-square)](https://github.com/iridite/decisify/network/members)
+  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/iridite/decisify/pulls)
+  [![Hackathon](https://img.shields.io/badge/Rebel_in_Paradise-Track_2-purple?style=flat-square)](https://github.com/iridite/decisify)
+
+  <br/>
+
+  [English](README.md) • [中文](README.zh.md)
+
 </div>
 
-**[English](README.md)** | **[中文](README.zh.md)**
+<br/>
+
+---
+
+## 📑 Table of Contents
+
+- [🏆 Hackathon Track 2 Alignment](#-hackathon-track-2-alignment)
+- [📖 Project Overview](#-project-overview)
+- [💡 Innovation Highlights](#-innovation-highlights)
+- [🚀 Key Features](#-key-features)
+- [🛠️ Technology Stack](#️-technology-stack)
+- [🎮 Live Demo](#-live-demo)
+- [⚡ Quick Start](#-quick-start)
+- [🏗️ System Architecture](#️-system-architecture)
+- [📊 Core Components](#-core-components)
+- [🔧 Configuration](#-configuration)
+- [🧪 Testing](#-testing)
+- [🛡️ Safety Features](#️-safety-features)
+- [🎯 Hackathon Alignment](#-hackathon-alignment)
+- [🔮 Future Enhancements](#-future-enhancements)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+
+---
 
 ## 🏆 Hackathon Track 2 Alignment
 
@@ -123,59 +159,102 @@ Decisify is a high-performance, logic-transparent AI decision engine that implem
 
 ## 🚀 Key Features
 
-### 1. Multi-source Signal Perception
-- **Async Sensor Hub**: Concurrent fetching from multiple data sources
-- **Fault-tolerant Design**: Single sensor failure doesn't affect overall system
-- **Supported Signal Types**:
-  - Social media sentiment (Twitter/X)
-  - Market price volatility
-  - News sentiment analysis
-  - Prediction market odds (Polymarket)
-  - Quantitative trading signals (Nautilus)
+<table>
+<tr>
+<td width="50%" valign="top">
 
-### 2. Attention Fusion Engine
-- **Softmax Attention Mechanism**: `Weight_i = exp(Score_i) / Σ exp(Score_j)`
-- **Temperature Control**: Adjusts attention concentration
-- **Edge Case Handling**: All-null signals automatically downgrade to neutral decision
-- **Hybrid Implementation**: Python prototype + Rust acceleration
+### 🧠 Transparent Reasoning
+Every decision includes complete reasoning traces and attention weights. See exactly why the agent made each choice.
 
-### 3. Safety Protection System
-- **Volatility Guards**:
-  - BUY operations: Blocked when volatility > 5%
-  - SELL operations: Blocked when volatility > 8%
-- **Confidence Threshold**: Requires minimum signal strength
-- **Automatic Downgrade**: Unsafe operations forced to HOLD
+**Key Benefits:**
+- Full attention weight visualization
+- Natural language explanations
+- Audit trail for compliance
 
-### 4. Real-time Monitoring Dashboard
-- 🧠 Agent reasoning trace visualization
-- 👍 Human feedback loop
-- ⚡ Strategy approval (human-in-the-loop)
-- 📊 Multi-source correlation matrix
-- 📡 X intelligence feed
-- 📈 Polymarket tracker
-- 🎯 Nautilus integration
+</td>
+<td width="50%" valign="top">
+
+### ⚡ High Performance
+Rust-accelerated batch processing with 1.2-1.4x performance improvement over pure Python.
+
+**Key Benefits:**
+- Sub-millisecond decision latency
+- Automatic fallback to Python
+- Production-ready scalability
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### 🛡️ Safety First
+Deterministic guardrails prevent unsafe operations. AI cannot bypass safety rules.
+
+**Key Benefits:**
+- Volatility-based risk gates
+- Confidence thresholds
+- Human-in-the-loop approval
+
+</td>
+<td width="50%" valign="top">
+
+### 🔄 Autonomous Loop
+5-second decision cycles without human intervention. Proactive environment monitoring.
+
+**Key Benefits:**
+- Non-blocking async architecture
+- Independent decision cycles
+- Real-time signal processing
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### 📊 Real-time Monitoring
+High-density dashboard displaying agent intelligence state with perception-to-action pipeline.
+
+**Key Benefits:**
+- Live reasoning trace visualization
+- Human feedback loop
+- Multi-source correlation matrix
+
+</td>
+<td width="50%" valign="top">
+
+### 🌐 Multi-source Fusion
+Softmax-based attention mechanism integrating heterogeneous signals from multiple sources.
+
+**Key Benefits:**
+- Twitter sentiment analysis
+- Polymarket prediction odds
+- News feed integration
+
+</td>
+</tr>
+</table>
 
 ## 🛠️ Technology Stack
 
 ### Backend
-- **Python 3.10+**: Core logic and API
-- **FastAPI**: High-performance async web framework
-- **Pydantic**: Data validation and serialization
-- **Rust**: Performance-critical path acceleration (optional)
-- **PyO3/Maturin**: Python-Rust interoperability
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Pydantic](https://img.shields.io/badge/Pydantic-E92063?style=for-the-badge&logo=pydantic&logoColor=white)
+![Rust](https://img.shields.io/badge/Rust-1.75+-000000?style=for-the-badge&logo=rust&logoColor=white)
+![PyO3](https://img.shields.io/badge/PyO3_Maturin-orange?style=for-the-badge)
 
 ### Frontend
-- **React 18**: UI framework
-- **TypeScript**: Type safety
-- **Vite**: Build tool
-- **TailwindCSS**: Styling system
-- **Recharts**: Data visualization
+![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Recharts](https://img.shields.io/badge/Recharts-FF6384?style=for-the-badge)
 
 ### Development Tools
-- **uv**: Python package manager
-- **pytest**: Testing framework
-- **ruff**: Code linting and formatting
-- **mypy**: Static type checking
+![uv](https://img.shields.io/badge/uv-Package_Manager-blue?style=for-the-badge)
+![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white)
+![ruff](https://img.shields.io/badge/ruff-Linter-orange?style=for-the-badge)
+![mypy](https://img.shields.io/badge/mypy-Type_Checker-blue?style=for-the-badge)
 
 ## 🎮 Live Demo
 
@@ -228,9 +307,11 @@ To connect real data sources, see the [Backend Setup](#backend-installation--run
   </tr>
 </table>
 
-## 🚀 Quick Start
+## ⚡ Quick Start
 
-### ⚡ One-Command Setup (Recommended)
+> **⏱️ Get started in under 5 minutes!** No complex setup required.
+
+### 🚀 One-Command Setup (Recommended)
 
 ```bash
 # Clone the repository
@@ -241,19 +322,21 @@ cd decisify
 ./quick-start.sh
 ```
 
-The script will:
-1. ✅ Check system dependencies (Python 3.10+, Node.js 18+)
-2. 📦 Install backend and frontend dependencies
-3. ⚡ Optionally build Rust performance extension
-4. 🚀 Start both backend and frontend services
-5. 🎉 Open dashboard at http://localhost:5173
+**What happens next:**
+1. ✅ System dependency check (Python 3.10+, Node.js 18+)
+2. 📦 Automatic dependency installation
+3. ⚡ Optional Rust performance extension build
+4. 🚀 Backend + Frontend services start
+5. 🎉 Dashboard opens at http://localhost:5173
 
 **Press `Ctrl+C` to stop all services.**
+
+---
 
 ### 📋 Manual Setup
 
 <details>
-<summary>Click to expand manual installation steps</summary>
+<summary><b>👉 Click here for step-by-step manual installation</b></summary>
 
 #### Prerequisites
 
@@ -327,14 +410,32 @@ For detailed documentation, see [dashboard/README.md](dashboard/README.md).
 ### Example Requests
 
 ```bash
-# Get latest decision
+# Get latest decision with formatted output
 curl http://localhost:8000/status | jq
+
+# Example response:
+# {
+#   "decision": {
+#     "action": "BUY",
+#     "confidence": 0.742,
+#     "reasoning": "Strong bullish signals from Twitter sentiment..."
+#   },
+#   "signals": {...},
+#   "metadata": {...}
+# }
 
 # Real-time monitoring
 watch -n 2 'curl -s http://localhost:8000/decision | jq'
 
 # Check system health
 curl http://localhost:8000/health | jq
+
+# Example response:
+# {
+#   "status": "healthy",
+#   "uptime_seconds": 3600,
+#   "cycle_count": 720
+# }
 
 # View performance metrics
 curl http://localhost:8000/metrics | jq
@@ -550,18 +651,67 @@ Weights: twitter_sentiment: 42.3%, price_volatility: 35.1%, news_feed: 22.6%
 - SIMD vectorization for ultra-high throughput
 - GPU acceleration for massive-scale signal processing
 
+---
+
+## 🌟 Community & Support
+
+<div align="center">
+
+### ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=iridite/decisify&type=Date)](https://star-history.com/#iridite/decisify&Date)
+
+### 💬 Join the Discussion
+
+[![GitHub Discussions](https://img.shields.io/badge/GitHub-Discussions-181717?style=for-the-badge&logo=github)](https://github.com/iridite/decisify/discussions)
+[![Issues](https://img.shields.io/badge/GitHub-Issues-181717?style=for-the-badge&logo=github)](https://github.com/iridite/decisify/issues)
+
+### 🙏 Support This Project
+
+If you find Decisify useful, please consider:
+- ⭐ Starring the repository
+- 🐛 Reporting bugs and suggesting features
+- 📖 Improving documentation
+- 🔀 Submitting pull requests
+
+</div>
+
+---
+
 ## 📄 License
 
-MIT License - See [LICENSE](LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+<br/>
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to submit Issues or Pull Requests.
+Contributions, issues, and feature requests are welcome!
 
-## 📞 Contact
+Feel free to check the [issues page](https://github.com/iridite/decisify/issues) or submit a [pull request](https://github.com/iridite/decisify/pulls).
 
-- **Project Homepage**: [https://github.com/iridite/decisify](https://github.com/iridite/decisify)
-- **Live Demo**: [https://iridite.github.io/decisify/](https://iridite.github.io/decisify/)
-- **Documentation**: [docs/](docs/)
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
-**Built with ❤️ for Rebel in Paradise AI Hackathon**
+<br/>
+
+## 📞 Contact & Links
+
+**🏠 Project Homepage:** [github.com/iridite/decisify](https://github.com/iridite/decisify)
+
+**🚀 Live Demo:** [iridite.github.io/decisify](https://iridite.github.io/decisify/)
+
+**📖 Documentation:** [docs/](docs/)
+
+<br/>
+
+---
+
+<div align="center">
+
+<sub>Built with ❤️ for **Rebel in Paradise AI Hackathon** • Track 2: Co-existing with Agents & Intelligent Markets</sub>
+
+<br/>
+
+**If you found this project helpful, please consider giving it a ⭐!**
+
+</div>

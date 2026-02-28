@@ -1,21 +1,57 @@
-# Decisify 🎯
-
-[![Live Demo](https://img.shields.io/badge/demo-live-success?style=for-the-badge)](https://iridite.github.io/decisify/)
-[![CI Status](https://img.shields.io/github/actions/workflow/status/iridite/decisify/ci.yml?branch=main&style=for-the-badge&label=CI)](https://github.com/iridite/decisify/actions)
-[![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.10+-blue?style=for-the-badge&logo=python)](https://www.python.org)
-[![Rust](https://img.shields.io/badge/rust-1.75+-orange?style=for-the-badge&logo=rust)](https://www.rust-lang.org)
-[![Code Quality](https://img.shields.io/badge/code%20quality-A-brightgreen?style=for-the-badge)](https://github.com/iridite/decisify)
-
 <div align="center">
-  <img src="logo.svg" alt="Decisify Logo" width="120" />
+  <img src="assets/logo.svg" alt="Decisify Logo" width="180" />
 
-  ### AI 驱动的决策智能平台，支持多源数据融合
+  # Decisify
 
-  [🚀 **在线演示**](https://iridite.github.io/decisify/) | [📖 文档](docs/) | [🎬 演示视频](docs/DEMO_VIDEO_SCRIPT.md) | [⚡ 快速开始](#-快速开始)
+  ### 🎯 AI 驱动的决策智能平台
+
+  **多源数据融合 • 透明推理 • 自主执行**
+
+  [![在线演示](https://img.shields.io/badge/🚀_在线演示-立即体验-success?style=for-the-badge)](https://iridite.github.io/decisify/)
+  [![文档](https://img.shields.io/badge/📖_文档-阅读-blue?style=for-the-badge)](docs/)
+  [![快速开始](https://img.shields.io/badge/⚡_快速开始-5分钟-orange?style=for-the-badge)](#-快速开始)
+
+  <br/>
+
+  [![CI Status](https://img.shields.io/github/actions/workflow/status/iridite/decisify/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/iridite/decisify/actions)
+  [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
+  [![Python](https://img.shields.io/badge/python-3.10+-blue?style=flat-square&logo=python&logoColor=white)](https://www.python.org)
+  [![Rust](https://img.shields.io/badge/rust-1.75+-orange?style=flat-square&logo=rust)](https://www.rust-lang.org)
+  [![GitHub Stars](https://img.shields.io/github/stars/iridite/decisify?style=flat-square)](https://github.com/iridite/decisify/stargazers)
+  [![GitHub Forks](https://img.shields.io/github/forks/iridite/decisify?style=flat-square)](https://github.com/iridite/decisify/network/members)
+  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/iridite/decisify/pulls)
+  [![Hackathon](https://img.shields.io/badge/Rebel_in_Paradise-Track_2-purple?style=flat-square)](https://github.com/iridite/decisify)
+
+  <br/>
+
+  [English](README.md) • [中文](README.zh.md)
+
 </div>
 
-**[English](README.md)** | **[中文](README.zh.md)**
+<br/>
+
+---
+
+## 📑 目录
+
+- [🏆 黑客松赛道 2 对齐](#-hackathon-track-2-对齐)
+- [📖 项目概述](#-项目概述)
+- [💡 创新亮点](#-创新亮点)
+- [🚀 核心特性](#-核心特性)
+- [🛠️ 技术栈](#️-技术栈)
+- [🎮 在线演示](#-在线演示)
+- [⚡ 快速开始](#-快速开始)
+- [🏗️ 系统架构](#️-系统架构)
+- [📊 核心组件](#-核心组件)
+- [🔧 配置](#-配置)
+- [🧪 测试](#-测试)
+- [🛡️ 安全特性](#️-安全特性)
+- [🎯 黑客松对齐](#-黑客松对齐)
+- [🔮 未来增强](#-未来增强)
+- [🤝 贡献](#-贡献)
+- [📄 许可证](#-许可证)
+
+---
 
 ## 🏆 Hackathon Track 2 对齐
 
