@@ -1,121 +1,121 @@
 {
   "meta": {
-    "timestamp": "2026-03-03T22:00:39.465831Z",
-    "agent_status": "MONITORING",
+    "timestamp": "2026-03-03T22:35:47.539102Z",
+    "agent_status": "ANALYZING",
     "context_window_hours": 8,
-    "total_events_tracked": 45,
+    "total_events_tracked": 50,
     "system_status": "DEMO",
-    "sync_timestamp": "2026-03-03T22:00:39.465844Z"
+    "sync_timestamp": "2026-03-03T22:35:47.539118Z"
   },
   "data_sources": {
     "polymarket": {
       "type": "DEMO",
       "source": "\u6a21\u62df Polymarket API",
-      "last_update": "2026-03-03T22:00:39.465846Z",
+      "last_update": "2026-03-03T22:35:47.539121Z",
       "status": "active"
     },
     "x_intelligence": {
       "type": "DEMO",
       "source": "\u6a21\u62df X/Twitter API",
-      "last_update": "2026-03-03T22:00:39.465848Z",
+      "last_update": "2026-03-03T22:35:47.539123Z",
       "status": "active"
     },
     "nautilus": {
       "type": "DEMO",
       "source": "\u6a21\u62df Nautilus Trader",
-      "last_update": "2026-03-03T22:00:39.465849Z",
+      "last_update": "2026-03-03T22:35:47.539124Z",
       "status": "active"
     }
   },
   "agent_thoughts": [
     {
-      "id": "thought_1772575239",
-      "timestamp": "2026-03-03T22:00:39.465853Z",
+      "id": "thought_1772577347",
+      "timestamp": "2026-03-03T22:35:47.539128Z",
       "type": "TRIANGULATION",
-      "reasoning": "Demo mode: Analyzing market signals with 84% confidence. Polymarket shows bullish trend (+2.2% 1h), X sentiment 0.66, Nautilus signal 0.38.",
+      "reasoning": "Demo mode: Analyzing market signals with 74% confidence. Polymarket shows neutral trend (-2.1% 1h), X sentiment 0.44, Nautilus signal 0.77.",
       "inputs": {
         "weights": {
-          "polymarket": 0.36,
-          "x_sentiment": 0.36,
-          "nautilus": 0.29
+          "polymarket": 0.47,
+          "x_sentiment": 0.39,
+          "nautilus": 0.14
         },
-        "action": "BUY"
+        "action": "HOLD"
       },
-      "confidence": 0.84,
+      "confidence": 0.74,
       "human_feedback": null
     }
   ],
   "triangulation_matrix": {
-    "polymarket_x_correlation": 0.74,
-    "polymarket_nautilus_correlation": 0.79,
-    "x_nautilus_correlation": 0.79,
-    "overall_alignment": 0.77,
-    "interpretation": "HIGH_BULLISH"
+    "polymarket_x_correlation": 0.84,
+    "polymarket_nautilus_correlation": 0.66,
+    "x_nautilus_correlation": 0.66,
+    "overall_alignment": 0.72,
+    "interpretation": "MODERATE_BULLISH"
   },
   "perception": {
     "polymarket": {
       "event": "BTC Price Prediction Market",
-      "current_odds": 0.32,
-      "delta_1h": 0.022,
-      "delta_24h": 0.031,
-      "volume_24h": 1094645,
-      "liquidity": 4482316,
-      "last_trade": "2026-03-03T22:00:39.465868Z",
+      "current_odds": 0.66,
+      "delta_1h": -0.021,
+      "delta_24h": -0.092,
+      "volume_24h": 1960310,
+      "liquidity": 2842730,
+      "last_trade": "2026-03-03T22:35:47.539145Z",
       "history": [
         {
-          "timestamp": "2026-03-03T22:00:39.465869Z",
-          "odds": 0.32
+          "timestamp": "2026-03-03T22:35:47.539146Z",
+          "odds": 0.66
         }
       ]
     },
     "x_intelligence": [
       {
-        "id": "tweet_demo_1772575239",
+        "id": "tweet_demo_1772577347",
         "handle": "@market_watch",
-        "content": "On-chain metrics bullish. Price action at $42k looking strong. #BTC",
-        "timestamp": "2026-03-03T22:00:39.465875Z",
-        "sentiment": "BULLISH",
-        "sentiment_score": 0.66,
-        "agent_relevance_score": 0.87,
+        "content": "BTC breaking resistance at $42k. Strong momentum building. #Bitcoin",
+        "timestamp": "2026-03-03T22:35:47.539152Z",
+        "sentiment": "NEUTRAL",
+        "sentiment_score": 0.44,
+        "agent_relevance_score": 0.88,
         "extracted_entities": [
           "BTC",
           "resistance",
           "momentum"
         ],
-        "impact_score": 6.6,
-        "follower_count": 76841
+        "impact_score": 4.4,
+        "follower_count": 160561
       }
     ],
     "nautilus": {
       "strategy": "Keltner Channel Breakout",
-      "position": "FLAT",
-      "signal_strength": 0.38,
-      "entry_price": 42474.67,
-      "current_price": 42316.66,
-      "unrealized_pnl": -158.01,
-      "daily_pnl": 254.26,
-      "position_size": 0.6,
-      "status": "IDLE",
+      "position": "LONG",
+      "signal_strength": 0.77,
+      "entry_price": 42271.64,
+      "current_price": 42168.39,
+      "unrealized_pnl": -103.26,
+      "daily_pnl": 1250.11,
+      "position_size": 0.9,
+      "status": "ACTIVE",
       "indicators": {
-        "keltner_upper": 42916.66,
-        "keltner_middle": 42316.66,
-        "keltner_lower": 41716.66,
-        "atr": 523.46,
-        "trend": "BEARISH"
+        "keltner_upper": 42768.39,
+        "keltner_middle": 42168.39,
+        "keltner_lower": 41568.39,
+        "atr": 489.04,
+        "trend": "BULLISH"
       }
     }
   },
   "execution": {
     "current_proposal": {
-      "id": "prop_1772575239",
-      "action": "BUY",
+      "id": "prop_1772577347",
+      "action": "HOLD",
       "asset": "BTC",
-      "reasoning": "Market analysis: Polymarket odds at 0.32 (+2.2% 1h), X sentiment bullish (0.66), Nautilus flat signal (0.38). Risk-adjusted confidence: 84%.",
-      "risk_level": "MEDIUM",
-      "expected_return": 0.029,
-      "confidence": 0.84,
-      "status": "PENDING_APPROVAL",
-      "created_at": "2026-03-03T22:00:39.465896Z",
+      "reasoning": "Market analysis: Polymarket odds at 0.66 (-2.1% 1h), X sentiment neutral (0.44), Nautilus long signal (0.77). Risk-adjusted confidence: 74%.",
+      "risk_level": "LOW",
+      "expected_return": null,
+      "confidence": 0.74,
+      "status": "ACTIVE",
+      "created_at": "2026-03-03T22:35:47.539174Z",
       "human_decision": null
     },
     "proposal_history": []
@@ -124,7 +124,7 @@
     "events": [
       {
         "id": "evt_0",
-        "timestamp": "2026-03-03T22:00:39.465899Z",
+        "timestamp": "2026-03-03T22:35:47.539177Z",
         "type": "X_SENTIMENT_SHIFT",
         "description": "Market event 0: Signal detected",
         "relevance_decay": 1.0,
@@ -132,7 +132,7 @@
       },
       {
         "id": "evt_1",
-        "timestamp": "2026-03-03T21:45:39.465908Z",
+        "timestamp": "2026-03-03T22:20:47.539187Z",
         "type": "POLYMARKET_ODDS_CHANGE",
         "description": "Market event 1: Signal detected",
         "relevance_decay": 0.9,
@@ -140,7 +140,7 @@
       },
       {
         "id": "evt_2",
-        "timestamp": "2026-03-03T21:30:39.465914Z",
+        "timestamp": "2026-03-03T22:05:47.539193Z",
         "type": "NAUTILUS_SIGNAL",
         "description": "Market event 2: Signal detected",
         "relevance_decay": 0.8,
@@ -148,7 +148,7 @@
       },
       {
         "id": "evt_3",
-        "timestamp": "2026-03-03T21:15:39.465918Z",
+        "timestamp": "2026-03-03T21:50:47.539197Z",
         "type": "X_SENTIMENT_SHIFT",
         "description": "Market event 3: Signal detected",
         "relevance_decay": 0.7,
@@ -156,7 +156,7 @@
       },
       {
         "id": "evt_4",
-        "timestamp": "2026-03-03T21:00:39.465921Z",
+        "timestamp": "2026-03-03T21:35:47.539200Z",
         "type": "POLYMARKET_ODDS_CHANGE",
         "description": "Market event 4: Signal detected",
         "relevance_decay": 0.6,
@@ -164,7 +164,7 @@
       },
       {
         "id": "evt_5",
-        "timestamp": "2026-03-03T20:45:39.465925Z",
+        "timestamp": "2026-03-03T21:20:47.539203Z",
         "type": "NAUTILUS_SIGNAL",
         "description": "Market event 5: Signal detected",
         "relevance_decay": 0.5,
@@ -172,7 +172,7 @@
       },
       {
         "id": "evt_6",
-        "timestamp": "2026-03-03T20:30:39.465928Z",
+        "timestamp": "2026-03-03T21:05:47.539206Z",
         "type": "X_SENTIMENT_SHIFT",
         "description": "Market event 6: Signal detected",
         "relevance_decay": 0.4,
@@ -180,7 +180,7 @@
       },
       {
         "id": "evt_7",
-        "timestamp": "2026-03-03T20:15:39.465937Z",
+        "timestamp": "2026-03-03T20:50:47.539213Z",
         "type": "POLYMARKET_ODDS_CHANGE",
         "description": "Market event 7: Signal detected",
         "relevance_decay": 0.3,
@@ -189,10 +189,10 @@
     ]
   },
   "github_actions": {
-    "last_run": "2026-03-03T22:00:39.465940Z",
+    "last_run": "2026-03-03T22:35:47.539216Z",
     "status": "success",
     "workflow": "update-data",
-    "duration_seconds": 15,
-    "next_run": "2026-03-03T22:05:39.465943Z"
+    "duration_seconds": 10,
+    "next_run": "2026-03-03T22:40:47.539219Z"
   }
 }
